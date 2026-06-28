@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ADMIN DATA PARSE MASTER - AKBAR EDITION</title>
+    <title>DATA PARSE PRO - LIMITED EDITION</title>
     <style>
         :root {
             --bg-color: #020613;
@@ -55,12 +55,13 @@
             opacity: 0.45;
         }
 
+        /* PERUBAHAN: Mengubah flex center menjadi penataan rata atas layar */
         .main-container {
             display: flex;
             justify-content: center;
-            align-items: center;
+            align-items: flex-start; /* Mengunci panel tetap di posisi atas */
             min-height: 100vh;
-            padding: 30px 15px;
+            padding: 40px 15px; /* Memberi jarak manis dari tepi atas browser */
             box-sizing: border-box;
         }
 
@@ -234,17 +235,46 @@
         .btn-copy-alt { background-color: var(--btn-purple); color: var(--btn-purple-text); border: 1px solid rgba(216, 180, 254, 0.2); }
         .btn-delete { background-color: var(--btn-red); color: var(--btn-red-text); border: 1px solid rgba(242, 74, 74, 0.2); }
 
-        .table-container { width: 100%; overflow-x: auto; margin-top: 15px; border-radius: 8px; }
+        /* PERUBAHAN: Menambahkan pembatas tinggi maksimal dan scroll bar internal pada tabel hasil */
+        .table-container { 
+            width: 100%; 
+            max-height: 320px; /* Membatasi tinggi agar tidak molor panjang ke bawah */
+            overflow-y: auto;  /* Mengaktifkan scroll bar vertikal jika data sangat banyak */
+            overflow-x: auto;  /* Tetap mengaktifkan scroll horizontal jika kolom lebar */
+            margin-top: 15px; 
+            border-radius: 8px;
+            border: 1px solid rgba(255, 153, 0, 0.15);
+        }
         
+        /* Desain scrollbar agar senada dengan tema gelap panel */
+        .table-container::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        .table-container::-webkit-scrollbar-track {
+            background: rgba(3, 7, 18, 0.85);
+        }
+        .table-container::-webkit-scrollbar-thumb {
+            background: rgba(255, 153, 0, 0.4);
+            border-radius: 4px;
+        }
+        .table-container::-webkit-scrollbar-thumb:hover {
+            background: rgba(255, 153, 0, 0.7);
+        }
+
         table {
             width: 100%; border-collapse: collapse; font-size: 13px; background: rgba(3, 7, 18, 0.85);
             box-shadow: 0 10px 30px rgba(0,0,0,0.5);
         }
 
+        /* PERUBAHAN: Membuat header tabel tetap diam di atas (sticky) saat konten di-scroll */
         th {
             text-align: left; color: var(--border-color); font-weight: bold;
             border-bottom: 2px solid rgba(255, 153, 0, 0.5); padding: 14px 12px; font-size: 11px;
             text-transform: uppercase; background: #090f1d; letter-spacing: 1px;
+            position: sticky;
+            top: 0;
+            z-index: 10;
         }
 
         td {
@@ -255,6 +285,7 @@
         tr:hover td { color: #fff; background: rgba(0, 240, 255, 0.08); }
         .empty-cell { color: #475569; font-style: italic; }
 
+        /* PERUBAHAN: Jarak box statistik dikunci di bawah tabel sehingga posisinya tidak akan kabur */
         .stats-box {
             margin-top: 20px; background: rgba(9, 15, 29, 0.9); border-left: 4px solid var(--neon-blue);
             padding: 15px; font-size: 12px; color: #94a3b8; line-height: 1.6; border-radius: 0 8px 8px 0;
@@ -338,13 +369,14 @@
 
 <div class="main-container">
     <div class="wrapper">
-        <div class="header-title">PGA DATA PARSE MASTER</div>
-        <div class="sub-title">© AKBAR_RENALDI - Family — Gold & Black Hunter</div>
+        <div class="header-title">ADMIN & PANEL DATA PARSE</div>
+        <div class="sub-title">© AKBAR_RENALDI - Family — Bantu Mempermudah Pekerjaan Oprator Dengan Auto Parse</div>
 
         <div class="tab-menu">
-            <button class="tab-btn active" onclick="switchTab('pasteMode')">MODE 1: AUTO PARSE WITHDRAW</button>
-            <button class="tab-btn" onclick="switchTab('csvMode')">MODE 2: AUTO PARSE QRIS PGA</button>
-            <button class="tab-btn" onclick="switchTab('panelMode')">MODE 3: AUTO PARSE QRIS CEPAT</button>
+            <button class="tab-btn active" onclick="switchTab('pasteMode')">AUTO PARSE ADMIN WITHDRAW</button>
+            <button class="tab-btn" onclick="switchTab('csvMode')">AUTO PARSE ADMIN QRIS PGA</button>
+            <button class="tab-btn" onclick="switchTab('panelMode')">AUTO PARSE PANEL QRIS CEPAT</button>
+            <button class="tab-btn" onclick="switchTab('pgaMotionMode')">AUTO PARSE PGA MOTION</button>
         </div>
 
         <!-- ==================== TAB 1 ==================== -->
@@ -401,6 +433,11 @@
                     <tbody id="csvTableBody"></tbody>
                 </table>
             </div>
+            <div class="stats-box">
+                <strong>CSV Statistics:</strong><br>
+                Total Transactions: <span id="csvTotalTx">0</span><br>
+                Total Amount: Rp <span id="csvTotalAmount">0</span>
+            </div>
         </div>
 
         <!-- ==================== TAB 3 ==================== -->
@@ -438,6 +475,36 @@
             </div>
         </div>
 
+        <!-- ==================== TAB 4 (AUTO PARSE PGA MOTION) ==================== -->
+        <div id="pgaMotionMode" class="tab-content">
+            <textarea id="pgaMotionInput" placeholder="Tempel teks transaksi PGA MOTION di sini (Sistem otomatis membersihkan teks lama)..." onpaste="handlePgaMotionPaste(event)"></textarea>
+            <div class="action-buttons">
+                <button class="btn btn-copy" onclick="copyPgaMotionData()">COPY SEMUA DATA UTAMA</button>
+                <button class="btn btn-delete" onclick="clearPgaMotionData()">HAPUS ALL</button>
+            </div>
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Kolom A (USERNAME)</th>
+                            <th>Kolom B (COIN)</th>
+                            <th>Kolom C (WD)</th>
+                            <th>Kolom D (KREDIT)</th>
+                            <th>Kolom E (DEBET)</th>
+                            <th>Kolom F (SALDO)</th>
+                            <th>Kolom G (KETERANGAN)</th>
+                        </tr>
+                    </thead>
+                    <tbody id="pgaMotionTableBody"></tbody>
+                </table>
+            </div>
+            <div class="stats-box">
+                <strong>PGA Motion Statistics:</strong><br>
+                Total Transactions: <span id="pgaTotalTx">0</span><br>
+                Total Amount: Rp <span id="pgaTotalAmount">0</span>
+            </div>
+        </div>
+
     </div>
 </div>
 
@@ -449,6 +516,7 @@
     let currentParsedData = []; 
     let parsedCsvData = [];     
     let parsedPanelDataArray = []; 
+    let parsedPgaMotionDataArray = [];
 
     // ==================== INTERCEPT CTRL + U ====================
     window.addEventListener('keydown', function(e) {
@@ -572,6 +640,9 @@
     function processCsvData(csvText) {
         csvTableBody.innerHTML = ''; parsedCsvData = [];
         const lines = csvText.split(/\r?\n/);
+        let totalCount = 0;
+        let totalSum = 0;
+
         lines.forEach((line, index) => {
             if (line.trim() === '') return;
             const columns = line.match(/(".*?"|[^",\s]+)(?=\s*,|\s*$)/g) || line.split(/[;,]/);
@@ -584,6 +655,11 @@
 
                 if (userId !== "") {
                     parsedCsvData.push({ id: userId, formattedNominal: nominal, ref: refNumber });
+                    
+                    let numericValue = parseInt(nominal.replace(/[^0-9]/g, ''), 10) || 0;
+                    totalSum += numericValue;
+                    totalCount++;
+
                     csvTableBody.innerHTML += `<tr>
                         <td style="font-weight: bold; color: #fff;">${userId}</td>
                         <td style="color: var(--border-color); font-weight: bold;">${nominal}</td>
@@ -592,6 +668,12 @@
                 }
             }
         });
+        updateCsvStats(totalCount, totalSum);
+    }
+
+    function updateCsvStats(count, sum) {
+        document.getElementById('csvTotalTx').innerText = count;
+        document.getElementById('csvTotalAmount').innerText = sum.toLocaleString('id-ID');
     }
 
     function copyIdAndNominal() {
@@ -608,6 +690,7 @@
 
     function clearCsvData() {
         fileInput.value = ''; csvTableBody.innerHTML = ''; parsedCsvData = []; fileStatus.style.display = 'none';
+        updateCsvStats(0, 0);
     }
 
     // ==================== ENGINE MODE 3 (AUTO FLUSH) ====================
@@ -715,6 +798,86 @@
         document.getElementById('panelTotalSum').innerText = '0';
     }
 
+    // ==================== ENGINE MODE 4 (PGA MOTION) ====================
+    function handlePgaMotionPaste(event) {
+        event.preventDefault();
+        const pastedText = (event.clipboardData || window.clipboardData).getData('text');
+        document.getElementById('pgaMotionInput').value = pastedText;
+        parsePgaMotionData();
+    }
+
+    function parsePgaMotionData() {
+        const input = document.getElementById('pgaMotionInput').value;
+        const tableBody = document.getElementById('pgaMotionTableBody');
+        tableBody.innerHTML = '';
+        parsedPgaMotionDataArray = [];
+
+        if (!input.trim()) {
+            updatePgaMotionStats(0, 0);
+            return;
+        }
+
+        const blocks = input.split(/NOTE/i).map(b => b.trim()).filter(b => b.length > 0);
+        let totalCount = 0;
+        let totalSum = 0;
+
+        blocks.forEach(block => {
+            const lines = block.split('\n').map(line => line.trim()).filter(line => line.length > 0);
+            
+            if (lines.length >= 10) {
+                const username = lines[4].toUpperCase(); 
+                const name = lines[5].toUpperCase();     
+                
+                let rawAmount = lines[8]; 
+                let amount = rawAmount.replace(/Rp/i, '').trim(); 
+                
+                let numericValue = parseInt(amount.replace(/,/g, ''), 10) || 0;
+
+                if (username && amount && name) {
+                    parsedPgaMotionDataArray.push({ username, amount, name });
+                    totalSum += numericValue;
+                    totalCount++;
+
+                    tableBody.innerHTML += `<tr>
+                        <td style="color: var(--border-color); font-weight: bold;">${username}</td>
+                        <td style="color: #4ade80; font-weight: bold;">${amount}</td>
+                        <td style="color: #4ade80; font-weight: bold;">${amount}</td>
+                        <td class="empty-cell">[Kosong]</td>
+                        <td class="empty-cell">[Kosong]</td>
+                        <td class="empty-cell">[Rumus]</td>
+                        <td style="color: #e2e8f0;">${name}</td>
+                    </tr>`;
+                }
+            }
+        });
+
+        updatePgaMotionStats(totalCount, totalSum);
+    }
+
+    function updatePgaMotionStats(count, sum) {
+        document.getElementById('pgaTotalTx').innerText = count;
+        document.getElementById('pgaTotalAmount').innerText = sum.toLocaleString('id-ID');
+    }
+
+    function copyPgaMotionData() {
+        if (parsedPgaMotionDataArray.length === 0) return;
+        
+        let textToCopy = parsedPgaMotionDataArray.map(item => 
+            `${item.username}\t${item.amount}\t${item.amount}\t\t\t\t${item.name}`
+        ).join('\n');
+
+        navigator.clipboard.writeText(textToCopy).then(() => {
+            showToast('✅ Data PGA MOTION (Kolom A-G) Berhasil Dicopy!');
+        });
+    }
+
+    function clearPgaMotionData() {
+        document.getElementById('pgaMotionInput').value = '';
+        document.getElementById('pgaMotionTableBody').innerHTML = '';
+        updatePgaMotionStats(0, 0);
+        parsedPgaMotionDataArray = [];
+    }
+
     // ==================== ADVANCED MATRIX CYBER STORM ENGINE ====================
     const canvas = document.getElementById('cyberCanvas');
     const ctx = canvas.getContext('2d');
@@ -726,7 +889,6 @@
     window.addEventListener('resize', resizeCanvas);
     resizeCanvas();
 
-    // Setup Hujan Kode Matrix (Cyber Rain)
     const katakana = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ01";
     const alphabet = katakana.split("");
 
@@ -735,10 +897,9 @@
     let rainDrops = [];
 
     for (let x = 0; x < columns; x++) {
-        rainDrops[x] = Math.random() * -100; // Mulai dari atas layar secara acak
+        rainDrops[x] = Math.random() * -100;
     }
 
-    // Setup Partikel Aura Naik (Upward Glow Particles)
     let upParticles = [];
     class UpGlowParticle {
         constructor() {
@@ -766,12 +927,10 @@
     }
 
     function drawCyberEngine() {
-        // Efek trail pudar transparan untuk membuat hujan bergerak
         ctx.fillStyle = 'rgba(2, 6, 19, 0.08)';
         ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-        // 1. Draw Rain Drops (Turun Ke Bawah)
-        ctx.fillStyle = '#00f0ff'; // Warna teks utama hujan
+        ctx.fillStyle = '#00f0ff';
         ctx.font = fontSize + 'px monospace';
 
         for (let i = 0; i < rainDrops.length; i++) {
@@ -779,7 +938,6 @@
             const x = i * fontSize;
             const y = rainDrops[i] * fontSize;
 
-            // Karakter paling ujung atas diberikan kilau putih neon
             if (Math.random() > 0.98) {
                 ctx.fillStyle = '#ffffff';
             } else {
@@ -794,7 +952,6 @@
             rainDrops[i]++;
         }
 
-        // 2. Draw Glow Particles (Naik Ke Atas)
         if (upParticles.length < 40) {
             upParticles.push(new UpGlowParticle());
         }
@@ -810,7 +967,6 @@
         requestAnimationFrame(drawCyberEngine);
     }
     
-    // Jalankan animasi
     drawCyberEngine();
 </script>
 
