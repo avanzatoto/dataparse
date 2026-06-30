@@ -328,7 +328,7 @@
         @keyframes glitchEffect { 0% { transform: skewX(0deg); } 50% { transform: skewX(-2deg); } 100% { transform: skewX(1deg); } }
     </style>
 </head>
-<body>
+<body class="light-theme">
 
 <canvas id="cyberCanvas"></canvas>
 
@@ -725,7 +725,8 @@
         if (theme === 'light') { document.body.classList.add('light-theme'); switchBtn.checked = false; } 
         else { document.body.classList.remove('light-theme'); switchBtn.checked = true; }
     }
-    document.getElementById('themeToggleSwitch').checked = true;
+    // Set awal ke false karena mode terang adalah default
+    document.getElementById('themeToggleSwitch').checked = false;
 
     function openManualFromSettings() { dropdown.classList.remove('show'); toggleGuide(true); }
     document.addEventListener('click', () => { dropdown.classList.remove('show'); });
