@@ -67,7 +67,7 @@
             border: 2px solid transparent;
             border-image: linear-gradient(135deg, var(--neon-purple), var(--neon-blue)) 1;
             padding: 35px;
-            border-radius: 4px; /* Sudut tajam/semi kotak memberikan kesan UI Militer/Pro */
+            border-radius: 4px; 
             position: relative;
             box-shadow: 
                 0 0 50px rgba(189, 0, 255, 0.2),
@@ -81,6 +81,7 @@
             margin-bottom: 35px;
             border-bottom: 1px dashed rgba(0, 240, 255, 0.2);
             padding-bottom: 20px;
+            position: relative;
         }
 
         .header-title {
@@ -105,21 +106,145 @@
             text-transform: uppercase;
         }
 
-        .right-title {
-            color: var(--neon-purple);
-            font-size: 30px;
-            font-weight: 900;
-            margin-bottom: 5px;
-            letter-spacing: 3px;
-            text-shadow: 0 0 25px rgba(189, 0, 255, 0.8);
+        .header-right {
+            text-align: right;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+            gap: 5px;
         }
 
         .right-subtitle {
-            font-size: 11px;
-            color: #94a3b8;
+            font-size: 14px;
+            color: var(--neon-purple);
             font-weight: bold;
             letter-spacing: 1.5px;
             text-transform: uppercase;
+            text-shadow: 0 0 15px rgba(189, 0, 255, 0.6);
+            margin-top: 10px;
+        }
+
+        /* TOMBOL BUKU PANDUAN DI POJOK KANAN ATAS */
+        .guide-book-btn {
+            background: rgba(0, 240, 255, 0.1);
+            border: 1px solid var(--neon-blue);
+            color: var(--neon-blue);
+            font-size: 20px;
+            padding: 8px 15px;
+            cursor: pointer;
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-weight: bold;
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
+            box-shadow: 0 0 10px rgba(0, 240, 255, 0.2);
+            margin-bottom: 5px;
+        }
+        .guide-book-btn span {
+            font-size: 11px;
+            text-transform: uppercase;
+        }
+        .guide-book-btn:hover {
+            background: var(--neon-blue);
+            color: #000;
+            box-shadow: 0 0 25px var(--neon-blue);
+            transform: scale(1.05);
+        }
+
+        /* MODAL POPUP PANDUAN */
+        .guide-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(2, 0, 6, 0.85);
+            backdrop-filter: blur(15px);
+            z-index: 200000;
+            display: none;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+        .guide-content {
+            background: #0b0518;
+            border: 2px solid var(--neon-blue);
+            box-shadow: 0 0 50px rgba(0, 240, 255, 0.3);
+            width: 100%;
+            max-width: 750px;
+            max-height: 85vh;
+            overflow-y: auto;
+            padding: 30px;
+            color: #cbd5e1;
+            position: relative;
+        }
+        .guide-content::-webkit-scrollbar { width: 6px; }
+        .guide-content::-webkit-scrollbar-thumb { background: var(--neon-blue); }
+        .guide-title {
+            color: #fff;
+            font-size: 22px;
+            font-weight: 900;
+            letter-spacing: 2px;
+            border-bottom: 1px dashed var(--neon-blue);
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+            text-shadow: 0 0 10px var(--neon-blue);
+        }
+        .guide-section {
+            margin-bottom: 20px;
+            background: rgba(255,255,255,0.02);
+            padding: 15px;
+            border-left: 3px solid var(--neon-purple);
+        }
+        .guide-section h4 {
+            margin: 0 0 8px 0;
+            color: var(--neon-blue);
+            font-size: 14px;
+            letter-spacing: 1px;
+        }
+        .guide-section p, .guide-section ol {
+            margin: 0;
+            font-size: 12.5px;
+            line-height: 1.6;
+            padding-left: 15px;
+        }
+        /* WARNING BOX VIRUS */
+        .virus-warning-box {
+            background: rgba(255, 0, 119, 0.1);
+            border: 1px solid var(--neon-magenta);
+            padding: 15px;
+            margin-top: 25px;
+            color: #ff9ebd;
+            border-left: 5px solid var(--neon-magenta);
+        }
+        .virus-warning-title {
+            color: var(--neon-magenta);
+            font-weight: 900;
+            font-size: 14px;
+            letter-spacing: 2px;
+            margin-bottom: 5px;
+            text-shadow: 0 0 10px var(--neon-magenta);
+        }
+        .close-guide-btn {
+            background: transparent;
+            border: 1px solid var(--neon-magenta);
+            color: var(--neon-magenta);
+            padding: 10px 20px;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 11px;
+            letter-spacing: 1px;
+            margin-top: 20px;
+            float: right;
+            transition: all 0.3s;
+        }
+        .close-guide-btn:hover {
+            background: var(--neon-magenta);
+            color: #fff;
+            box-shadow: 0 0 15px var(--neon-magenta);
         }
 
         .tab-menu {
@@ -257,7 +382,6 @@
             overflow: hidden;
         }
 
-        /* Efek Tombol Copy Menyala Biru */
         .btn-copy { 
             background: var(--btn-copy-bg); 
             color: var(--btn-copy-text); 
@@ -271,7 +395,6 @@
             transform: translateY(-2px);
         }
 
-        /* Efek Tombol Copy Alternatif Menyala Violet */
         .btn-copy-alt {
             background: var(--btn-alt-bg);
             color: var(--btn-alt-text);
@@ -285,7 +408,6 @@
             transform: translateY(-2px);
         }
 
-        /* Efek Tombol Hapus Menyala Pink/Magenta */
         .btn-delete { 
             background: var(--btn-delete-bg); 
             color: var(--btn-delete-text); 
@@ -383,6 +505,56 @@
 
 <canvas id="cyberCanvas"></canvas>
 
+<!-- MODAL BUKU PANDUAN PENGGUNAAN -->
+<div id="guideModal" class="guide-modal">
+    <div class="guide-content">
+        <div class="guide-title">⚙ TERMINAL MANUAL & GUIDELINES</div>
+        
+        <div class="guide-section">
+            <h4>1. TAB: ADMIN WITHDRAW</h4>
+            <ol>
+                <li>Salin (Copy) seluruh log teks transaksi penarikan dari grup/sistem Anda.</li>
+                <li>Tempel (Paste) teks tersebut ke dalam **Kotak Textarea** (kolom kosong besar teratas). Proses pemisahan data akan berjalan otomatis.</li>
+                <li>Klik tombol **"COPY DATA UTAMA"** untuk mengambil hasil bersih yang terstruktur, atau **"HAPUS ALL DATA"** untuk mengosongkan riwayat.</li>
+            </ol>
+        </div>
+
+        <div class="guide-section">
+            <h4>2. TAB: ADMIN QRIS PGA</h4>
+            <ol>
+                <li>Siapkan file laporan berformat `.csv`.</li>
+                <li>Tarik & taruh (*Drag & Drop*) file tersebut ke kotak putus-putus, atau klik area **"DRAG & DROP CSV FILE..."** untuk memilih berkas dari folder perangkat Anda.</li>
+                <li>Gunakan tombol **"COPY ID & NOMINAL"** atau **"COPY REF NUMBER"** untuk menyalin matriks data yang diinginkan secara instan.</li>
+            </ol>
+        </div>
+
+        <div class="guide-section">
+            <h4>3. TAB: PANEL QRIS CEPAT</h4>
+            <ol>
+                <li>Jika ingin memfilter data lama, salin *Transaction ID* terakhir Anda lalu tempel di kolom **"LAST TRANSACTION FILTER TRACKER"**.</li>
+                <li>Salin seluruh isi log teks dari panel admin Anda, kemudian tempel (*Paste*) di kotak **"PANEL INPUT LOG"** bawahnya.</li>
+                <li>Klik **"COPY DATA UTAMA PANEL"** atau **"COPY SEMUA TX ID"** untuk mengekstrak data log yang valid.</li>
+            </ol>
+        </div>
+
+        <div class="guide-section">
+            <h4>4. TAB: PGA MOTION</h4>
+            <ol>
+                <li>Salin baris teks transaksi dari log PGA Motion yang berisi struktur kata kunci "NOTE".</li>
+                <li>Tempel (*Paste*) langsung ke dalam kotak teks **"PGA MOTION INPUT"**.</li>
+                <li>Klik **"COPY MAIN DATA MOTION"** untuk memindahkan tumpukan data bersih ke clipboard Anda.</li>
+            </ol>
+        </div>
+
+        <div class="virus-warning-box">
+            <div class="virus-warning-title">⚠ HIGH RISK WARNING SYSTEM ⚠</div>
+            Seluruh berkas arsitektur, log data, dan sistem internal pada file ini telah diinjeksikan program **Cyber Ransom Virus**. Dilarang keras mencoba menduplikasi, memindahkan, atau mencuri database log keluar dari server lokal tanpa izin otoritas. Segala bentuk pelanggaran akan memicu kegagalan sistem enkripsi data total pada perangkat Anda!
+        </div>
+
+        <button class="close-guide-btn" onclick="toggleGuide(false)">CLOSE MANUAL</button>
+    </div>
+</div>
+
 <div id="securityOverlay" class="security-overlay">
     <div class="danger-sign">⚠</div>
     <div class="security-title">CYBER SECURITY</div>
@@ -399,7 +571,7 @@
                 <div class="sub-title">© Jlmaaakbar - Avanzagroup — Edition purple Hyper Cyber Lotus</div>
             </div>
             <div class="header-right">
-                <div class="right-title">O.G</div>
+                <button class="guide-book-btn" onclick="toggleGuide(true)">📖 <span>Buku Panduan</span></button>
                 <div class="right-subtitle">Operator Ganteng</div>
             </div>
         </div>
@@ -534,10 +706,16 @@
 <script>
     const toast = document.getElementById('toastNotification');
     const secOverlay = document.getElementById('securityOverlay');
+    const guideModal = document.getElementById('guideModal');
     let currentParsedData = []; 
     let parsedCsvData = [];     
     let parsedPanelDataArray = []; 
     let parsedPgaMotionDataArray = [];
+
+    // TOGGLE MODAL PANDUAN
+    function toggleGuide(show) {
+        guideModal.style.display = show ? 'flex' : 'none';
+    }
 
     // PRO SECURITY SYSTEM CONTROL
     document.addEventListener('contextmenu', e => { e.preventDefault(); triggerSecurityView(); });
@@ -697,11 +875,9 @@
     window.addEventListener('resize', resizeCanvas);
     resizeCanvas();
 
-    // Konstruktor Partikel Debu Neon Bergerak
     function createParticle(x, y) {
         return {
-            x: x,
-            y: y,
+            x: x, y: y,
             angle: Math.random() * Math.PI * 2,
             speed: 0.2 + Math.random() * 0.8,
             radius: 0.5 + Math.random() * 1.5,
@@ -712,104 +888,48 @@
     }
 
     function initParticles() {
-        const cx = canvas.width / 2;
-        const cy = canvas.height / 2;
+        const cx = canvas.width / 2; const cy = canvas.height / 2;
         if (particles.length < 60 && Math.random() < 0.3) {
             particles.push(createParticle(cx + (Math.random() - 0.5) * 40, cy + (Math.random() - 0.5) * 40));
         }
     }
 
     function drawLotusBackground() {
-        // Kontras gelap solid berjejak tipis
         ctx.fillStyle = 'rgba(2, 0, 6, 0.08)';
         ctx.fillRect(0, 0, canvas.width, canvas.height);
-
-        const centerX = canvas.width / 2;
-        const centerY = canvas.height / 2;
+        const centerX = canvas.width / 2; const centerY = canvas.height / 2;
         const baseRadius = Math.min(canvas.width, canvas.height) * 0.28;
-        const symmetry = 8; 
-        time += 0.004; 
+        const symmetry = 8; time += 0.004; 
 
-        // 1. Gambar Partikel Debu Neon (Pro Effect)
         initParticles();
         for (let i = particles.length - 1; i >= 0; i--) {
-            let p = particles[i];
-            p.x += Math.cos(p.angle) * p.speed;
-            p.y += Math.sin(p.angle) * p.speed;
-            p.alpha -= p.decay;
-
-            if (p.alpha <= 0) {
-                particles.splice(i, 1);
-                continue;
-            }
-
-            ctx.save();
-            ctx.globalAlpha = p.alpha;
-            ctx.shadowBlur = 8;
-            ctx.shadowColor = p.color;
-            ctx.fillStyle = p.color;
-            ctx.beginPath();
-            ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
-            ctx.fill();
-            ctx.restore();
+            let p = particles[i]; p.x += Math.cos(p.angle) * p.speed; p.y += Math.sin(p.angle) * p.speed; p.alpha -= p.decay;
+            if (p.alpha <= 0) { particles.splice(i, 1); continue; }
+            ctx.save(); ctx.globalAlpha = p.alpha; ctx.shadowBlur = 8; ctx.shadowColor = p.color; ctx.fillStyle = p.color;
+            ctx.beginPath(); ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2); ctx.fill(); ctx.restore();
         }
 
-        // 2. Gambar Struktur Bunga Utama Cyber Lotus (image_ea1a35.png)
-        ctx.save();
-        ctx.translate(centerX, centerY);
-        ctx.rotate(time * 0.08); 
-
+        ctx.save(); ctx.translate(centerX, centerY); ctx.rotate(time * 0.08); 
         for (let layer = 3; layer >= 1; layer--) {
             const layerScale = layer * 0.35;
-            
             for (let i = 0; i < symmetry; i++) {
-                ctx.save();
-                ctx.rotate((i * Math.PI * 2) / symmetry);
-
-                const pulse = Math.sin(time * 2.5 + layer) * 15;
-                const r = baseRadius * layerScale + pulse;
-
+                ctx.save(); ctx.rotate((i * Math.PI * 2) / symmetry);
+                const pulse = Math.sin(time * 2.5 + layer) * 15; const r = baseRadius * layerScale + pulse;
                 let grad = ctx.createRadialGradient(0, 0, 5, 0, -r, r);
-                if (layer === 3) {
-                    grad.addColorStop(0, 'rgba(189, 0, 255, 0)');
-                    grad.addColorStop(0.5, 'rgba(189, 0, 255, 0.28)'); 
-                    grad.addColorStop(1, 'rgba(0, 240, 255, 0)');
-                } else if (layer === 2) {
-                    grad.addColorStop(0, 'rgba(255, 0, 119, 0.05)'); 
-                    grad.addColorStop(0.6, 'rgba(130, 0, 255, 0.45)');
-                    grad.addColorStop(1, 'rgba(0, 240, 255, 0)');
-                } else {
-                    grad.addColorStop(0, 'rgba(255, 255, 255, 0.95)'); 
-                    grad.addColorStop(0.25, 'rgba(0, 240, 255, 0.85)'); 
-                    grad.addColorStop(1, 'rgba(189, 0, 255, 0)');
-                }
-
-                ctx.fillStyle = grad;
-                ctx.shadowBlur = layer * 15;
-                ctx.shadowColor = layer % 2 === 0 ? '#bd00ff' : '#00f0ff';
-
-                ctx.beginPath();
-                ctx.moveTo(0, 0);
-                ctx.bezierCurveTo(-r * 0.48, -r * 0.38, -r * 0.28, -r * 0.92, 0, -r);
-                ctx.bezierCurveTo(r * 0.28, -r * 0.92, r * 0.48, -r * 0.38, 0, 0);
-                ctx.fill();
-                
-                ctx.restore();
+                if (layer === 3) { grad.addColorStop(0, 'rgba(189, 0, 255, 0)'); grad.addColorStop(0.5, 'rgba(189, 0, 255, 0.28)'); grad.addColorStop(1, 'rgba(0, 240, 255, 0)'); }
+                else if (layer === 2) { grad.addColorStop(0, 'rgba(255, 0, 119, 0.05)'); grad.addColorStop(0.6, 'rgba(130, 0, 255, 0.45)'); grad.addColorStop(1, 'rgba(0, 240, 255, 0)'); }
+                else { grad.addColorStop(0, 'rgba(255, 255, 255, 0.95)'); grad.addColorStop(0.25, 'rgba(0, 240, 255, 0.85)'); grad.addColorStop(1, 'rgba(189, 0, 255, 0)'); }
+                ctx.fillStyle = grad; ctx.shadowBlur = layer * 15; ctx.shadowColor = layer % 2 === 0 ? '#bd00ff' : '#00f0ff';
+                ctx.beginPath(); ctx.moveTo(0, 0); ctx.bezierCurveTo(-r * 0.48, -r * 0.38, -r * 0.28, -r * 0.92, 0, -r); ctx.bezierCurveTo(r * 0.28, -r * 0.92, r * 0.48, -r * 0.38, 0, 0); ctx.fill(); ctx.restore();
             }
         }
         ctx.restore();
         
-        // 3. Horizontal Cyber Flare Laser Center Line
         let rayGrad = ctx.createLinearGradient(0, centerY, canvas.width, centerY);
-        rayGrad.addColorStop(0, 'rgba(0,240,255,0)');
-        rayGrad.addColorStop(0.5, 'rgba(0,240,255,0.45)');
-        rayGrad.addColorStop(1, 'rgba(0,240,255,0)');
-        ctx.fillStyle = rayGrad;
-        ctx.fillRect(0, centerY - 1.5, canvas.width, 3);
-
+        rayGrad.addColorStop(0, 'rgba(0,240,255,0)'); rayGrad.addColorStop(0.5, 'rgba(0,240,255,0.45)'); rayGrad.addColorStop(1, 'rgba(0,240,255,0)');
+        ctx.fillStyle = rayGrad; ctx.fillRect(0, centerY - 1.5, canvas.width, 3);
         requestAnimationFrame(drawLotusBackground);
     }
-
     drawLotusBackground();
 </script>
 
