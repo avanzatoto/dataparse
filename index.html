@@ -92,9 +92,6 @@
 
         .main-container { display: flex; justify-content: center; align-items: flex-start; min-height: 100vh; padding: 40px 15px; box-sizing: border-box; }
         
-        /* PERBAIKAN WRAPPER UTAMA: 
-           Mengganti border-image (yang bikin sudut tajam) dengan CSS mask pada pseudo-element 
-        */
         .wrapper {
             width: 100%; max-width: 1050px; background: var(--container-bg);
             backdrop-filter: blur(30px) saturate(250%); -webkit-backdrop-filter: blur(30px) saturate(250%);
@@ -107,9 +104,9 @@
         .wrapper::before {
             content: "";
             position: absolute;
-            top: -2px; left: -2px; right: -2px; bottom: -2px; /* Sejajar dengan padding border */
-            border-radius: calc(var(--global-radius) + 2px); /* Radius melengkung sempurna */
-            padding: 2px; /* Setebal garis border */
+            top: -2px; left: -2px; right: -2px; bottom: -2px; 
+            border-radius: calc(var(--global-radius) + 2px); 
+            padding: 2px; 
             background: linear-gradient(135deg, var(--neon-purple), var(--neon-blue));
             -webkit-mask: 
                 linear-gradient(#fff 0 0) content-box, 
@@ -451,7 +448,7 @@
             <ol id="mSec3List">
                 <li>Jika ingin memfilter data lama, salin ID Transaksi terakhir Anda lalu tempel di kolom **"PELACAK FILTER TRANSAKSI TERAKHIR"**.</li>
                 <li>Salin seluruh isi log teks dari panel admin Anda, kemudian tempel di kotak **"LOG MASUKAN PANEL"** bawahnya.</li>
-                <li>Klik **"SALIN DATA UTAMA PANEL"** atau **"SALIN SEMUA ID TX"** untuk mengekstrak data log yang valid.</li>
+                <li>Klik **"SALIN DATA UTAMA PANEL"**, **"SALIN SEMUA ID TX"**, atau **"SALIN SEMUA DATA (SHEETS)"** untuk mengekstrak data log yang valid.</li>
             </ol>
         </div>
 
@@ -608,6 +605,7 @@
             <div class="action-buttons">
                 <button class="btn btn-copy" id="btnCopyPanel1" onclick="copyPanelMainData()">SALIN DATA UTAMA PANEL</button>
                 <button class="btn btn-copy-alt" id="btnCopyPanel2" onclick="copyPanelTxIdData()">SALIN SEMUA ID TX</button>
+                <button class="btn btn-copy" id="btnCopyPanelAll" onclick="copyPanelAllData()">SALIN SEMUA DATA (SHEETS)</button>
                 <button class="btn btn-delete" id="btnClearPanel" onclick="clearPanelData()">BERSIHKAN LOG PENYIMPANAN</button>
             </div>
             <div class="table-container">
@@ -726,7 +724,7 @@
             phPga: "Tempel teks transaksi PGA MOTION di sini...", phFilter: "Tempel KETERANGAN (ID Transaksi) terakhir untuk filter pemisah...",
             phPolaSearch: "Cari game yang di inginkan... (Ketik nama game & Enter)", phPolaSelected: "Game terpilih...", phPolaResult: "Hasil pola...",
             btnCopyMain: "SALIN DATA UTAMA", btnClearAll: "HAPUS SEMUA DATA", btnCopyIdNom: "SALIN ID & NOMINAL", btnCopyRef: "SALIN NOMOR REFERENSI",
-            btnDelFile: "HAPUS FILE", btnCopyMainPanel: "SALIN DATA UTAMA PANEL", btnCopyAllTx: "SALIN SEMUA ID TX", btnCleanLog: "BERSIHKAN LOG PENYIMPANAN",
+            btnDelFile: "HAPUS FILE", btnCopyMainPanel: "SALIN DATA UTAMA PANEL", btnCopyAllTx: "SALIN SEMUA ID TX", btnCopyAllData: "SALIN SEMUA DATA (SHEETS)", btnCleanLog: "BERSIHKAN LOG PENYIMPANAN",
             btnCopyMotion: "SALIN DATA UTAMA MOTION", btnFlushData: "KOSONGKAN SEMUA DATA",
             uploadTxt: "TARIK & LEPAS FILE CSV / KLIK UNTUK MEMILIH DATA FOLDER",
             filterLabel: "PELACAK FILTER TRANSAKSI TERAKHIR",
@@ -743,7 +741,7 @@
             gSec2T: "2. TAB: ADMIN QRIS PGA",
             gSec2L: `<li>Siapkan file laporan berformat \`.csv\`.</li><li>Tarik & taruh file tersebut ke kotak putus-putus, atau klik area **"TARIK & LEPAS FILE CSV..."** untuk memilih berkas dari folder perangkat Anda.</li><li>Gunakan tombol **"SALIN ID & NOMINAL"** atau **"SALIN NOMOR REFERENSI"** untuk menyalin matriks data yang diinginkan secara instan.</li>`,
             gSec3T: "3. TAB: PANEL QRIS CEPAT",
-            gSec3L: `<li>Jika ingin memfilter data lama, salin *ID Transaksi* terakhir Anda lalu tempel di kolom **"PELACAK FILTER TRANSAKSI TERAKHIR"**.</li><li>Salin seluruh isi log teks dari panel admin Anda, kemudian tempel di kotak **"LOG MASUKAN PANEL"** bawahnya.</li><li>Klik **"SALIN DATA UTAMA PANEL"** atau **"SALIN SEMUA ID TX"** untuk mengekstrak data log yang valid.</li>`,
+            gSec3L: `<li>Jika ingin memfilter data lama, salin *ID Transaksi* terakhir Anda lalu tempel di kolom **"PELACAK FILTER TRANSAKSI TERAKHIR"**.</li><li>Salin seluruh isi log teks dari panel admin Anda, kemudian tempel di kotak **"LOG MASUKAN PANEL"** bawahnya.</li><li>Klik **"SALIN DATA UTAMA PANEL"**, **"SALIN SEMUA ID TX"**, atau **"SALIN SEMUA DATA (SHEETS)"** untuk mengekstrak data log yang valid.</li>`,
             gSec4T: "4. TAB: PGA MOTION",
             gSec4L: `<li>Salin baris teks transaksi dari log PGA Motion yang berisi struktur kata kunci "NOTE".</li><li>Tempel langsung ke dalam kotak teks **"MASUKAN PGA MOTION"**.</li><li>Klik **"SALIN DATA UTAMA MOTION"** untuk memindahkan tumpukan data bersih ke papan klip Anda.</li>`,
             gSec5T: "5. TAB: POLA GAME",
@@ -768,7 +766,7 @@
             phPga: "Paste PGA MOTION transaction text here...", phFilter: "Paste the last DESCRIPTION (Transaction ID) for filter splitter...",
             phPolaSearch: "Search desired game... (Type game name & Enter)", phPolaSelected: "Selected game...", phPolaResult: "Pattern result...",
             btnCopyMain: "COPY MAIN DATA", btnClearAll: "DELETE ALL DATA", btnCopyIdNom: "COPY ID & NOMINAL", btnCopyRef: "COPY REF NUMBER",
-            btnDelFile: "DELETE FILE", btnCopyMainPanel: "COPY PANEL MAIN DATA", btnCopyAllTx: "COPY ALL TX ID", btnCleanLog: "CLEAN STORAGE LOG",
+            btnDelFile: "DELETE FILE", btnCopyMainPanel: "COPY PANEL MAIN DATA", btnCopyAllTx: "COPY ALL TX ID", btnCopyAllData: "COPY ALL DATA (SHEETS)", btnCleanLog: "CLEAN STORAGE LOG",
             btnCopyMotion: "COPY MAIN DATA MOTION", btnFlushData: "FLUSH ALL DATA",
             uploadTxt: "DRAG & DROP CSV FILE / CLICK TO FETCH DATA FROM FOLDER",
             filterLabel: "LAST TRANSACTION FILTER TRACKER",
@@ -785,7 +783,7 @@
             gSec2T: "2. TAB: ADMIN QRIS PGA",
             gSec2L: `<li>Prepare a report file in \`.csv\` format.</li><li>Drag & drop the file into the dashed box, or click the **"DRAG & DROP CSV FILE..."** area to select files from your device folder.</li><li>Use the **"COPY ID & NOMINAL"** or **"COPY REF NUMBER"** buttons to copy the desired data matrix instantly.</li>`,
             gSec3T: "3. TAB: FAST QRIS PANEL",
-            gSec3L: `<li>If you want to filter out old data, copy your last *Transaction ID* and paste it into the **"LAST TRANSACTION FILTER TRACKER"** column.</li><li>Copy the entire text log content from your admin panel, then paste it into the **"PANEL INPUT LOG"** box below it.</li><li>Click **"COPY PANEL MAIN DATA"** or **"COPY ALL TX ID"** to extract valid log data.</li>`,
+            gSec3L: `<li>If you want to filter out old data, copy your last *Transaction ID* and paste it into the **"LAST TRANSACTION FILTER TRACKER"** column.</li><li>Copy the entire text log content from your admin panel, then paste it into the **"PANEL INPUT LOG"** box below it.</li><li>Click **"COPY PANEL MAIN DATA"**, **"COPY ALL TX ID"**, or **"COPY ALL DATA (SHEETS)"** to extract valid log data.</li>`,
             gSec4T: "4. TAB: PGA MOTION",
             gSec4L: `<li>Copy the transaction text line from the PGA Motion log that contains the "NOTE" keyword structure.</li><li>Paste it directly into the **"PGA MOTION INPUT"** text box.</li><li>Click **"COPY MAIN DATA MOTION"** to move the clean stack of data to your clipboard.</li>`,
             gSec5T: "5. TAB: GAME PATTERN",
@@ -837,6 +835,7 @@
         document.getElementById('btnClearCsv').textContent = l.btnDelFile;
         document.getElementById('btnCopyPanel1').textContent = l.btnCopyMainPanel;
         document.getElementById('btnCopyPanel2').textContent = l.btnCopyAllTx;
+        document.getElementById('btnCopyPanelAll').textContent = l.btnCopyAllData;
         document.getElementById('btnClearPanel').textContent = l.btnCleanLog;
         document.getElementById('btnCopyPga').textContent = l.btnCopyMotion;
         document.getElementById('btnClearPga').textContent = l.btnFlushData;
@@ -1041,6 +1040,14 @@
     }
     function copyPanelMainData() { if (parsedPanelDataArray.length) navigator.clipboard.writeText(parsedPanelDataArray.map(i => `${i.time}\t${i.userId}\t${i.coin}\t${i.depo}`).join('\n')).then(() => showToast('toastPanelSuccess')); }
     function copyPanelTxIdData() { if (parsedPanelDataArray.length) navigator.clipboard.writeText(parsedPanelDataArray.map(i => i.transactionId).join('\n')).then(() => showToast('toastTxSuccess')); }
+function copyPanelAllData() { 
+    if (parsedPanelDataArray.length) {
+        // Menggunakan double tab (\t\t) antara depo dan transactionId untuk mengosongkan kolom ke-5
+        navigator.clipboard.writeText(
+            parsedPanelDataArray.map(i => `${i.time}\t${i.userId}\t${i.coin}\t${i.depo}\t\t${i.transactionId}`).join('\n')
+        ).then(() => showToast('toastPanelSuccess')); 
+    }
+}
     function clearPanelData() { 
         document.getElementById('panelInput').value = ''; document.getElementById('lastTxIdInput').value = ''; document.getElementById('panelTableBody').innerHTML = ''; parsedPanelDataArray = []; 
         document.getElementById('statsPanel').innerHTML = `TERMINAL LANGSUNG >> Aliran Baru Ditangkap: <span id="panelTotalTx">0</span> Baris | Nilai Jumlah Delta: Rp <span id="panelTotalSum">0</span>`; showToast('toastPanelWipe'); 
