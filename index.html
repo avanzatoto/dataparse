@@ -3,478 +3,361 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DATA PARSE PRO - HYPER CYBER LOTUS</title>
+    <title>DATA PARSE PRO - AVANZAGROUP</title>
     <style>
+        @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@700&family=Montserrat:wght@400;500;600;700&display=swap');
+        
         :root {
+            /* TEMA UTAMA CYBERPUNK NEON (DARK MODE) */
             --bg-color: #020006; 
-            --container-bg: rgba(6, 2, 14, 0.82); 
-            --neon-blue: #00f0ff;
-            --neon-purple: #bd00ff;
-            --neon-magenta: #ff0077;
-            --text-color: #f1f5f9;
-            --sub-text: #64748b;
-            --table-head-bg: #070312;
-            --table-row-hover: rgba(0, 240, 255, 0.08);
-            --input-bg: rgba(2, 0, 5, 0.9);
-            --box-bg: rgba(7, 3, 14, 0.9);
+            --container-bg: rgba(2, 0, 6, 0.82); 
+            --bg-sidebar: #0a0514;
             
+            /* Variabel lama --gold dipertahankan namanya agar script berjalan, tapi warnanya diubah ke Neon Cyan */
+            --gold: #00f0ff; 
+            --gold-glow: rgba(0, 240, 255, 0.2);
+            
+            --text-color: #f1f5f9;
+            --sub-text: #94a3b8;
+            --table-head-bg: rgba(189, 0, 255, 0.15); /* Hint Neon Ungu */
+            --table-row-hover: rgba(0, 240, 255, 0.08);
+            --input-bg: rgba(10, 5, 20, 0.6);
+            --box-bg: rgba(10, 5, 20, 0.9);
+            
+            /* Aksen 1: Neon Cyan */
             --btn-copy-bg: rgba(0, 240, 255, 0.1);
             --btn-copy-border: #00f0ff;
             --btn-copy-text: #00f0ff;
             
+            /* Aksen 2: Neon Pink (Bahaya/Hapus) */
             --btn-delete-bg: rgba(255, 0, 119, 0.1);
             --btn-delete-border: #ff0077;
             --btn-delete-text: #ff0077;
 
+            /* Aksen 3: Neon Ungu (Alternatif) */
             --btn-alt-bg: rgba(189, 0, 255, 0.1);
             --btn-alt-border: #bd00ff;
-            --btn-alt-text: #e8a7ff;
+            --btn-alt-text: #bd00ff;
             
-            --scrollbar-thumb: #0d4b53;
+            --scrollbar-thumb: #00f0ff;
             --scrollbar-track: #020006;
             
-            /* SUDUT DIPERHALUS MENJADI 20px AGAR TIDAK LANCIP */
-            --global-radius: 20px; 
-            --switch-active: #00f0ff;
+            --global-radius: 8px; 
+            --switch-active: #bd00ff;
+            --hover-text-color: #020006; /* Teks jadi gelap saat tombol neon dihover */
         }
 
-        /* TEMA LIGHT MODE */
+        /* TEMA LIGHT MODE ELEGAN & KLASIK */
         body.light-theme {
-            --bg-color: #f8fafc;
-            --container-bg: rgba(255, 255, 255, 0.95);
-            --text-color: #0f172a;
-            --sub-text: #64748b;
-            --table-head-bg: #0f172a;
-            --table-row-hover: rgba(212, 175, 55, 0.1);
-            --input-bg: #ffffff;
+            --bg-color: #f8fafc; 
+            --container-bg: rgba(255, 255, 255, 0.95); 
+            --bg-sidebar: #ffffff;
+            
+            --gold: #d4af37; /* Emas */
+            --gold-glow: rgba(212, 175, 55, 0.15);
+            
+            --text-color: #0f172a; /* Midnight Blue */
+            --sub-text: #475569; 
+            --table-head-bg: #e2e8f0;
+            --table-row-hover: rgba(212, 175, 55, 0.05); 
+            --input-bg: #f8fafc; 
             --box-bg: #f1f5f9;
             
-            --btn-copy-bg: rgba(212, 175, 55, 0.1);
-            --btn-copy-border: #d4af37;
-            --btn-copy-text: #aa8412;
+            --btn-copy-bg: rgba(212, 175, 55, 0.1); 
+            --btn-copy-border: #d4af37; 
+            --btn-copy-text: #b89528;
             
-            --btn-delete-bg: rgba(220, 38, 38, 0.08);
-            --btn-delete-border: #dc2626;
+            --btn-delete-bg: rgba(220, 38, 38, 0.08); 
+            --btn-delete-border: #dc2626; 
             --btn-delete-text: #b91c1c;
-
-            --btn-alt-bg: rgba(15, 23, 42, 0.05);
-            --btn-alt-border: #0f172a;
+            
+            --btn-alt-bg: rgba(15, 23, 42, 0.05); 
+            --btn-alt-border: #0f172a; 
             --btn-alt-text: #0f172a;
             
-            --scrollbar-thumb: #cbd5e1;
-            --scrollbar-track: #f1f5f9;
-            --switch-active: #10b981;
-            --neon-blue: #d4af37;
-            --neon-purple: #dc2626;
+            --scrollbar-thumb: #cbd5e1; 
+            --scrollbar-track: #f1f5f9; 
+            --switch-active: #d4af37;
+            --hover-text-color: #ffffff;
         }
-
-        body.light-theme .header-title { color: #0f172a; text-shadow: none; animation: none; }
-        body.light-theme .sub-title { color: #dc2626; }
-        body.light-theme textarea, body.light-theme .input-text { color: #0f172a; border: 1px solid #cbd5e1; }
-        body.light-theme .tab-btn { background: #e2e8f0; color: #475569; border: 1px solid #cbd5e1; }
-        body.light-theme .tab-btn.active { background: #0f172a; color: #d4af37; border-color: #d4af37; text-shadow: none; box-shadow: 0 4px 12px rgba(15, 23, 42, 0.15); }
-        body.light-theme th { color: #d4af37; text-shadow: none; border-bottom: 2px solid #d4af37; }
-        body.light-theme td { color: #1e293b; border-bottom: 1px solid #e2e8f0; }
-        body.light-theme .settings-dropdown { background: #ffffff; border: 1px solid #e2e8f0; box-shadow: 0 10px 30px rgba(0,0,0,0.08); color: #1e293b; }
-        body.light-theme .setting-row { border-bottom: 1px solid #f1f5f9; }
-        body.light-theme .setting-label { color: #0f172a; }
-        body.light-theme .right-subtitle { color: #d4af37; text-shadow: none; }
 
         body, html {
-            margin: 0; padding: 0; width: 100%; min-height: 100vh;
-            font-family: 'Segoe UI', Roboto, sans-serif;
-            background-color: var(--bg-color); overflow-x: hidden; color: var(--text-color);
+            margin: 0; padding: 0; width: 100%; height: 100vh;
+            font-family: 'Montserrat', sans-serif;
+            background-color: var(--bg-color); color: var(--text-color);
             transition: background-color 0.3s, color 0.3s;
+            display: flex; overflow: hidden;
         }
 
-        #cyberCanvas { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; pointer-events: none; }
-        body.light-theme #cyberCanvas { opacity: 0.05; }
+        #cyberCanvas { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; pointer-events: none; opacity: 0.6; }
+        body.light-theme #cyberCanvas { opacity: 0.15; }
 
-        .main-container { display: flex; justify-content: center; align-items: flex-start; min-height: 100vh; padding: 40px 15px; box-sizing: border-box; }
+        /* --- SIDEBAR KIRI --- */
+        .sidebar {
+            width: 250px; min-width: 250px; background-color: var(--bg-sidebar);
+            border-right: 1px solid rgba(255, 255, 255, 0.05);
+            display: flex; flex-direction: column; padding: 25px 0; z-index: 10;
+        }
+        body.light-theme .sidebar { border-right: 1px solid #e2e8f0; }
+
+        .profile-section {
+            display: flex; align-items: center; gap: 15px; padding: 0 25px 25px 25px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05); margin-bottom: 25px;
+        }
+        body.light-theme .profile-section { border-bottom: 1px solid #e2e8f0; }
+
+        .profile-avatar {
+            width: 45px; height: 45px; border: 1px solid var(--gold); border-radius: 6px;
+            display: flex; align-items: center; justify-content: center;
+            background: rgba(0, 0, 0, 0.4); font-weight: bold; color: #fff; font-size: 20px; box-shadow: 0 0 10px var(--gold-glow);
+        }
+        body.light-theme .profile-avatar { color: #0f172a; background: #fff; box-shadow: none;}
+
+        .profile-info h3 { color: var(--gold); font-size: 13px; font-weight: 700; letter-spacing: 1px; margin: 0; }
+        .profile-info p { color: var(--sub-text); font-size: 9px; margin-top: 3px; line-height: 1.4; font-weight: 600; }
+
+        .menu-category { font-size: 10px; color: var(--sub-text); font-weight: 700; letter-spacing: 1.5px; margin-bottom: 12px; text-transform: uppercase; padding: 0 25px; }
+
+        .menu-list { list-style: none; display: flex; flex-direction: column; gap: 5px; padding: 0 15px; margin: 0; }
+        .tab-btn {
+            padding: 12px 15px; border-radius: 6px; font-size: 11px; font-weight: 600;
+            color: var(--sub-text); cursor: pointer; transition: all 0.3s ease;
+            border: 1px solid transparent; text-transform: uppercase; letter-spacing: 0.5px;
+            background: transparent; text-align: left; width: 100%; display: block; box-sizing: border-box;
+        }
+        .tab-btn:hover { color: var(--gold); background: rgba(255, 255, 255, 0.02); }
+        body.light-theme .tab-btn:hover { background: #f1f5f9; }
         
-        .wrapper {
-            width: 100%; max-width: 1050px; background: var(--container-bg);
-            backdrop-filter: blur(30px) saturate(250%); -webkit-backdrop-filter: blur(30px) saturate(250%);
-            border: 2px solid transparent; 
-            background-clip: padding-box;
-            padding: 35px; border-radius: var(--global-radius); position: relative;
-            box-shadow: 0 0 50px rgba(189, 0, 255, 0.1), 0 35px 70px rgba(0, 0, 0, 0.95);
+        .tab-btn.active {
+            color: var(--gold); border: 1px solid var(--gold); background: var(--gold-glow);
+            text-shadow: 0 0 8px var(--gold-glow);
         }
+        body.light-theme .tab-btn.active { background: #fffbeb; text-shadow: none; }
+
+        /* --- KONTEN UTAMA KANAN --- */
+        .main-content {
+            flex: 1; display: flex; flex-direction: column; padding: 30px 40px;
+            overflow-y: auto; position: relative;
+        }
+
+        .panel-header-container { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 25px; }
         
-        .wrapper::before {
-            content: "";
-            position: absolute;
-            top: -2px; left: -2px; right: -2px; bottom: -2px; 
-            border-radius: calc(var(--global-radius) + 2px); 
-            padding: 2px; 
-            background: linear-gradient(135deg, var(--neon-purple), var(--neon-blue));
-            -webkit-mask: 
-                linear-gradient(#fff 0 0) content-box, 
-                linear-gradient(#fff 0 0);
-            -webkit-mask-composite: xor;
-            mask-composite: exclude;
-            pointer-events: none;
-        }
-
-        body.light-theme .wrapper { border-color: transparent; box-shadow: 0 20px 40px rgba(15, 23, 42, 0.05); }
-        body.light-theme .wrapper::before { background: #e2e8f0; }
-
-        .panel-header-container { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 35px; border-bottom: 1px dashed rgba(0, 240, 255, 0.2); padding-bottom: 20px; position: relative; }
-        body.light-theme .panel-header-container { border-bottom-color: #cbd5e1; }
-        .header-title { color: #fff; font-size: 30px; font-weight: 900; margin-bottom: 5px; letter-spacing: 3px; text-shadow: 0 0 20px rgba(0, 240, 255, 0.8), 0 0 2px var(--neon-blue); animation: pulseGlow 3s infinite alternate; }
-        @keyframes pulseGlow { 0% { text-shadow: 0 0 15px rgba(0, 240, 255, 0.6); } 100% { text-shadow: 0 0 30px rgba(0, 240, 255, 0.9), 0 0 5px var(--neon-blue); } }
-        .sub-title { font-size: 11px; color: var(--sub-text); letter-spacing: 1.5px; text-transform: uppercase; }
+        .header-title { font-family: 'Cinzel', serif; color: var(--gold); font-size: 28px; font-weight: 700; letter-spacing: 2px; margin-bottom: 5px; text-shadow: 0 0 15px var(--gold-glow); }
+        body.light-theme .header-title { color: #0f172a; text-shadow: none; }
+        .sub-title { font-size: 11px; color: var(--sub-text); letter-spacing: 1px; font-weight: 500; }
+        
         .header-right { text-align: right; display: flex; flex-direction: column; align-items: flex-end; gap: 5px; position: relative; }
-        .right-subtitle { font-size: 14px; color: var(--neon-purple); font-weight: bold; letter-spacing: 1.5px; text-transform: uppercase; text-shadow: 0 0 15px rgba(189, 0, 255, 0.6); margin-top: 10px; }
+        .right-subtitle { font-size: 12px; color: var(--gold); font-weight: bold; letter-spacing: 1px; text-transform: uppercase; margin-top: 10px; }
 
+        /* PENGATURAN DROPDOWN */
         .settings-menu-container { position: relative; display: inline-block; }
         .settings-btn {
-            background: rgba(0, 240, 255, 0.1); border: 1px solid var(--neon-blue); color: var(--neon-blue);
-            font-size: 14px; padding: 8px 16px; cursor: pointer; border-radius: var(--global-radius); display: flex; align-items: center; gap: 8px; font-weight: bold; transition: all 0.3s ease; box-shadow: 0 0 10px rgba(0, 240, 255, 0.1);
+            background: rgba(0, 240, 255, 0.1); border: 1px solid var(--gold); color: var(--gold);
+            font-size: 12px; padding: 8px 16px; cursor: pointer; border-radius: var(--global-radius);
+            display: flex; align-items: center; gap: 8px; font-weight: bold; transition: all 0.3s ease;
         }
-        body.light-theme .settings-btn { background: #0f172a; border-color: #0f172a; color: #fff; }
-        .settings-btn:hover { background: var(--neon-blue); color: #000; box-shadow: 0 0 25px var(--neon-blue); transform: scale(1.02); }
-        body.light-theme .settings-btn:hover { background: #d4af37; border-color: #d4af37; color: #0f172a; box-shadow: none; }
+        body.light-theme .settings-btn { background: rgba(212, 175, 55, 0.1); }
+        .settings-btn:hover { background: var(--gold); color: var(--hover-text-color); box-shadow: 0 0 15px var(--gold-glow); }
         
         .settings-dropdown {
-            position: absolute; top: 125%; right: 0; background: #0b0518; border: 1px solid var(--neon-blue);
-            width: 280px; padding: 18px; box-shadow: 0 10px 30px rgba(0,240,255,0.2); z-index: 1000; display: none; text-align: left; flex-direction: column; gap: 14px; border-radius: var(--global-radius);
+            position: absolute; top: 125%; right: 0; background: var(--bg-sidebar); border: 1px solid var(--gold);
+            width: 280px; padding: 18px; box-shadow: 0 10px 30px rgba(0,0,0,0.5); z-index: 1000; display: none; text-align: left; flex-direction: column; gap: 14px; border-radius: var(--global-radius);
         }
+        body.light-theme .settings-dropdown { background: #ffffff; border-color: #cbd5e1; box-shadow: 0 10px 30px rgba(0,0,0,0.08); }
         .settings-dropdown.show { display: flex; }
-        .setting-row { display: flex; justify-content: space-between; align-items: center; flex-direction: row; border-bottom: 1px dashed rgba(255,255,255,0.1); padding-bottom: 12px; }
+        .setting-row { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px dashed rgba(255,255,255,0.1); padding-bottom: 12px; }
+        body.light-theme .setting-row { border-bottom-color: #e2e8f0; }
         .setting-row:last-child { border-bottom: none; padding-bottom: 0; }
-        .setting-label { font-size: 12px; font-weight: bold; text-transform: uppercase; letter-spacing: 0.5px; color: var(--neon-blue); display: flex; align-items: center; gap: 4px; }
+        .setting-label { font-size: 11px; font-weight: bold; text-transform: uppercase; color: var(--gold); }
+        body.light-theme .setting-label { color: #0f172a; }
         
-        .switch-control { position: relative; display: inline-block; width: 46px; height: 24px; }
+        /* SWITCH TOGGLE */
+        .switch-control { position: relative; display: inline-block; width: 40px; height: 20px; }
         .switch-control input { opacity: 0; width: 0; height: 0; }
-        .slider-round {
-            position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0;
-            background-color: #334155; transition: .3s cubic-bezier(0.4, 0, 0.2, 1); border-radius: 34px;
-        }
-        body.light-theme .slider-round { background-color: #cbd5e1; }
-        .slider-round:before {
-            position: absolute; content: ""; height: 18px; width: 18px; left: 3px; bottom: 3px;
-            background-color: white; transition: .3s cubic-bezier(0.4, 0, 0.2, 1); border-radius: 50%;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
-        }
-        input:checked + .slider-round { background-color: var(--switch-active); }
-        input:checked + .slider-round:before { transform: translateX(22px); }
+        .slider-round { position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0; background-color: #334155; transition: .3s; border-radius: 34px; }
+        .slider-round:before { position: absolute; content: ""; height: 14px; width: 14px; left: 3px; bottom: 3px; background-color: white; transition: .3s; border-radius: 50%; box-shadow: 0 0 5px rgba(0,0,0,0.2);}
+        input:checked + .slider-round { background-color: var(--switch-active); box-shadow: 0 0 10px rgba(189, 0, 255, 0.4); }
+        body.light-theme input:checked + .slider-round { box-shadow: none; }
+        input:checked + .slider-round:before { transform: translateX(20px); }
 
-        .inline-guide-btn { width: 100%; padding: 10px; font-size: 11px; font-weight: bold; background: rgba(189,0,255,0.1); border: 1px solid var(--neon-purple); color: #fff; cursor: pointer; text-transform: uppercase; text-align: center; transition: all 0.2s; border-radius: var(--global-radius); }
-        body.light-theme .inline-guide-btn { background: rgba(220, 38, 38, 0.05); border-color: #dc2626; color: #dc2626; }
-        .inline-guide-btn:hover { background: var(--neon-purple); color: #fff; box-shadow: 0 0 15px var(--neon-purple); }
-        body.light-theme .inline-guide-btn:hover { background: #dc2626; color: #fff; box-shadow: none; }
+        .inline-guide-btn { width: 100%; padding: 10px; font-size: 11px; font-weight: bold; background: rgba(0,240,255,0.1); border: 1px solid var(--gold); color: var(--gold); cursor: pointer; border-radius: var(--global-radius); transition: all 0.2s ease;}
+        body.light-theme .inline-guide-btn { background: rgba(212,175,55,0.1); }
+        .inline-guide-btn:hover { background: var(--gold); color: var(--hover-text-color); box-shadow: 0 0 10px var(--gold-glow);}
 
-        .tab-menu { display: flex; gap: 10px; margin-bottom: 25px; flex-wrap: wrap; }
-        .tab-btn { background: rgba(3, 0, 8, 0.9); color: #64748b; border: 1px solid rgba(189, 0, 255, 0.3); padding: 12px 20px; cursor: pointer; font-weight: bold; font-size: 12px; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); letter-spacing: 1px; border-radius: var(--global-radius); }
-        .tab-btn:hover { color: var(--neon-blue); border-color: var(--neon-blue); box-shadow: 0 0 15px rgba(0, 240, 255, 0.1); }
-        .tab-btn.active { background: linear-gradient(135deg, rgba(189, 0, 255, 0.2), rgba(0, 240, 255, 0.2)); color: #fff; border-color: var(--neon-blue); box-shadow: 0 0 25px rgba(0, 240, 255, 0.3); text-shadow: 0 0 10px var(--neon-blue); }
+        /* TAB KONTEN & FORM */
+        .tab-content { display: none; animation: panelFadeIn 0.4s ease-in-out; }
+        .tab-content.active { display: block; }
+        @keyframes panelFadeIn { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: translateY(0); } }
 
-        .tab-content { display: none; }
-        .tab-content.active { display: block; animation: panelFadeIn 0.4s cubic-bezier(0.16, 1, 0.3, 1); }
-        @keyframes panelFadeIn { from { opacity: 0; transform: scale(0.99) translateY(5px); } to { opacity: 1; transform: scale(1) translateY(0); } }
-
-        textarea { width: 100%; height: 160px; background: var(--input-bg); color: var(--text-color); border: 1px solid rgba(189, 0, 255, 0.4); padding: 15px; font-family: 'Consolas', monospace; font-size: 13px; box-sizing: border-box; resize: none; box-shadow: inset 0 0 15px rgba(0,0,0,0.5); border-radius: var(--global-radius); }
-        body.light-theme textarea { box-shadow: none; border: 1px solid #cbd5e1; }
-        
-        ::-webkit-scrollbar { width: 8px; height: 8px; }
-        ::-webkit-scrollbar-track { background: var(--scrollbar-track); }
-        ::-webkit-scrollbar-thumb { background: var(--scrollbar-thumb); border-radius: 10px; }
-        ::-webkit-scrollbar-thumb:hover { background: var(--neon-blue); }
-
-        textarea:focus, .input-text:focus, .pola-input:focus { outline: none; border-color: var(--neon-blue); box-shadow: 0 0 20px rgba(0, 240, 255, 0.2); }
-        body.light-theme textarea:focus, body.light-theme .input-text:focus, body.light-theme .pola-input:focus { border-color: #d4af37; box-shadow: 0 0 12px rgba(212, 175, 55, 0.2); }
-        
-        .input-text { width: 100%; background: var(--input-bg); color: var(--text-color); border: 1px solid rgba(189, 0, 255, 0.4); padding: 12px; font-family: 'Consolas', monospace; font-size: 13px; box-sizing: border-box; margin-bottom: 15px; border-radius: var(--global-radius); }
-
-        .filter-container { background: var(--box-bg); border: 1px solid rgba(189, 0, 255, 0.3); padding: 15px; margin-bottom: 20px; border-radius: var(--global-radius); }
-        body.light-theme .filter-container { border-color: #cbd5e1; }
-        .filter-label { font-size: 11px; color: var(--neon-blue); font-weight: bold; margin-bottom: 6px; display: block; letter-spacing: 1px; }
-
-        .upload-area { border: 2px dashed rgba(189, 0, 255, 0.5); padding: 50px 20px; text-align: center; cursor: pointer; position: relative; background: var(--input-bg); transition: all 0.3s ease; border-radius: var(--global-radius); }
-        body.light-theme .upload-area { border-color: #cbd5e1; }
-        .upload-area:hover { border-color: var(--neon-blue); box-shadow: 0 0 25px rgba(0, 240, 255, 0.15); }
-        body.light-theme .upload-area:hover { border-color: #d4af37; box-shadow: none; background: #f8fafc; }
-        .upload-area input[type="file"] { position: absolute; width: 100%; height: 100%; top: 0; left: 0; opacity: 0; cursor: pointer; }
-        .upload-text { color: var(--sub-text); font-size: 13px; font-weight: bold; letter-spacing: 0.5px; }
-
-        .file-status { margin-top: 15px; background: #000; border: 1px solid var(--neon-blue); color: var(--neon-blue); padding: 12px; font-size: 12px; font-weight: bold; display: none; border-radius: var(--global-radius); }
-        body.light-theme .file-status { background: #0f172a; color: #fff; border-color: #0f172a; }
-
-        .action-buttons { display: flex; gap: 12px; margin: 25px 0; flex-wrap: wrap; }
-        .btn { padding: 12px 24px; border: 1px solid transparent; font-size: 11px; font-weight: 900; cursor: pointer; transition: all 0.25s ease; text-transform: uppercase; letter-spacing: 1px; position: relative; overflow: hidden; border-radius: var(--global-radius); }
-
-        .btn-copy { background: var(--btn-copy-bg); color: var(--btn-copy-text); border-color: var(--btn-copy-border); }
-        .btn-copy:hover { background: var(--neon-blue); color: #000; transform: translateY(-1px); }
-        body.light-theme .btn-copy:hover { background: #d4af37; color: #0f172a; }
-
-        .btn-copy-alt { background: var(--btn-alt-bg); color: var(--btn-alt-text); border-color: var(--btn-alt-border); }
-        .btn-copy-alt:hover { background: var(--neon-purple); color: #fff; transform: translateY(-1px); }
-        body.light-theme .btn-copy-alt:hover { background: #0f172a; color: #fff; }
-
-        .btn-delete { background: var(--btn-delete-bg); color: var(--btn-delete-text); border-color: var(--btn-delete-border); }
-        .btn-delete:hover { background: var(--neon-magenta); color: #fff; transform: translateY(-1px); }
-        body.light-theme .btn-delete:hover { background: #dc2626; color: #fff; }
-        .btn:active { transform: translateY(0); }
-        
-        .table-container { width: 100%; max-height: 350px; overflow-y: auto; overflow-x: auto; margin-top: 20px; border: 1px solid rgba(189, 0, 255, 0.3); background: rgba(0, 0, 0, 0.2); border-radius: var(--global-radius); }
-        body.light-theme .table-container { border-color: #e2e8f0; background: #ffffff; }
-
-        table { width: 100%; border-collapse: collapse; font-size: 13px; }
-        th { text-align: left; color: var(--neon-blue); font-weight: bold; border-bottom: 2px solid var(--neon-blue); padding: 16px 14px; font-size: 11px; text-transform: uppercase; background: var(--table-head-bg); letter-spacing: 1px; position: sticky; top: 0; z-index: 10; }
-        td { padding: 14px; border-bottom: 1px solid rgba(189, 0, 255, 0.1); color: var(--text-color); }
-        tr:hover td { background: var(--table-row-hover); }
-        .empty-cell { color: #475569; font-style: italic; }
-
-        .stats-box { margin-top: 25px; background: var(--box-bg); border-left: 4px solid var(--neon-purple); padding: 18px; font-size: 12px; color: var(--sub-text); line-height: 1.7; box-shadow: 0 5px 20px rgba(0,0,0,0.05); border-radius: var(--global-radius); }
-        body.light-theme .stats-box { border-left-color: #dc2626; }
-        .stats-box span { font-weight: bold; color: var(--neon-blue); }
-
-        .toast-notif { position: fixed; bottom: 40px; left: 50%; transform: translateX(-50%) translateY(20px); background: #000; color: var(--neon-blue); padding: 14px 40px; font-size: 12px; font-weight: 900; border-radius: 30px; border: 1px solid var(--neon-blue); opacity: 0; visibility: hidden; transition: all 0.3s ease; box-shadow: 0 0 30px rgba(0, 240, 255, 0.3); z-index: 9999; letter-spacing: 1.5px; text-transform: uppercase; }
-        body.light-theme .toast-notif { background: #0f172a; color: #d4af37; border-color: #d4af37; box-shadow: 0 10px 25px rgba(0,0,0,0.1); }
-        .toast-notif.show { opacity: 1; visibility: visible; transform: translateX(-50%) translateY(0); }
-
-        /* PANDUAN MODAL */
-        .guide-modal { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(2, 0, 6, 0.85); backdrop-filter: blur(15px); z-index: 200000; display: none; justify-content: center; align-items: center; padding: 20px; box-sizing: border-box; }
-        .guide-content { background: #0b0518; border: 2px solid var(--neon-blue); box-shadow: 0 0 50px rgba(0, 240, 255, 0.2); width: 100%; max-width: 750px; max-height: 85vh; overflow-y: auto; padding: 30px; color: #cbd5e1; position: relative; border-radius: var(--global-radius); }
-        body.light-theme .guide-content { background: #ffffff; color: #1e293b; border-color: #0f172a; }
-        .guide-title { color: #fff; font-size: 22px; font-weight: 900; letter-spacing: 2px; border-bottom: 1px dashed var(--neon-blue); padding-bottom: 10px; margin-bottom: 20px; text-shadow: 0 0 10px var(--neon-blue); }
-        body.light-theme .guide-title { color: #0f172a; text-shadow: none; border-bottom-color: #cbd5e1; }
-        .guide-section { margin-bottom: 20px; background: rgba(255,255,255,0.02); padding: 15px; border-left: 3px solid var(--neon-purple); border-radius: 0 var(--global-radius) var(--global-radius) 0; }
-        body.light-theme .guide-section { background: #f8fafc; border-left-color: #dc2626; }
-        .guide-section h4 { margin: 0 0 8px 0; color: var(--neon-blue); font-size: 14px; letter-spacing: 1px; }
-        body.light-theme .guide-section h4 { color: #0f172a; }
-        .guide-section p, .guide-section ol { margin: 0; font-size: 12.5px; line-height: 1.6; padding-left: 15px; }
-        .virus-warning-box { background: rgba(255, 0, 119, 0.1); border: 1px solid var(--neon-magenta); padding: 15px; margin-top: 25px; color: #ff9ebd; border-left: 5px solid var(--neon-magenta); border-radius: 0 var(--global-radius) var(--global-radius) 0; }
-        body.light-theme .virus-warning-box { background: #fef2f2; color: #991b1b; border-color: #fca5a5; border-left-color: #b91c1c; }
-        .virus-warning-title { color: var(--neon-magenta); font-weight: 900; font-size: 14px; letter-spacing: 2px; margin-bottom: 5px; }
-        body.light-theme .virus-warning-title { color: #b91c1c; }
-        .close-guide-btn { background: transparent; border: 1px solid var(--neon-magenta); color: var(--neon-magenta); padding: 10px 20px; cursor: pointer; font-weight: bold; font-size: 11px; letter-spacing: 1px; margin-top: 20px; float: right; transition: all 0.3s; border-radius: var(--global-radius); }
-        body.light-theme .close-guide-btn { border-color: #dc2626; color: #dc2626; }
-        .close-guide-btn:hover { background: var(--neon-magenta); color: #fff; }
-        body.light-theme .close-guide-btn:hover { background: #dc2626; color: #fff; }
-
-        /* ==================== SCREEN LOCK YANG DIUPGRADE ==================== */
-        .security-overlay { 
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%; 
-            background: #000000; z-index: 100000; display: none; 
-            flex-direction: column; justify-content: center; align-items: center; text-align: center; 
-        }
-        #matrixCanvas { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 1; opacity: 0.75; }
-        
-        .security-content-box { 
-            position: relative; 
-            z-index: 2; 
-            display: flex; 
-            flex-direction: column; 
-            align-items: center; 
-            justify-content: center; 
-            padding: 20px;
-            max-width: 750px;
-            width: 100%;
-        }
-        
-        .danger-sign { 
-            font-size: 75px; 
-            color: #ff0055; 
-            margin-bottom: 5px; 
-            animation: pulseSkull 1s infinite alternate; 
-            text-shadow: 0 0 20px #ff0055, 0 0 40px #ff0055; 
-        }
-        .security-title { 
-            font-size: 38px; 
-            font-weight: 900; 
-            letter-spacing: 6px; 
-            color: #ffffff; 
-            text-shadow: 0 0 15px rgba(255,255,255,0.8); 
-            margin: 5px 0; 
-            font-family: 'Courier New', monospace; 
-        }
-        .danger-subtitle { 
-            font-size: 42px; 
-            font-weight: 900; 
-            color: #ff0055; 
-            letter-spacing: 8px; 
-            font-family: 'Courier New', monospace; 
-            text-shadow: 0 0 20px #ff0055, 0 0 40px #ff0055; 
-            margin-bottom: 25px; 
-        }
-        
-        .skull-graphic-svg {
-            width: 110px;
-            height: 110px;
-            fill: none;
-            stroke: #ffffff;
-            stroke-width: 1.8;
-            filter: drop-shadow(0 0 12px rgba(255, 255, 255, 0.9));
-            margin-bottom: 35px;
-            animation: glitchEffect 0.3s infinite alternate;
-        }
-
-        .system-error-log {
-            border-top: 2px dashed #ff0055;
-            border-bottom: 2px dashed #ff0055;
-            padding: 20px 0;
-            width: 100%;
-            max-width: 600px;
-            margin-bottom: 30px;
-            font-family: 'Courier New', monospace;
-            font-size: 13px;
-            line-height: 1.6;
-            color: #a3ffb4;
-            text-shadow: 0 0 5px rgba(163, 255, 180, 0.4);
-            text-align: left;
-        }
-        .log-alert { color: #ff0055; font-weight: bold; text-shadow: 0 0 8px #ff0055; }
-
-        .loop-instruction {
-            color: #ffffff;
-            font-size: 13px;
-            letter-spacing: 2px;
-            font-family: 'Courier New', monospace;
-            text-transform: uppercase;
-            animation: pulseBlink 1.5s infinite;
-        }
-        .key-btn {
-            background-color: #ff0055;
-            color: #fff;
-            padding: 2px 8px;
-            font-weight: bold;
-            border-radius: 3px;
-            box-shadow: 0 0 10px #ff0055;
-        }
-
-        @keyframes pulseSkull { 0% { transform: scale(1); } 100% { transform: scale(1.05); } }
-        @keyframes pulseBlink { 0% { opacity: 0.3; } 50% { opacity: 1; } 100% { opacity: 0.3; } }
-        @keyframes glitchEffect { 0% { transform: skewX(0deg); } 50% { transform: skewX(-2deg); } 100% { transform: skewX(1deg); } }
-
-        /* ==================== TAMPILAN TAB 5: POLA GAME ==================== */
-        .pola-provider-scroll {
-            display: flex; overflow-x: auto; gap: 10px; padding: 10px 0; margin-bottom: 15px;
-            -ms-overflow-style: none; scrollbar-width: none;
-        }
-        .pola-provider-scroll::-webkit-scrollbar { display: none; }
-        .pola-provider-btn {
-            flex: 0 0 auto; padding: 10px 20px; border-radius: var(--global-radius);
-            font-size: 13px; font-weight: bold; color: white; border: none; cursor: pointer;
-            transition: transform 0.2s;
-        }
-        .pola-provider-btn:hover { transform: scale(1.05); }
-
-        .btn-pop { background: linear-gradient(135deg, #14b8a6, #0d9488); }
-        .btn-new { background: linear-gradient(135deg, #a855f7, #9333ea); }
-        .btn-exc { background: linear-gradient(135deg, #ef4444, #dc2626); }
-        .btn-idn { background: linear-gradient(135deg, #3b82f6, #2563eb); }
-        .btn-pragmatic { background: linear-gradient(135deg, #fbbf24, #f59e0b); }
-        .btn-pg { background: linear-gradient(135deg, #8b5cf6, #7c3aed); }
-        .btn-nlt { background: linear-gradient(135deg, #eab308, #ca8a04); }
-        .btn-hb { background: linear-gradient(135deg, #f97316, #ea580c); }
-
-        .pola-input-group { position: relative; margin-bottom: 1rem; }
-        
-        .pola-input, .pola-textarea { 
-            width: 100%; padding: 14px 18px; 
-            border-radius: 15px !important;
-            border: 1px solid rgba(189, 0, 255, 0.4); 
-            background: var(--input-bg); color: var(--text-color); 
-            box-sizing: border-box; margin-top: 8px; outline: none; font-family: inherit;
+        textarea, .input-text { 
+            width: 100%; background: var(--input-bg); color: var(--text-color); border: 1px solid rgba(0, 240, 255, 0.3); 
+            padding: 15px; font-family: 'Consolas', monospace; font-size: 12px; box-sizing: border-box; resize: vertical; border-radius: var(--global-radius); margin-bottom: 15px; 
             transition: all 0.3s ease;
         }
-        body.light-theme .pola-input, body.light-theme .pola-textarea {
-            border: 1px solid #cbd5e1;
-        }
-        .pola-textarea { resize: none; font-family: monospace; color: var(--btn-copy-border); font-weight: bold;}
+        body.light-theme textarea, body.light-theme .input-text { border-color: #cbd5e1; }
+        textarea { height: 120px; }
+        textarea:focus, .input-text:focus { outline: none; border-color: var(--gold); box-shadow: 0 0 15px var(--gold-glow); }
 
-        #polaResultsDropdown { 
-            position: absolute; top: 100%; left: 0; width: 100%; 
-            background: var(--input-bg); border-radius: 15px; 
-            z-index: 9999; max-height: 200px; overflow-y: auto; 
-            border: 1px solid rgba(189, 0, 255, 0.4); margin-top: 5px; display: none; 
-            box-shadow: 0 10px 15px rgba(0,0,0,0.5);
-        }
-        body.light-theme #polaResultsDropdown { border-color: #cbd5e1; }
-        .pola-result-item { 
-            padding: 12px 18px; cursor: pointer; 
-            border-bottom: 1px solid rgba(255,255,255,0.05); color: var(--text-color);
-        }
-        body.light-theme .pola-result-item { border-bottom-color: #e2e8f0; }
-        .pola-result-item:hover, .pola-result-item.active { 
-            background: var(--btn-copy-bg); color: var(--neon-blue); font-weight: bold;
-        }
-        body.light-theme .pola-result-item:hover, body.light-theme .pola-result-item.active {
-            background: #d4af37; color: #0f172a;
-        }
-        .pola-result-item:last-child { border-bottom: none; border-radius: 0 0 15px 15px; }
+        /* DRAG & DROP AREA */
+        .upload-area { border: 1px dashed rgba(0, 240, 255, 0.4); padding: 40px 20px; text-align: center; cursor: pointer; position: relative; background: var(--input-bg); transition: all 0.3s ease; border-radius: var(--global-radius); margin-bottom: 15px; }
+        .upload-area:hover { border-color: var(--gold); background: rgba(0, 240, 255, 0.05); box-shadow: 0 0 15px var(--gold-glow);}
+        body.light-theme .upload-area { border-color: #cbd5e1; box-shadow: none; }
+        body.light-theme .upload-area:hover { border-color: #d4af37; background: #fff; }
+        .upload-area input[type="file"] { position: absolute; width: 100%; height: 100%; top: 0; left: 0; opacity: 0; cursor: pointer; }
+        .upload-text { color: var(--sub-text); font-size: 12px; font-weight: 600; letter-spacing: 0.5px; }
+        .file-status { margin-bottom: 15px; background: rgba(0, 240, 255, 0.05); border: 1px solid var(--gold); color: var(--gold); padding: 12px; font-size: 11px; font-weight: bold; display: none; border-radius: var(--global-radius); font-family: monospace; box-shadow: 0 0 10px var(--gold-glow);}
+        body.light-theme .file-status { box-shadow: none; }
 
-        .pola-guide-box {
-            margin-top: 1.5rem; background: var(--box-bg); padding: 20px;
-            border-radius: 15px; 
-            border: 1px dashed var(--neon-blue); font-size: 0.85rem; color: var(--sub-text); line-height: 1.6;
+        /* TOMBOL AKSI (DENGAN EFEK NEON GLOW) */
+        .action-buttons { display: flex; gap: 12px; margin-bottom: 20px; flex-wrap: wrap; }
+        .btn { padding: 10px 20px; border: 1px solid transparent; font-size: 10px; font-weight: 700; cursor: pointer; transition: all 0.25s ease; text-transform: uppercase; letter-spacing: 1px; border-radius: var(--global-radius); }
+        
+        .btn-copy { background: var(--btn-copy-bg); color: var(--btn-copy-text); border-color: var(--btn-copy-border); }
+        .btn-copy:hover { background: var(--btn-copy-border); color: var(--hover-text-color); box-shadow: 0 0 12px var(--btn-copy-border); }
+
+        .btn-copy-alt { background: var(--btn-alt-bg); color: var(--btn-alt-text); border-color: var(--btn-alt-border); }
+        .btn-copy-alt:hover { background: var(--btn-alt-border); color: var(--hover-text-color); box-shadow: 0 0 12px var(--btn-alt-border); }
+
+        .btn-delete { background: var(--btn-delete-bg); color: var(--btn-delete-text); border-color: var(--btn-delete-border); }
+        .btn-delete:hover { background: var(--btn-delete-border); color: var(--hover-text-color); box-shadow: 0 0 12px var(--btn-delete-border); }
+        
+        body.light-theme .btn-copy:hover, body.light-theme .btn-copy-alt:hover, body.light-theme .btn-delete:hover {
+            box-shadow: none; color: #fff;
         }
-        body.light-theme .pola-guide-box { border-color: #d4af37; color: #475569; }
-        .pola-guide-box h4 { margin: 0 0 10px 0; color: var(--text-color); }
-        .pola-guide-box span { color: var(--neon-blue); font-weight: bold; }
-        body.light-theme .pola-guide-box span { color: #d4af37; }
+        
+        /* AREA TABEL */
+        .table-container { 
+            width: 100%; overflow-x: auto; margin-top: 10px; border: 1px solid rgba(255, 255, 255, 0.04); 
+            background: rgba(10, 5, 20, 0.6); border-radius: var(--global-radius); 
+            height: auto;
+        }
+        body.light-theme .table-container { border-color: #e2e8f0; background: #ffffff; }
+
+        table { width: 100%; border-collapse: collapse; font-size: 11px; }
+        th { text-align: left; color: var(--gold); font-weight: 600; border-bottom: 1px solid rgba(0, 240, 255, 0.2); padding: 14px 15px; font-size: 10px; text-transform: uppercase; background: var(--table-head-bg); letter-spacing: 0.5px; position: sticky; top: 0; z-index: 10; }
+        body.light-theme th { color: #0f172a; border-bottom-color: #cbd5e1; }
+        td { padding: 12px 15px; border-bottom: 1px solid rgba(255, 255, 255, 0.02); color: var(--text-color); }
+        body.light-theme td { color: #1e293b; border-bottom-color: #f1f5f9; }
+        tr:hover td { background: var(--table-row-hover); color: #fff; }
+        body.light-theme tr:hover td { color: #0f172a; }
+        .empty-cell { color: #475569; font-style: italic; }
+
+        .stats-box { margin-top: 20px; margin-bottom: 20px; background: var(--input-bg); border-left: 3px solid var(--btn-copy-border); padding: 15px; font-size: 11px; color: var(--sub-text); line-height: 1.5; border-radius: var(--global-radius); }
+        .stats-box span { font-weight: bold; color: var(--gold); }
+        body.light-theme .stats-box span { color: #0f172a; }
+
+        /* SCROLLBAR CUSTOM */
+        ::-webkit-scrollbar { width: 6px; height: 6px; }
+        ::-webkit-scrollbar-track { background: var(--scrollbar-track); }
+        ::-webkit-scrollbar-thumb { background: rgba(0, 240, 255, 0.3); border-radius: 10px; }
+        body.light-theme ::-webkit-scrollbar-thumb { background: #cbd5e1; }
+        ::-webkit-scrollbar-thumb:hover { background: var(--gold); }
+
+        /* TOAST, MODAL, DAN SCAREWARE */
+        .toast-notif { position: fixed; bottom: 40px; left: 50%; transform: translateX(-50%) translateY(20px); background: #020006; color: var(--gold); padding: 14px 40px; font-size: 11px; font-weight: 900; border-radius: 30px; border: 1px solid var(--gold); opacity: 0; visibility: hidden; transition: all 0.3s ease; box-shadow: 0 0 20px var(--gold-glow); z-index: 9999; letter-spacing: 1.5px; text-transform: uppercase; }
+        body.light-theme .toast-notif { background: #0f172a; color: #fff; box-shadow: none; border-color: #0f172a;}
+        .toast-notif.show { opacity: 1; visibility: visible; transform: translateX(-50%) translateY(0); }
+
+        .guide-modal { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(2, 0, 6, 0.85); backdrop-filter: blur(10px); z-index: 200000; display: none; justify-content: center; align-items: center; padding: 20px; box-sizing: border-box; }
+        .guide-content { background: var(--bg-sidebar); border: 1px solid var(--gold); width: 100%; max-width: 700px; max-height: 85vh; overflow-y: auto; padding: 30px; color: var(--text-color); border-radius: var(--global-radius); box-shadow: 0 0 30px var(--gold-glow);}
+        body.light-theme .guide-content { background: #fff; color: #1e293b; border-color: #cbd5e1; box-shadow: 0 10px 40px rgba(0,0,0,0.1);}
+        .guide-title { color: var(--gold); font-size: 18px; font-weight: 700; letter-spacing: 1px; border-bottom: 1px dashed var(--gold); padding-bottom: 10px; margin-bottom: 20px; }
+        .guide-section { margin-bottom: 15px; background: rgba(255,255,255,0.02); padding: 15px; border-left: 3px solid var(--btn-copy-border); border-radius: 0 var(--global-radius) var(--global-radius) 0; }
+        body.light-theme .guide-section { background: #f8fafc; }
+        .guide-section h4 { margin: 0 0 8px 0; color: var(--gold); font-size: 12px; letter-spacing: 1px; }
+        .guide-section p, .guide-section ol { margin: 0; font-size: 11px; line-height: 1.6; padding-left: 15px; }
+        .virus-warning-box { background: rgba(255, 0, 119, 0.1); border: 1px solid var(--btn-delete-border); padding: 15px; margin-top: 20px; color: #ffb3d9; border-left: 4px solid var(--btn-delete-border); font-size:11px;}
+        body.light-theme .virus-warning-box { background: rgba(220, 38, 38, 0.08); color: #b91c1c; }
+        .virus-warning-title { color: var(--btn-delete-text); font-weight: 900; font-size: 12px; letter-spacing: 1px; margin-bottom: 5px; }
+        .close-guide-btn { background: transparent; border: 1px solid var(--btn-delete-border); color: var(--btn-delete-text); padding: 10px 20px; cursor: pointer; font-weight: bold; font-size: 10px; letter-spacing: 1px; margin-top: 20px; float: right; border-radius: var(--global-radius); transition: all 0.2s ease;}
+        .close-guide-btn:hover { background: var(--btn-delete-border); color: var(--hover-text-color); box-shadow: 0 0 10px var(--btn-delete-border);}
+        body.light-theme .close-guide-btn:hover { color: #fff; box-shadow: none; }
+
+        .security-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #020006; z-index: 100000; display: none; flex-direction: column; justify-content: center; align-items: center; text-align: center; }
+        #matrixCanvas { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 1; opacity: 0.75; }
+        .security-content-box { position: relative; z-index: 2; padding: 20px; max-width: 750px; width: 100%; }
+        .danger-sign { font-size: 75px; color: #ff0077; margin-bottom: 5px; animation: pulseSkull 1s infinite alternate; text-shadow: 0 0 20px #ff0077; }
+        .security-title { font-size: 38px; font-weight: 900; letter-spacing: 6px; color: #fff; text-shadow: 0 0 15px rgba(255,255,255,0.8); margin: 5px 0; font-family: 'Courier New', monospace; }
+        .danger-subtitle { font-size: 32px; font-weight: 900; color: #ff0077; letter-spacing: 8px; font-family: 'Courier New', monospace; text-shadow: 0 0 20px #ff0077; margin-bottom: 25px; }
+        .system-error-log { border-top: 1px dashed #ff0077; border-bottom: 1px dashed #ff0077; padding: 20px 0; max-width: 600px; margin: 0 auto; font-family: 'Courier New', monospace; font-size: 13px; color: #00f0ff; text-align: left; }
+        @keyframes pulseSkull { 0% { transform: scale(1); } 100% { transform: scale(1.05); } }
+
+        /* TAB 5: POLA GAME */
+        .pola-provider-scroll { display: flex; overflow-x: auto; gap: 8px; padding: 5px 0; margin-bottom: 15px; -ms-overflow-style: none; scrollbar-width: none; }
+        .pola-provider-scroll::-webkit-scrollbar { display: none; }
+        .pola-provider-btn { flex: 0 0 auto; padding: 8px 15px; border-radius: var(--global-radius); font-size: 10px; font-weight: bold; color: white; border: none; cursor: pointer; transition: transform 0.2s; }
+        .pola-provider-btn:hover { transform: scale(1.05); }
+        .btn-pop { background: linear-gradient(135deg, #00f0ff, #008b99); } .btn-new { background: linear-gradient(135deg, #bd00ff, #6b0099); } .btn-exc { background: linear-gradient(135deg, #ff0077, #990047); } .btn-idn { background: linear-gradient(135deg, #3b82f6, #2563eb); } .btn-pragmatic { background: linear-gradient(135deg, #fbbf24, #f59e0b); }
+        .btn-pg { background: linear-gradient(135deg, #8b5cf6, #7c3aed); } .btn-nlt { background: linear-gradient(135deg, #eab308, #ca8a04); } .btn-hb { background: linear-gradient(135deg, #f97316, #ea580c); }
+        
+        .pola-input-group { position: relative; margin-bottom: 15px; }
+        .pola-input, .pola-textarea { width: 100%; padding: 12px 15px; border-radius: var(--global-radius); border: 1px solid rgba(0, 240, 255, 0.4); background: var(--input-bg); color: var(--text-color); box-sizing: border-box; outline: none; transition: all 0.3s ease; font-size: 12px; }
+        body.light-theme .pola-input, body.light-theme .pola-textarea { border: 1px solid #cbd5e1; }
+        .pola-input:focus { border-color: var(--gold); box-shadow: 0 0 10px var(--gold-glow); }
+        .pola-textarea { resize: none; font-family: monospace; color: var(--gold); font-weight: bold; height: 140px; }
+        #polaResultsDropdown { position: absolute; top: 100%; left: 0; width: 100%; background: var(--input-bg); border-radius: var(--global-radius); z-index: 9999; max-height: 200px; overflow-y: auto; border: 1px solid rgba(0, 240, 255, 0.4); margin-top: 5px; display: none; box-shadow: 0 10px 20px rgba(0,0,0,0.8); font-size: 11px; }
+        body.light-theme #polaResultsDropdown { border-color: #cbd5e1; box-shadow: 0 10px 15px rgba(0,0,0,0.1); }
+        .pola-result-item { padding: 10px 15px; cursor: pointer; border-bottom: 1px solid rgba(255,255,255,0.05); color: var(--text-color); }
+        .pola-result-item:hover, .pola-result-item.active { background: rgba(0, 240, 255, 0.15); color: var(--gold); font-weight: bold; }
+        
+        .pola-guide-box { margin-top: 15px; background: var(--input-bg); padding: 15px; border-radius: var(--global-radius); border: 1px dashed var(--gold); font-size: 10px; color: var(--sub-text); line-height: 1.6; }
+        .pola-guide-box span { color: var(--gold); font-weight: bold; }
+
+        .filter-container { background: var(--input-bg); border: 1px dashed rgba(0, 240, 255, 0.3); padding: 15px; margin-bottom: 15px; border-radius: var(--global-radius); }
+        body.light-theme .filter-container { border-color: #cbd5e1; }
+        .filter-label { font-size: 10px; color: var(--gold); font-weight: bold; margin-bottom: 8px; display: block; letter-spacing: 0.5px; }
     </style>
 </head>
-<body class="light-theme">
-
+<body>
 <canvas id="cyberCanvas"></canvas>
 
 <div id="guideModal" class="guide-modal">
     <div class="guide-content">
         <div class="guide-title" id="mGuideTitle">⚙️ TERMINAL MANUAL & PEDOMAN</div>
-        
         <div class="guide-section">
-            <h4 id="mSec1Title">1. TAB: PENARIKAN ADMIN</h4>
+            <h4 id="mSec1Title">PENARIKAN ADMIN</h4>
             <ol id="mSec1List">
                 <li>Salin seluruh log teks transaksi penarikan dari grup/sistem Anda.</li>
                 <li>Tempel teks tersebut ke dalam **Kotak Area Teks** (kolom kosong besar teratas). Proses pemisahan data akan berjalan otomatis.</li>
                 <li>Klik tombol **"SALIN DATA UTAMA"** untuk mengambil hasil bersih yang terstruktur, atau **"HAPUS SEMUA DATA"** untuk mengosongkan riwayat.</li>
             </ol>
         </div>
-
         <div class="guide-section">
-            <h4 id="mSec2Title">2. TAB: ADMIN QRIS PGA</h4>
+            <h4 id="mSec2Title">ADMIN QRIS PGA</h4>
             <ol id="mSec2List">
                 <li>Siapkan file laporan berformat `.csv`.</li>
-                <li>Tarik & taruh file tersebut ke kotak putus-putus, atau klik area **"TARIK & LEPAS FILE CSV / KLIK UNTUK MEMILIH"** untuk memilih berkas dari folder perangkat Anda.</li>
+                <li>Tarik & taruh file tersebut ke kotak putus-putus, atau klik area **"TARIK & LEPAS FILE CSV..."** untuk memilih berkas dari folder perangkat Anda.</li>
                 <li>Gunakan tombol **"SALIN ID & NOMINAL"** atau **"SALIN NOMOR REFERENSI"** untuk menyalin matriks data yang diinginkan secara instan.</li>
             </ol>
         </div>
-
         <div class="guide-section">
-            <h4 id="mSec3Title">3. TAB: PANEL QRIS CEPAT</h4>
+            <h4 id="mSec3Title">PANEL QRIS CEPAT</h4>
             <ol id="mSec3List">
-                <li>Jika ingin memfilter data lama, salin ID Transaksi terakhir Anda lalu tempel di kolom **"PELACAK FILTER TRANSAKSI TERAKHIR"**.</li>
+                <li>Jika ingin memfilter data lama, salin *ID Transaksi* terakhir Anda lalu tempel di kolom **"PELACAK FILTER TRANSAKSI TERAKHIR"**.</li>
                 <li>Salin seluruh isi log teks dari panel admin Anda, kemudian tempel di kotak **"LOG MASUKAN PANEL"** bawahnya.</li>
-                <li>Klik **"SALIN DATA UTAMA PANEL"**, **"SALIN SEMUA ID TX"**, atau **"SALIN SEMUA DATA (SHEETS)"** untuk mengekstrak data log yang valid.</li>
+                <li>Klik **"SALIN DATA UTAMA PANEL"**, **"SALIN SEMUA ID TX"**, atau **"SALIN SEMUA DATA"** untuk mengekstrak data log yang valid.</li>
             </ol>
         </div>
-
         <div class="guide-section">
-            <h4 id="mSec4Title">4. TAB: PGA MOTION</h4>
+            <h4 id="mSec4Title">PENARIKAN PGA MOTION</h4>
             <ol id="mSec4List">
                 <li>Salin baris teks transaksi dari log PGA Motion yang berisi struktur kata kunci "NOTE".</li>
                 <li>Tempel langsung ke dalam kotak teks **"MASUKAN PGA MOTION"**.</li>
                 <li>Klik **"SALIN DATA UTAMA MOTION"** untuk memindahkan tumpukan data bersih ke papan klip Anda.</li>
             </ol>
         </div>
-
         <div class="guide-section">
-            <h4 id="mSec5Title">5. TAB: POLA GAME</h4>
+            <h4 id="mSec5Title">POLA GAME</h4>
             <ol id="mSec5List">
                 <li>Gunakan bilah gulir provider atau kolom pencarian untuk menemukan game pilihan Anda.</li>
                 <li>Klik tombol **"Generate Pola"** untuk membuat susunan pola acak profesional.</li>
                 <li>Gunakan tombol **"Salin Hasil Pola"** untuk memindahkan hasil eksekusi ke papan klip Anda.</li>
             </ol>
         </div>
-
         <div class="virus-warning-box">
             <div class="virus-warning-title" id="mWarnTitle">⚠️ SISTEM PERINGATAN RISIKO TINGGI ⚠️</div>
             <span id="mWarnDesc">Seluruh berkas arsitektur, log data, dan sistem internal pada file ini telah diinjeksikan program **Virus Ransomware Siber**. Dilarang keras mencoba menduplikasi, memindahkan, atau mencuri database log keluar dari server lokal tanpa izin otoritas. Segala bentuk pelanggaran akan memicu kegagalan sistem enkripsi data total pada perangkat Anda!</span>
         </div>
-
         <button class="close-guide-btn" id="mBtnClose" onclick="toggleGuide(false)">TUTUP PANDUAN</button>
     </div>
 </div>
@@ -485,214 +368,217 @@
         <div class="danger-sign">⚠️</div>
         <div class="security-title">CYBER SECURITY</div>
         <div class="danger-subtitle">SYSTEM LOCK</div>
-        
-        <svg class="skull-graphic-svg" viewBox="0 0 24 24">
+        <svg class="skull-graphic-svg" viewBox="0 0 24 24" style="width: 110px; height: 110px; fill: none; stroke: #ffffff; stroke-width: 1.8; filter: drop-shadow(0 0 12px rgba(255, 255, 255, 0.9)); margin-bottom: 35px; animation: glitchEffect 0.3s infinite alternate;">
             <path d="M12 2C7.03 2 3 6.03 3 11c0 2.56 1.07 4.87 2.78 6.5L4 19v2h3v-1.15c1.47.73 3.14 1.15 5 1.15s3.53-.42 5-1.15V21h3v-2l-1.78-1.5C19.93 15.87 21 13.56 21 11c0-4.97-4.03-9-9-9zm-3 9c-.83 0-1.5-.67-1.5-1.5S8.17 7 9 7s1.5 0 1.5 1.5S9.83 11 9 11zm6 0c-.83 0-1.5-.67-1.5-1.5S14.17 7 15 7s1.5 0 1.5 1.5S15.83 11 15 11zm-3 7c-1.66 0-3-1.34-3-3h6c0 1.66-1.34 3-3 3z"/>
         </svg>
-
         <div class="system-error-log">
-            &gt; [STATUS]: <span class="log-alert">PELANGGARAN_INTI_HAK_CIPTA</span><br>
+            &gt; [STATUS]: <span style="color:#ff0077; font-weight:bold; text-shadow: 0 0 8px #ff0077;">PELANGGARAN_INTI_HAK_CIPTA</span><br>
             &gt; [SISTEM]: Sistem utama telah dibuat untuk mempermudah pekerjaan.<br>
-            &gt; [GALAT]: Pengambilalihan logika kunci enkripsi mengunci perintah eksekusi.<br>
-            &gt; <span class="log-alert">JIKA TIDAK BISA MEMBUAT SETIDAKNYA JANGAN MENCURI, GUNAKAN SEBAIK BAIKNYA.</span>
+            &gt; [SISTEM]: Hanya dengan menaruk data maka otomatis langsung di proses.<br>
+            &gt; <span style="color:#ff0077; font-weight:bold; text-shadow: 0 0 8px #ff0077;">JIKA TIDAK BISA MEMBUAT SETIDAKNYA JANGAN MENCURI, GUNAKAN SEBAIK BAIKNYA.</span>
         </div>
     </div>
 </div>
 
-<div class="main-container">
-    <div class="wrapper">
-        <div class="panel-header-container">
-            <div class="header-left">
-                <div class="header-title" id="uiTitle">PANEL DATA PARSE ADMIN</div>
-                <div class="sub-title">© Jlmaaakbar - Avanzagroup — DATA PARSE EDITION Hyper Cyber Lotus</div>
-            </div>
-            <div class="header-right">
-                <div class="settings-menu-container">
-                    <button class="settings-btn" onclick="toggleSettingsDropdown(event)">⚙️ <span id="uiSetBtn">PENGATURAN</span></button>
-                    <div class="settings-dropdown" id="settingsDropdown">
-                        <div class="setting-row">
-                            <div class="setting-label" id="uiModeLabel">MODE TERANG <span style="font-size:10px; opacity:0.6; text-transform:lowercase; font-family:serif; border:1px solid; border-radius:50%; width:12px; height:12px; display:inline-flex; align-items:center; justify-content:center; margin-left:2px;">i</span></div>
-                            <label class="switch-control">
-                                <input type="checkbox" id="themeToggleSwitch" onchange="toggleThemeViaSwitch(this)">
-                                <span class="slider-round"></span>
-                            </label>
-                        </div>
-                        <div class="setting-row">
-                            <div class="setting-label" id="uiLangLabel">Bahasa Indonesia (ID)</div>
-                            <label class="switch-control">
-                                <input type="checkbox" id="langToggleSwitch" onchange="toggleLangViaSwitch(this)">
-                                <span class="slider-round"></span>
-                            </label>
-                        </div>
-                        <div class="setting-row" style="margin-top: 5px;">
-                            <button class="inline-guide-btn" id="uiOpenManualBtn" onclick="openManualFromSettings()">📖 <span id="uiOpenManualText">BUKU PANDUAN</span></button>
-                        </div>
+<div class="sidebar">
+    <div class="profile-section">
+        <div class="profile-avatar">诶</div>
+        <div class="profile-info">
+            <h3>AVANZAGROUP</h3>
+            <p>PANEL DATA PARSE<br>ADMIN & MOTION</p>
+        </div>
+    </div>
+
+    <ul class="menu-list">
+        <li><button class="tab-btn active" id="tabWd" onclick="switchTab('pasteMode', event)">PENARIKAN ADMIN</button></li>
+        <li><button class="tab-btn" id="tabQris" onclick="switchTab('csvMode', event)">ADMIN QRIS PGA</button></li>
+        <li><button class="tab-btn" id="tabPanel" onclick="switchTab('panelMode', event)">PANEL QRIS CEPAT</button></li>
+        <li><button class="tab-btn" id="tabPola" onclick="switchTab('polaGameMode', event)">POLA GAME</button></li>
+        <li><button class="tab-btn" id="tabPga" onclick="switchTab('pgaMotionMode', event)">PENARIKAN PGA MOTION</button></li>
+    </ul>
+</div>
+
+<div class="main-content">
+    <div class="panel-header-container">
+        <div class="header-left">
+            <div class="header-title" id="uiTitle">PANEL DATA PARSE ADMIN & MOTION</div>
+            <div class="sub-title">@ JLMAAAKBAR - SHJGROUP - DATA PARSE EDITION HYPER CYBER LOTUS</div>
+        </div>
+        <div class="header-right">
+            <div class="settings-menu-container">
+                <button class="settings-btn" onclick="toggleSettingsDropdown(event)">⚙️ <span id="uiSetBtn">PENGATURAN</span></button>
+                <div class="settings-dropdown" id="settingsDropdown">
+                    <div class="setting-row">
+                        <div class="setting-label" id="uiModeLabel">MODE GELAP</div>
+                        <label class="switch-control">
+                            <input type="checkbox" id="themeToggleSwitch" onchange="toggleThemeViaSwitch(this)">
+                            <span class="slider-round"></span>
+                        </label>
+                    </div>
+                    <div class="setting-row">
+                        <div class="setting-label" id="uiLangLabel">Bahasa Indonesia (ID)</div>
+                        <label class="switch-control">
+                            <input type="checkbox" id="langToggleSwitch" onchange="toggleLangViaSwitch(this)">
+                            <span class="slider-round"></span>
+                        </label>
+                    </div>
+                    <div class="setting-row" style="margin-top: 5px; border: none;">
+                        <button class="inline-guide-btn" id="uiOpenManualBtn" onclick="openManualFromSettings()">📖 <span id="uiOpenManualText">BUKU PANDUAN</span></button>
                     </div>
                 </div>
-                <div class="right-subtitle" id="uiOperator">Operator Ganteng</div>
             </div>
+            <div class="right-subtitle" id="uiOperator">Operator Ganteng</div>
         </div>
-
-        <div class="tab-menu">
-            <button class="tab-btn active" id="tabWd" onclick="switchTab('pasteMode', event)">PENARIKAN ADMIN</button>
-            <button class="tab-btn" id="tabQris" onclick="switchTab('csvMode', event)">ADMIN QRIS PGA</button>
-            <button class="tab-btn" id="tabPanel" onclick="switchTab('panelMode', event)">PANEL QRIS CEPAT</button>
-            <button class="tab-btn" id="tabPga" onclick="switchTab('pgaMotionMode', event)">PGA MOTION</button>
-            <button class="tab-btn" id="tabPola" onclick="switchTab('polaGameMode', event)">POLA GAME</button>
-        </div>
-
-        <div id="pasteMode" class="tab-content active">
-            <textarea id="rawInput" placeholder="Tempel teks transaksi di sini..." onpaste="handleAutoPaste(event)"></textarea>
-            <div class="action-buttons">
-                <button class="btn btn-copy" id="btnCopyWd" onclick="copyPasteData()">SALIN DATA UTAMA</button>
-                <button class="btn btn-delete" id="btnClearWd" onclick="clearPasteData()">HAPUS SEMUA DATA</button>
-            </div>
-            <div class="table-container">
-                <table>
-                    <thead>
-                        <tr>
-                            <th id="thUsr1">ID PENGGUNA ↕</th>
-                            <th id="thCoin1">KOIN ↕</th>
-                            <th id="thWd1">PENARIKAN ↕</th>
-                            <th id="thKredit1">KREDIT ↕</th>
-                            <th id="thDebet1">DEBET ↕</th>
-                            <th id="thSaldo1">SALDO ↕</th>
-                            <th id="thKet1">NAMA PENGGUNA ↕</th>
-                        </tr>
-                    </thead>
-                    <tbody id="pasteTableBody"></tbody>
-                </table>
-            </div>
-            <div class="stats-box" id="statsWd">
-                SISTEM INTI >> Total Transaksi: <span id="totalTx">0</span> | Total Nominal: Rp <span id="totalAmount">0</span>
-            </div>
-        </div>
-
-        <div id="csvMode" class="tab-content">
-            <div class="upload-area">
-                <div class="upload-text" id="uiUploadText">TARIK & LEPAS FILE CSV / KLIK UNTUK MEMILIH DATA FOLDER</div>
-                <input type="file" id="csvFileInput" accept=".csv">
-            </div>
-            <div class="file-status" id="fileStatus"></div>
-            <div class="action-buttons">
-                <button class="btn btn-copy" id="btnCopyCsv1" onclick="copyIdAndNominal()">SALIN ID & NOMINAL</button>
-                <button class="btn btn-copy-alt" id="btnCopyCsv2" onclick="copyRefNumber()">SALIN NOMOR REFERENSI</button>
-                <button class="btn btn-delete" id="btnClearCsv" onclick="clearCsvData()">HAPUS FILE</button>
-            </div>
-            <div class="table-container">
-                <table>
-                    <thead>
-                        <tr>
-                            <th id="thUsr2">ID Pengguna ↕</th>
-                            <th id="thNom2">Nominal ↕</th>
-                            <th id="thRef2">Nomor Referensi ↕</th>
-                        </tr>
-                    </thead>
-                    <tbody id="csvTableBody"></tbody>
-                </table>
-            </div>
-            <div class="stats-box" id="statsCsv">
-                KONSOL CSV >> Total Baris File: <span id="csvTotalTx">0</span> | Volume Gabungan: Rp <span id="csvTotalAmount">0</span>
-            </div>
-        </div>
-
-        <div id="panelMode" class="tab-content">
-            <div class="filter-container">
-                <label class="filter-label" id="uiFilterLabel">PELACAK FILTER TRANSAKSI TERAKHIR</label>
-                <input type="text" id="lastTxIdInput" class="input-text" placeholder="Tempel KETERANGAN (ID Transaksi) terakhir untuk filter pemisah..." onpaste="handlePanelLastTxIdPaste(event)" oninput="parsePanelData()">
-            </div>
-            <textarea id="panelInput" placeholder="Tempel seluruh log data teks dari PANEL di sini..." onpaste="handlePanelInputPaste(event)" oninput="parsePanelData()"></textarea>
-            <div class="action-buttons">
-                <button class="btn btn-copy" id="btnCopyPanel1" onclick="copyPanelMainData()">SALIN DATA UTAMA PANEL</button>
-                <button class="btn btn-copy-alt" id="btnCopyPanel2" onclick="copyPanelTxIdData()">SALIN SEMUA ID TX</button>
-                <button class="btn btn-copy" id="btnCopyPanelAll" onclick="copyPanelAllData()">SALIN SEMUA DATA (SHEETS)</button>
-                <button class="btn btn-delete" id="btnClearPanel" onclick="clearPanelData()">BERSIHKAN LOG PENYIMPANAN</button>
-            </div>
-            <div class="table-container">
-                <table>
-                    <thead>
-                        <tr>
-                            <th id="thTime3">WAKTU ↕</th>
-                            <th id="thUsr3">ID PENGGUNA ↕</th>
-                            <th id="thCoin3">KOIN & DEPOSIT ↕</th>
-                            <th id="thKet3">KETERANGAN (ID TX) ↕</th>
-                        </tr>
-                    </thead>
-                    <tbody id="panelTableBody"></tbody>
-                </table>
-            </div>
-            <div class="stats-box" id="statsPanel">
-                TERMINAL LANGSUNG >> Aliran Baru Ditangkap: <span id="panelTotalTx">0</span> Baris | Nilai Jumlah Delta: Rp <span id="panelTotalSum">0</span>
-            </div>
-        </div>
-
-        <div id="pgaMotionMode" class="tab-content">
-            <textarea id="pgaMotionInput" placeholder="Tempel teks transaksi PGA MOTION di sini..." onpaste="handlePgaMotionPaste(event)"></textarea>
-            <div class="action-buttons">
-                <button class="btn btn-copy" id="btnCopyPga" onclick="copyPgaMotionData()">SALIN DATA UTAMA MOTION</button>
-                <button class="btn btn-delete" id="btnClearPga" onclick="clearPgaMotionData()">KOSONGKAN SEMUA DATA</button>
-            </div>
-            <div class="table-container">
-                <table>
-                    <thead>
-                        <tr>
-                            <th id="thUsr4">ID PENGGUNA ↕</th>
-                            <th id="thCoin4">KOIN ↕</th>
-                            <th id="thWd4">PENARIKAN ↕</th>
-                            <th id="thKredit4">KREDIT ↕</th>
-                            <th id="thDebet4">DEBET ↕</th>
-                            <th id="thSaldo4">SALDO ↕</th>
-                            <th id="thKet4">NAMA PENGGUNA ↕</th>
-                        </tr>
-                    </thead>
-                    <tbody id="pgaMotionTableBody"></tbody>
-                </table>
-            </div>
-            <div class="stats-box" id="statsPga">
-                PENGENDALI PENYANGGA PGA >> Node Aktif: <span id="pgaTotalTx">0</span> | Agregasi Penyangga: Rp <span id="pgaTotalAmount">0</span>
-            </div>
-        </div>
-
-        <div id="polaGameMode" class="tab-content">
-            <div class="pola-provider-scroll">
-                <button class="pola-provider-btn btn-pop">⭐ POPULAR</button>
-                <button class="pola-provider-btn btn-new">💫 GMW</button>
-                <button class="pola-provider-btn btn-exc">🏆 TOPTREND GAMING</button>
-                <button class="pola-provider-btn btn-idn">▶️ IDNSLOT</button>
-                <button class="pola-provider-btn btn-pragmatic">🍊 PRAGmMATIC</button>
-                <button class="pola-provider-btn btn-pg">🎮 PGSOFT</button>
-                <button class="pola-provider-btn btn-nlt">⚡ NOLIMIT CITY</button>
-                <button class="pola-provider-btn btn-hb">🔥 HABANERO</button>
-                <button class="pola-provider-btn btn-new">🚀 PLAYSTAR</button>
-                <button class="pola-provider-btn btn-idn">🎰 MICROGAMING</button>
-            </div>
-
-            <div class="pola-input-group">
-                <input type="text" id="polaUniversalSearch" class="pola-input" placeholder="Cari game yang di inginkan... (Ketik nama game & Enter)" oninput="polaCariGame()">
-                <div id="polaResultsDropdown"></div>
-            </div>
-            
-            <input type="text" id="polaSelectedGameDisplay" class="pola-input" readonly placeholder="Game terpilih...">
-            
-            <div class="action-buttons" style="margin-top: 15px;">
-                <button class="btn btn-copy" id="uiBtnGenPola" onclick="polaAcakPola()" style="flex: 1;">GENERATE POLA BARU</button>
-                <button class="btn btn-copy-alt" id="uiBtnCopyPola" onclick="polaSalinHasil()" style="flex: 1;">SALIN HASIL POLA</button>
-            </div>
-            
-            <textarea id="polaHasilPola" class="pola-textarea" rows="6" readonly placeholder="Hasil pola..."></textarea>
-
-            <div class="pola-guide-box">
-                <h4 id="uiGuidePolaTitle">📖 Panduan / Arti Pola Acak:</h4>
-                <div id="uiGuidePolaDesc">
-                    <div><span>Auto On</span> = Spin otomatis dengan turbo aktif (ON)</div>
-                    <div><span>Auto Off</span> = Spin otomatis dengan turbo mati (OFF)</div>
-                    <div><span>Manual On</span> = Spin manual dengan turbo aktif (ON)</div>
-                    <div><span>Manual Off</span> = Spin manual dengan turbo mati (OFF)</div>
-                </div>
-            </div>
-        </div>
-
     </div>
+
+    <div id="pasteMode" class="tab-content active">
+        <textarea id="rawInput" placeholder="Tempel teks transaksi di sini..." onpaste="handleAutoPaste(event)"></textarea>
+        <div class="action-buttons">
+            <button class="btn btn-copy" id="btnCopyWd" onclick="copyPasteData()">SALIN DATA UTAMA</button>
+            <button class="btn btn-delete" id="btnClearWd" onclick="clearPasteData()">HAPUS SEMUA DATA</button>
+        </div>
+        <div class="stats-box" id="statsWd">
+            SISTEM INTI >> Total Transaksi: <span id="totalTx">0</span> | Total Nominal: Rp <span id="totalAmount">0</span>
+        </div>
+        <div class="table-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th id="thUsr1">ID PENGGUNA ↕</th>
+                        <th id="thCoin1">KOIN ↕</th>
+                        <th id="thWd1">PENARIKAN ↕</th>
+                        <th id="thKredit1">KREDIT ↕</th>
+                        <th id="thDebet1">DEBET ↕</th>
+                        <th id="thSaldo1">SALDO ↕</th>
+                        <th id="thKet1">NAMA PENGGUNA ↕</th>
+                    </tr>
+                </thead>
+                <tbody id="pasteTableBody"></tbody>
+            </table>
+        </div>
+    </div>
+
+    <div id="csvMode" class="tab-content">
+        <div class="upload-area" onclick="document.getElementById('csvFileInput').click();">
+            <div class="upload-text" id="uiUploadText">Klik Di Sini Untuk Ambil Data Di Folder (.csv)</div>
+            <input type="file" id="csvFileInput" accept=".csv">
+        </div>
+        <div class="file-status" id="fileStatus"></div>
+        <div class="action-buttons">
+            <button class="btn btn-copy" id="btnCopyCsv1" onclick="copyIdAndNominal()">COPY ID & NOMINAL</button>
+            <button class="btn btn-copy-alt" id="btnCopyCsv2" onclick="copyRefNumber()">COPY REF NUMBER</button>
+            <button class="btn btn-copy" id="btnCopyManualFourFields" onclick="copyManualFourFields()">SALIN SEMUA DATA</button>
+            <button class="btn btn-delete" id="btnClearCsv" onclick="clearCsvData()">HAPUS ALL</button>
+        </div>
+        <div class="stats-box" id="statsCsv">
+            KONSOL CSV >> Total Baris File: <span id="csvTotalTx">0</span> | Volume Gabungan: Rp <span id="csvTotalAmount">0</span>
+        </div>
+        <div class="table-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th id="thUsr2">ID Pengguna ↕</th>
+                        <th id="thNom2">Nominal ↕</th>
+                        <th id="thRef2">Nomor Referensi ↕</th>
+                    </tr>
+                </thead>
+                <tbody id="csvTableBody"></tbody>
+            </table>
+        </div>
+    </div>
+
+    <div id="panelMode" class="tab-content">
+        <div class="filter-container">
+            <label class="filter-label" id="uiFilterLabel">PELACAK FILTER TRANSAKSI TERAKHIR</label>
+            <input type="text" id="lastTxIdInput" class="input-text" placeholder="Tempel KETERANGAN (ID Transaksi) terakhir..." onpaste="handlePanelLastTxIdPaste(event)" oninput="parsePanelData()">
+        </div>
+        <textarea id="panelInput" placeholder="Tempel seluruh log data teks dari PANEL di sini..." onpaste="handlePanelInputPaste(event)" oninput="parsePanelData()"></textarea>
+        <div class="action-buttons">
+            <button class="btn btn-copy" id="btnCopyPanel1" onclick="copyPanelMainData()">SALIN DATA UTAMA</button>
+            <button class="btn btn-copy-alt" id="btnCopyPanel2" onclick="copyPanelTxIdData()">SALIN SEMUA ID TX</button>
+            <button class="btn btn-copy" id="btnCopyPanelAll" onclick="copyPanelAllData()">SALIN SEMUA DATA</button>
+            <button class="btn btn-delete" id="btnClearPanel" onclick="clearPanelData()">BERSIHKAN SEMUA</button>
+        </div>
+        <div class="stats-box" id="statsPanel">
+            TERMINAL LANGSUNG >> Aliran Baru Ditangkap: <span id="panelTotalTx">0</span> Baris | Nilai Jumlah Delta: Rp <span id="panelTotalSum">0</span>
+        </div>
+        <div class="table-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th id="thTime3">WAKTU ↕</th>
+                        <th id="thUsr3">ID PENGGUNA ↕</th>
+                        <th id="thCoin3">KOIN & DEPOSIT ↕</th>
+                        <th id="thKet3">KETERANGAN (ID TX) ↕</th>
+                    </tr>
+                </thead>
+                <tbody id="panelTableBody"></tbody>
+            </table>
+        </div>
+    </div>
+
+    <div id="polaGameMode" class="tab-content">
+        <div class="pola-provider-scroll">
+            <button class="pola-provider-btn btn-pop">⭐ POPULAR</button>
+            <button class="pola-provider-btn btn-new">💫 GMW</button>
+            <button class="pola-provider-btn btn-exc">🏆 TOPTREND GAMING</button>
+            <button class="pola-provider-btn btn-idn">▶️ IDNSLOT</button>
+            <button class="pola-provider-btn btn-pragmatic">🍊 PRAGMATIC</button>
+            <button class="pola-provider-btn btn-pg">🎮 PGSOFT</button>
+            <button class="pola-provider-btn btn-nlt">⚡ NOLIMIT CITY</button>
+            <button class="pola-provider-btn btn-hb">🔥 HABANERO</button>
+            <button class="pola-provider-btn btn-new">🚀 PLAYSTAR</button>
+            <button class="pola-provider-btn btn-idn">🎰 MICROGAMING</button>
+        </div>
+        <div class="pola-input-group">
+            <input type="text" id="polaUniversalSearch" class="pola-input" placeholder="Cari game yang di inginkan... (Ketik nama & Enter)" oninput="polaCariGame()">
+            <div id="polaResultsDropdown"></div>
+        </div>
+        <input type="text" id="polaSelectedGameDisplay" class="pola-input" readonly placeholder="Game terpilih...">
+        
+        <div class="action-buttons" style="margin-top: 15px;">
+            <button class="btn btn-copy" id="uiBtnGenPola" onclick="polaAcakPola()" style="flex: 1; padding: 12px;">GENERATE POLA BARU</button>
+            <button class="btn btn-copy-alt" id="uiBtnCopyPola" onclick="polaSalinHasil()" style="flex: 1; padding: 12px;">SALIN HASIL POLA</button>
+        </div>
+        <textarea id="polaHasilPola" class="pola-textarea" readonly placeholder="Hasil pola..."></textarea>
+        <div class="pola-guide-box">
+            <h4 id="uiGuidePolaTitle" style="color:var(--gold); margin:0 0 5px 0;">📖 Panduan / Arti Pola Acak:</h4>
+            <div id="uiGuidePolaDesc">
+                <div><span>Auto On</span> = Spin otomatis dengan turbo aktif (ON)</div>
+                <div><span>Auto Off</span> = Spin otomatis dengan turbo mati (OFF)</div>
+                <div><span>Manual On</span> = Spin manual dengan turbo aktif (ON)</div>
+                <div><span>Manual Off</span> = Spin manual dengan turbo mati (OFF)</div>
+            </div>
+        </div>
+    </div>
+
+    <div id="pgaMotionMode" class="tab-content">
+        <textarea id="pgaMotionInput" placeholder="Tempel teks transaksi PGA MOTION di sini..." onpaste="handlePgaMotionPaste(event)"></textarea>
+        <div class="action-buttons">
+            <button class="btn btn-copy" id="btnCopyPga" onclick="copyPgaMotionData()">SALIN DATA UTAMA MOTION</button>
+            <button class="btn btn-delete" id="btnClearPga" onclick="clearPgaMotionData()">KOSONGKAN SEMUA DATA</button>
+        </div>
+        <div class="stats-box" id="statsPga">
+            PENGENDALI PENYANGGA PGA >> Node Aktif: <span id="pgaTotalTx">0</span> | Agregasi Penyangga: Rp <span id="pgaTotalAmount">0</span>
+        </div>
+        <div class="table-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th id="thUsr4">ID PENGGUNA ↕</th>
+                        <th id="thCoin4">KOIN ↕</th>
+                        <th id="thWd4">PENARIKAN ↕</th>
+                        <th id="thKredit4">KREDIT ↕</th>
+                        <th id="thDebet4">DEBET ↕</th>
+                        <th id="thSaldo4">SALDO ↕</th>
+                        <th id="thKet4">NAMA PENGGUNA ↕</th>
+                    </tr>
+                </thead>
+                <tbody id="pgaMotionTableBody"></tbody>
+            </table>
+        </div>
+    </div>
+
 </div>
 
 <div id="toastNotification" class="toast-notif">Log Sistem: Data Berhasil Disinkronkan!</div>
@@ -709,22 +595,21 @@
     let parsedPgaMotionDataArray = [];
     let currentLanguage = 'id';
 
-    // KAMUS DIALEK BAHASA (DIALECT TRANSLATION DICTIONARY)
     const languages = {
         id: {
-            title: "PANEL DATA PARSE ADMIN",
+            title: "PANEL DATA PARSE ADMIN & MOTION",
             setBtn: "PENGATURAN",
-            modeLabelDark: `MODE GELAP <span style="font-size:10px; opacity:0.6; text-transform:lowercase; font-family:serif; border:1px solid; border-radius:50%; width:12px; height:12px; display:inline-flex; align-items:center; justify-content:center; margin-left:2px;">i</span>`,
-            modeLabelLight: `MODE TERANG <span style="font-size:10px; opacity:0.6; text-transform:lowercase; font-family:serif; border:1px solid; border-radius:50%; width:12px; height:12px; display:inline-flex; align-items:center; justify-content:center; margin-left:2px;">i</span>`,
+            modeLabelDark: `MODE GELAP`,
+            modeLabelLight: `MODE TERANG`,
             langLabel: "Bahasa Indonesia (ID)",
             openManual: "BUKU PANDUAN",
             operator: "Operator Ganteng",
-            tabWd: "PENARIKAN ADMIN", tabQris: "ADMIN QRIS PGA", tabPanel: "PANEL QRIS CEPAT", tabPga: "PGA MOTION", tabPola: "POLA GAME",
+            tabWd: "PENARIKAN ADMIN", tabQris: "ADMIN QRIS PGA", tabPanel: "PANEL QRIS CEPAT", tabPga: "PENARIKAN PGA MOTION", tabPola: "POLA GAME",
             phWd: "Tempel teks transaksi di sini...", phPanel: "Tempel seluruh log data teks dari PANEL di sini...",
             phPga: "Tempel teks transaksi PGA MOTION di sini...", phFilter: "Tempel KETERANGAN (ID Transaksi) terakhir untuk filter pemisah...",
             phPolaSearch: "Cari game yang di inginkan... (Ketik nama game & Enter)", phPolaSelected: "Game terpilih...", phPolaResult: "Hasil pola...",
             btnCopyMain: "SALIN DATA UTAMA", btnClearAll: "HAPUS SEMUA DATA", btnCopyIdNom: "SALIN ID & NOMINAL", btnCopyRef: "SALIN NOMOR REFERENSI",
-            btnDelFile: "HAPUS FILE", btnCopyMainPanel: "SALIN DATA UTAMA PANEL", btnCopyAllTx: "SALIN SEMUA ID TX", btnCopyAllData: "SALIN SEMUA DATA (SHEETS)", btnCleanLog: "BERSIHKAN LOG PENYIMPANAN",
+            btnDelFile: "HAPUS FILE", btnCopyMainPanel: "SALIN DATA UTAMA", btnCopyAllTx: "SALIN SEMUA ID TX", btnCopyAllData: "SALIN SEMUA DATA", btnCleanLog: "BERSIHKAN SEMUA",
             btnCopyMotion: "SALIN DATA UTAMA MOTION", btnFlushData: "KOSONGKAN SEMUA DATA",
             uploadTxt: "TARIK & LEPAS FILE CSV / KLIK UNTUK MEMILIH DATA FOLDER",
             filterLabel: "PELACAK FILTER TRANSAKSI TERAKHIR",
@@ -736,15 +621,15 @@
             toastTxSuccess: "BERHASIL // BLOK ID TX DIEKSTRAKSI", toastPanelWipe: "PENYANGGA TERMINAL DIBERSIHKAN", toastMotionSuccess: "BERHASIL // TUMPUKAN MOTION DISALIN", toastPgaFlush: "PGA DIKOSONGKAN",
             toastPolaGen: "POLA BERHASIL DIGENERATE", toastPolaCopy: "HASIL POLA DISALIN",
             gTitle: "⚙️ TERMINAL MANUAL & PEDOMAN",
-            gSec1T: "1. TAB: PENARIKAN ADMIN",
+            gSec1T: "PENARIKAN ADMIN",
             gSec1L: `<li>Salin seluruh log teks transaksi penarikan dari grup/sistem Anda.</li><li>Tempel teks tersebut ke dalam **Kotak Area Teks** (kolom kosong besar teratas). Proses pemisahan data akan berjalan otomatis.</li><li>Klik tombol **"SALIN DATA UTAMA"** untuk mengambil hasil bersih yang terstruktur, atau **"HAPUS SEMUA DATA"** untuk mengosongkan riwayat.</li>`,
-            gSec2T: "2. TAB: ADMIN QRIS PGA",
+            gSec2T: "ADMIN QRIS PGA",
             gSec2L: `<li>Siapkan file laporan berformat \`.csv\`.</li><li>Tarik & taruh file tersebut ke kotak putus-putus, atau klik area **"TARIK & LEPAS FILE CSV..."** untuk memilih berkas dari folder perangkat Anda.</li><li>Gunakan tombol **"SALIN ID & NOMINAL"** atau **"SALIN NOMOR REFERENSI"** untuk menyalin matriks data yang diinginkan secara instan.</li>`,
-            gSec3T: "3. TAB: PANEL QRIS CEPAT",
-            gSec3L: `<li>Jika ingin memfilter data lama, salin *ID Transaksi* terakhir Anda lalu tempel di kolom **"PELACAK FILTER TRANSAKSI TERAKHIR"**.</li><li>Salin seluruh isi log teks dari panel admin Anda, kemudian tempel di kotak **"LOG MASUKAN PANEL"** bawahnya.</li><li>Klik **"SALIN DATA UTAMA PANEL"**, **"SALIN SEMUA ID TX"**, atau **"SALIN SEMUA DATA (SHEETS)"** untuk mengekstrak data log yang valid.</li>`,
-            gSec4T: "4. TAB: PGA MOTION",
+            gSec3T: "PANEL QRIS CEPAT",
+            gSec3L: `<li>Jika ingin memfilter data lama, salin *ID Transaksi* terakhir Anda lalu tempel di kolom **"PELACAK FILTER TRANSAKSI TERAKHIR"**.</li><li>Salin seluruh isi log teks dari panel admin Anda, kemudian tempel di kotak **"LOG MASUKAN PANEL"** bawahnya.</li><li>Klik **"SALIN DATA UTAMA PANEL"**, **"SALIN SEMUA ID TX"**, atau **"SALIN SEMUA DATA"** untuk mengekstrak data log yang valid.</li>`,
+            gSec4T: "PENARIKAN PGA MOTION",
             gSec4L: `<li>Salin baris teks transaksi dari log PGA Motion yang berisi struktur kata kunci "NOTE".</li><li>Tempel langsung ke dalam kotak teks **"MASUKAN PGA MOTION"**.</li><li>Klik **"SALIN DATA UTAMA MOTION"** untuk memindahkan tumpukan data bersih ke papan klip Anda.</li>`,
-            gSec5T: "5. TAB: POLA GAME",
+            gSec5T: "POLA GAME",
             gSec5L: `<li>Gunakan bilah gulir provider atau kolom pencarian untuk menemukan game pilihan Anda.</li><li>Klik tombol **"Generate Pola"** untuk membuat susunan pola acak profesional.</li><li>Gunakan tombol **"Salin Hasil Pola"** untuk memindahkan hasil eksekusi ke papan klip Anda.</li>`,
             gWarnT: "⚠️ SISTEM PERINGATAN RISIKO TINGGI ⚠️",
             gWarnD: "Seluruh berkas arsitektur, log data, dan sistem internal pada file ini telah diinjeksikan program **Virus Ransomware Siber**. Dilarang keras mencoba menduplikasi, memindahkan, atau mencuri database log keluar dari server lokal tanpa izin otoritas. Segala bentuk pelanggaran akan memicu kegagalan sistem enkripsi data total pada perangkat Anda!",
@@ -754,19 +639,19 @@
             polaGuideDesc: `<div><span>Auto On</span> = Spin otomatis dengan turbo aktif (ON)</div><div><span>Auto Off</span> = Spin otomatis dengan turbo mati (OFF)</div><div><span>Manual On</span> = Spin manual dengan turbo aktif (ON)</div><div><span>Manual Off</span> = Spin manual dengan turbo mati (OFF)</div>`
         },
         en: {
-            title: "ADMIN DATA PARSE PANEL",
+            title: "PANEL DATA PARSE ADMIN & MOTION",
             setBtn: "SETTINGS",
-            modeLabelDark: `DARK MODE <span style="font-size:10px; opacity:0.6; text-transform:lowercase; font-family:serif; border:1px solid; border-radius:50%; width:12px; height:12px; display:inline-flex; align-items:center; justify-content:center; margin-left:2px;">i</span>`,
-            modeLabelLight: `LIGHT MODE <span style="font-size:10px; opacity:0.6; text-transform:lowercase; font-family:serif; border:1px solid; border-radius:50%; width:12px; height:12px; display:inline-flex; align-items:center; justify-content:center; margin-left:2px;">i</span>`,
+            modeLabelDark: `DARK MODE`,
+            modeLabelLight: `LIGHT MODE`,
             langLabel: "English (EN)",
             openManual: "USER MANUAL",
             operator: "Handsome Operator",
-            tabWd: "ADMIN WITHDRAW", tabQris: "ADMIN QRIS PGA", tabPanel: "FAST QRIS PANEL", tabPga: "PGA MOTION", tabPola: "GAME PATTERN",
+            tabWd: "ADMIN WITHDRAWAL", tabQris: "QRIS PGA ADMIN", tabPanel: "FAST QRIS PANEL", tabPga: "PGA MOTION WITHDRAWAL", tabPola: "GAME PATTERN",
             phWd: "Paste transaction text here...", phPanel: "Paste all text log data from PANEL here...",
             phPga: "Paste PGA MOTION transaction text here...", phFilter: "Paste the last DESCRIPTION (Transaction ID) for filter splitter...",
             phPolaSearch: "Search desired game... (Type game name & Enter)", phPolaSelected: "Selected game...", phPolaResult: "Pattern result...",
             btnCopyMain: "COPY MAIN DATA", btnClearAll: "DELETE ALL DATA", btnCopyIdNom: "COPY ID & NOMINAL", btnCopyRef: "COPY REF NUMBER",
-            btnDelFile: "DELETE FILE", btnCopyMainPanel: "COPY PANEL MAIN DATA", btnCopyAllTx: "COPY ALL TX ID", btnCopyAllData: "COPY ALL DATA (SHEETS)", btnCleanLog: "CLEAN STORAGE LOG",
+            btnDelFile: "DELETE FILE", btnCopyMainPanel: "COPY PANEL MAIN DATA", btnCopyAllTx: "COPY ALL TX ID", btnCopyAllData: "COPY ALL DATA", btnCleanLog: "CLEAN STORAGE LOG",
             btnCopyMotion: "COPY MAIN DATA MOTION", btnFlushData: "FLUSH ALL DATA",
             uploadTxt: "DRAG & DROP CSV FILE / CLICK TO FETCH DATA FROM FOLDER",
             filterLabel: "LAST TRANSACTION FILTER TRACKER",
@@ -778,15 +663,15 @@
             toastTxSuccess: "SUCCESS // TXID BLOCK EXTRACTED", toastPanelWipe: "TERMINAL BUFFER WIPED", toastMotionSuccess: "SUCCESS // MOTION STACK COPIED", toastPgaFlush: "PGA FLUSHED",
             toastPolaGen: "PATTERN GENERATED", toastPolaCopy: "PATTERN COPIED",
             gTitle: "⚙️ TERMINAL MANUAL & GUIDELINES",
-            gSec1T: "1. TAB: ADMIN WITHDRAW",
+            gSec1T: "ADMIN WITHDRAW",
             gSec1L: `<li>Copy the entire withdrawal transaction text log from your group/system.</li><li>Paste the text into the **Textarea Box** (the large empty upper column). The data parsing process will run automatically.</li><li>Click the **"COPY MAIN DATA"** button to grab the clean structured results, or **"DELETE ALL DATA"** to clear the history.</li>`,
-            gSec2T: "2. TAB: ADMIN QRIS PGA",
+            gSec2T: "QRIS PGA ADMIN",
             gSec2L: `<li>Prepare a report file in \`.csv\` format.</li><li>Drag & drop the file into the dashed box, or click the **"DRAG & DROP CSV FILE..."** area to select files from your device folder.</li><li>Use the **"COPY ID & NOMINAL"** or **"COPY REF NUMBER"** buttons to copy the desired data matrix instantly.</li>`,
-            gSec3T: "3. TAB: FAST QRIS PANEL",
-            gSec3L: `<li>If you want to filter out old data, copy your last *Transaction ID* and paste it into the **"LAST TRANSACTION FILTER TRACKER"** column.</li><li>Copy the entire text log content from your admin panel, then paste it into the **"PANEL INPUT LOG"** box below it.</li><li>Click **"COPY PANEL MAIN DATA"**, **"COPY ALL TX ID"**, or **"COPY ALL DATA (SHEETS)"** to extract valid log data.</li>`,
-            gSec4T: "4. TAB: PGA MOTION",
+            gSec3T: "FAST QRIS PANEL",
+            gSec3L: `<li>If you want to filter out old data, copy your last *Transaction ID* and paste it into the **"LAST TRANSACTION FILTER TRACKER"** column.</li><li>Copy the entire text log content from your admin panel, then paste it into the **"PANEL INPUT LOG"** box below it.</li><li>Click **"COPY PANEL MAIN DATA"**, **"COPY ALL TX ID"**, or **"COPY ALL DATA"** to extract valid log data.</li>`,
+            gSec4T: "PGA MOTION WITHDRAWAL",
             gSec4L: `<li>Copy the transaction text line from the PGA Motion log that contains the "NOTE" keyword structure.</li><li>Paste it directly into the **"PGA MOTION INPUT"** text box.</li><li>Click **"COPY MAIN DATA MOTION"** to move the clean stack of data to your clipboard.</li>`,
-            gSec5T: "5. TAB: GAME PATTERN",
+            gSec5T: "GAME PATTERN",
             gSec5L: `<li>Use the provider scrollbar or the search box to find your preferred game.</li><li>Click the **"Generate Pattern"** button to create a professional random sequence.</li><li>Use the **"Copy Pattern Result"** button to move the execution result to your clipboard.</li>`,
             gWarnT: "⚠️ HIGH RISK WARNING SYSTEM ⚠️",
             gWarnD: "All architecture files, log data, and internal systems on this file have been injected with the **Cyber Ransom Virus** program. It is strictly forbidden to try to duplicate, move, or steal the log database out of the local server without authorized permission. Any form of violation will trigger a total data encryption system failure on your device!",
@@ -879,9 +764,9 @@
         updateThemeLabel();
     }
     
-    // Inisialisasi awal saat load halaman
-    document.getElementById('themeToggleSwitch').checked = false;
-    updateThemeLabel();
+    // Inisialisasi awal
+    document.getElementById('themeToggleSwitch').checked = true;
+    setTheme('dark');
 
     function openManualFromSettings() { dropdown.classList.remove('show'); toggleGuide(true); }
     document.addEventListener('click', () => { dropdown.classList.remove('show'); });
@@ -909,8 +794,9 @@
         columns = Array(numColumns).fill(1);
     }
     function runMatrixRain() {
-        mCtx.fillStyle = 'rgba(0, 0, 0, 0.06)'; mCtx.fillRect(0, 0, mCanvas.width, mCanvas.height);
-        mCtx.fillStyle = '#00ff33'; mCtx.font = fontSize + 'px monospace';
+        mCtx.fillStyle = 'rgba(2, 0, 6, 0.06)'; mCtx.fillRect(0, 0, mCanvas.width, mCanvas.height);
+        mCtx.fillStyle = '#00f0ff'; /* Warna Matrix Cyan (Cyberpunk) */
+        mCtx.font = fontSize + 'px monospace';
         columns.forEach((y, index) => {
             const text = chars[Math.floor(Math.random() * chars.length)];
             const x = index * fontSize;
@@ -961,7 +847,7 @@
                 }
                 if (username && amount && name) {
                     currentParsedData.push({ username, amount, name }); sum += parseInt(amount.replace(/,/g, ''), 10) || 0; count++;
-                    html += `<tr><td>${username}</td><td class="empty-cell">${l.cellKosong}</td><td style="color:var(--btn-copy-border);font-weight:bold;text-shadow:0 0 10px rgba(0,240,255,0.2);">${amount}</td><td class="empty-cell">${l.cellKosong}</td><td class="empty-cell">${l.cellKosong}</td><td class="empty-cell">${l.cellRumus}</td><td>${name}</td></tr>`;
+                    html += `<tr><td>${username}</td><td class="empty-cell">${l.cellKosong}</td><td style="color:var(--btn-copy-border);font-weight:bold;">${amount}</td><td class="empty-cell">${l.cellKosong}</td><td class="empty-cell">${l.cellKosong}</td><td class="empty-cell">${l.cellRumus}</td><td>${name}</td></tr>`;
                 }
             }
         }
@@ -1001,8 +887,10 @@
             `KONSOL CSV >> Total Baris File: <span id="csvTotalTx">${count}</span> | Volume Gabungan: Rp <span id="csvTotalAmount">${sum.toLocaleString('id-ID')}</span>` :
             `CSV CONSOLE >> Total Files Row: <span id="csvTotalTx">${count}</span> | Combined Volume: Rp <span id="csvTotalAmount">${sum.toLocaleString('en-US')}</span>`;
     }
+    
     function copyIdAndNominal() { if (parsedCsvData.length) navigator.clipboard.writeText(parsedCsvData.map(i => `${i.id}\t${i.formattedNominal}`).join('\n')).then(() => showToast('toastCsvSuccess')); }
     function copyRefNumber() { if (parsedCsvData.length) navigator.clipboard.writeText(parsedCsvData.map(i => i.ref).join('\n')).then(() => showToast('toastRefSuccess')); }
+    function copyManualFourFields() { if (parsedCsvData.length) navigator.clipboard.writeText(parsedCsvData.map(i => `${i.id}\t${i.formattedNominal}\t\t${i.ref}`).join('\n')).then(() => showToast('toastCsvSuccess')); }
     function clearCsvData() { 
         fileInput.value = ''; document.getElementById('csvTableBody').innerHTML = ''; parsedCsvData = []; fileStatus.style.display = 'none'; 
         document.getElementById('statsCsv').innerHTML = currentLanguage === 'id' ? `KONSOL CSV >> Total Baris File: <span id="csvTotalTx">0</span> | Volume Gabungan: Rp <span id="csvTotalAmount">0</span>` : `CSV CONSOLE >> Total Files Row: <span id="csvTotalTx">0</span> | Combined Volume: Rp <span id="csvTotalAmount">0</span>`;
@@ -1033,21 +921,15 @@
             sum += parseInt(item.depo.replace(/,/g, ''), 10) || 0;
             let col = 'var(--btn-copy-border)', txt = `${item.coin} | ${item.depo}`;
             if (item.isGagal || item.isPending) { col = 'var(--btn-delete-border)'; txt = `${item.depo} (${item.isGagal ? 'GAGAL' : 'TERTUNDA'})`; }
-            html += `<tr><td style="color:var(--sub-text);">${item.time}</td><td style="font-weight:bold;">${item.userId}</td><td style="color:${col};font-weight:bold">${txt}</td><td style="color:var(--btn-copy-text); font-weight:bold">${item.transactionId}</td></tr>`;
+            html += `<tr><td style="color:var(--sub-text);">${item.time}</td><td style="font-weight:bold;">${item.userId}</td><td style="color:${col};font-weight:bold">${txt}</td><td style="color:var(--gold); font-weight:bold">${item.transactionId}</td></tr>`;
         });
         tbody.innerHTML = html; 
         document.getElementById('statsPanel').innerHTML = currentLanguage === 'id' ? `TERMINAL LANGSUNG >> Aliran Baru Ditangkap: <span id="panelTotalTx">${full.length}</span> Baris | Nilai Jumlah Delta: Rp <span id="panelTotalSum">${sum.toLocaleString('id-ID')}</span>` : `LIVE TERMINAL >> New Stream Captured: <span id="panelTotalTx">${full.length}</span> Row | Delta Sum Value: Rp <span id="panelTotalSum">${sum.toLocaleString('en-US')}</span>`;
     }
+    
     function copyPanelMainData() { if (parsedPanelDataArray.length) navigator.clipboard.writeText(parsedPanelDataArray.map(i => `${i.time}\t${i.userId}\t${i.coin}\t${i.depo}`).join('\n')).then(() => showToast('toastPanelSuccess')); }
     function copyPanelTxIdData() { if (parsedPanelDataArray.length) navigator.clipboard.writeText(parsedPanelDataArray.map(i => i.transactionId).join('\n')).then(() => showToast('toastTxSuccess')); }
-function copyPanelAllData() { 
-    if (parsedPanelDataArray.length) {
-        // Menggunakan double tab (\t\t) antara depo dan transactionId untuk mengosongkan kolom ke-5
-        navigator.clipboard.writeText(
-            parsedPanelDataArray.map(i => `${i.time}\t${i.userId}\t${i.coin}\t${i.depo}\t\t${i.transactionId}`).join('\n')
-        ).then(() => showToast('toastPanelSuccess')); 
-    }
-}
+    function copyPanelAllData() { if (parsedPanelDataArray.length) navigator.clipboard.writeText(parsedPanelDataArray.map(i => `${i.time}\t${i.userId}\t${i.coin}\t${i.depo}\t\t${i.transactionId}`).join('\n')).then(() => showToast('toastPanelSuccess')); }
     function clearPanelData() { 
         document.getElementById('panelInput').value = ''; document.getElementById('lastTxIdInput').value = ''; document.getElementById('panelTableBody').innerHTML = ''; parsedPanelDataArray = []; 
         document.getElementById('statsPanel').innerHTML = `TERMINAL LANGSUNG >> Aliran Baru Ditangkap: <span id="panelTotalTx">0</span> Baris | Nilai Jumlah Delta: Rp <span id="panelTotalSum">0</span>`; showToast('toastPanelWipe'); 
@@ -1077,7 +959,7 @@ function copyPanelAllData() {
     function copyPgaMotionData() { if (parsedPgaMotionDataArray.length) navigator.clipboard.writeText(parsedPgaMotionDataArray.map(i => `${i.username}\t${i.coin}\t${i.wd}\t\t\t\t${i.name}`).join('\n')).then(() => showToast('toastMotionSuccess')); }
     function clearPgaMotionData() { document.getElementById('pgaMotionInput').value = ''; document.getElementById('pgaMotionTableBody').innerHTML = ''; document.getElementById('statsPga').innerHTML = `PENGENDALI PENYANGGA PGA >> Node Aktif: <span id="pgaTotalTx">0</span> | Agregasi Penyangga: Rp <span id="pgaTotalAmount">0</span>`; parsedPgaMotionDataArray = []; showToast('toastPgaFlush'); }
 
-    // LOGIKA TAB 5: POLA GAME
+    // LOGIKA TAB 5: POLA GAME (DATABASE GAME SINGKAT SEBAGAI CONTOH AGAR RINGAN)
     const polaGameList = ["10000 Wishes", "101 Lions", "101 Wolfpack", "2026 GOLDEN GOAL RUSH", "3 Buzzing Wilds", "3 Dancing Monkeys", "3 Diamonds", "3 Genie Wishes", "3 Kingdoms - Battle Of Red Cliffs", "3 Magic Eggs", "3 Wishing Wells", "5 Frozen Charms Megaways", "5 Lions", "5 Lions Dance", "5 Lions Gold", "5 Lions Megaways", "5 Lions Megaways 2", "5 Lions Reborn", "5 Mariachis", "5 Rabbits Megaways", "6 Jokers", "7 Clovers Of Fortune", "7 Monkeys", "7 Monkeys Jackpot", "7 Piggies", "777", "8 Dragons", "8 Golden Dragon Challenge", "888 Bonanza", "888 Dragons", "888 Gold", "Aces & Eights 100 Hand", "Aces & Faces GMW", "African Elephant", "African Wild", "Afroditi", "Aladdin And The Sorcerer", "Aladdin Fortune", "ALCHEMY", "Alien Invaders", "All American", "All For One", "Alley The Cat", "Almighty Zeus Empire", "Almighty Zeus Wilds", "Almighty Zeus Wilds Link&Merge", "American Blackjack", "American Wild", "Amore", "Anaconda Gold", "Ancient Egypt", "Ancient Egypt Classic", "Ancient Fortunes : Poseidon Megaways", "Ancient Island Megaways", "Angel Vs Sinner", "Angkor", "Anime Cosplay VS", "Anime Mecha Megaways", "Anton's Family", "Apocalypse Super XNudge", "Arcane Elements", "Arctic Hunt", "Arctic Wolf", "Arctic Wonders", "Argonauts", "Asgard", "ATHENA", "Atomic Kittens", "AURORA WOLF", "Aztec Blaze", "Aztec Bonanza", "Aztec Gems", "Aztec Gems Deluxe", "Aztec Gems Megaways", "Aztec King", "Aztec King Megaways", "Aztec Lucky Gems", "Aztec Powernudge", "Aztec Smash", "Aztec Treasure Hunt", "Aztlan's Gold", "Baba Yaga", "Badge Blitz", "Bai Longma", "Bald Eagle", "Balloon Balloon", "Bamboo Tiger", "Bandit Megaways", "Banditres", "Barbarian Fury", "Barbarian Riches", "Barn Festival", "Barnstormer Bucks", "Barnyard Megahays Megaways", "Bass Catch SUPER LUCK", "Bear Crazy", "Bear Games", "Be My Valentine", "Bee Keeper", "Beer Fest", "Before Time Runs Out", "Beheaded", "Benji Killed In Vegas", "Berry Billions", "Better Barn House Bonanza", "Beware The Deep Megaways", "Big 5 Baby 5", "Big Bass Amazon Xtreme", "Big Bass Bonanza", "Big Bass Bonanza - Hold And Spinner", "Big Bass Bonanza - Keeping It Reel", "Big Bass Bonanza - Reel Action", "Big Bass Bonanza 1000", "Big Bass Bonanza 3 Reeler", "Big Bass Bonanza Megaways", "Big Bass Boxing Bonus Round", "Big Bass Christmas - Frozen Lake", "Big Bass Christmas Bash", "Big Bass Crash", "Big Bass Day At The Races", "Big Bass Floats My Boat", "Big Bass Football Bonanza", "Big Bass Halloween", "Big Bass Halloween 2", "Big Bass Halloween 3", "Big Bass Hold & Spinner Megaways", "Big Bass Mission Fishin'", "Big Bass Raceday Repeat", "Big Bass Reel Repeat", "Big Bass Return To The Races", "Big Bass Splash", "Big Bass Splash 1000", "Big Bass Trophy Catch", "Big Bass Vegas Double Down Deluxe", "Big Bass Xmas Xtreme", "Big Burger Load It Up With Xtra Cheese", "Big Cash Eruption", "Big Catch", "Big Juan", "Big Top", "Bigger Barn House Bonanza", "Bigger Bass Blizzard - Christmas Catch", "Bigger Bass Bonanza", "Bigger Bass Splash", "Bikini Island", "Bikini Island Deluxe", "Bingo Mania", "Bird of Thunder", "Black Bull", "Black Diamond", "Black Jack 5 Hand GMW", "Black Jack GMW", "Black Panther", "Black Pearl", "Blackbeard's Bounty", "Blade & Fangs", "Blazing Wilds Megaways", "Blitz Super Wheel", "Blood & Shadow", "Blood & Shadow 2", "Blood Diamond", "Bloody Dawn", "Bomb Bonanza", "Bombs Away", "Bonanza Gold", "Bonus Bunnies", "Bonus Poker GMW", "Bonzo The Clown", "Book Of Aztec King", "Book Of Easter", "Book Of Golden Sands", "Book Of Kingdoms", "Book Of Shadows", "Book Of The East", "Book Of The Fallen", "Bounty Gold", "Bounty Hunter", "Bounty Hunter NLC", "Bow Of Artemis", "Break The Bank", "Breakout", "Brick House Bonanza", "Brick Snake 2000", "Bronco", "Brute Force", "Brute Force: Alien Onslaught", "Bubble Pop", "Buffalo Hunter", "Buffalo King", "Buffalo King Megaways", "Buffalo King Untamed Megaways", "Buffalo Run", "Buffalo Run Quad", "Buggy Bonus", "Bula Mula", "Bull Fiesta", "BURLESQUE 2", "Bushido Ways xNudge", "Busy Bees", "Caishen Wins", "Caishen's Cash", "Caishen's Cash Pots", "Caishens Gold", "Cake Valley", "Calaveras Explosivas", "Candy Blitz", "Candy Blitz Bombs", "Candy Corner", "Candy Jar Clusters", "Candy Rush", "Candy Stars", "Candy Tower", "Candy Village", "Captain Kraken Megaways", "Carnival Cash", "Carnival Cove", "Casino Win Spin", "Cash Bonanza", "Cash Box", "Cash Chips", "Cash Elevator", "Cash Patrol", "Cash Reef", "Cash Spin", "Cash Surge", "Cashosaurus", "Castle Of Fire", "Catfish Hunters", "CHALLENGE・FU LU SHOU XI", "CHALLENGE・GOLDEN PIG", "CHALLENGE・MAYAN CALENDAR", "CHEF HUSKY", "CHESTS OF CAI SHEN", "CHESTS OF CAI SHEN 2", "CHICKEN CHASE", "CHICKEN DROP", "CHICKEN+", "CHILLI HEAT", "CHILLI HEAT MEGAWAYS", "CHILLI HEAT SPICY SPINS", "CHINA EMPRESS", "CHOCOLATE MOOSE", "CHRISTMAS BIG BASS BONANZA", "CHRISTMAS CAROL MEGAWAYS", "CHRISTMAS GIFT RUSH", "CHRONICLES OF OLYMPUS II", "CIRCUS CARNIVAL", "CLEO'S KENO GMW", "CLEOPATRA - THE GOLDEN SCARAB", "CLEOCATRA", "CLOWNFISH TREASURE", "CLUCKIN' SWEET FEAST", "CLUMSY COOKS", "CLOVER GOLD", "CLUB TROPICANA", "CLUB TROPICANA - HAPPY HOUR", "COFFEE WILD", "COINS OF FORTUNE", "COLOSSAL CASH ZONE", "CONGO CASH", "CONGO CASH XL", "COWBOY COINS", "COWBOYS GOLD", "COYOTE CRASH", "CRANK IT UP", "CRAZY CIRCUS", "CRAZY EX-GIRLFRIEND", "CROWN OF FIRE", "CRYPTO PROFITS", "CRYSTAL CAVERNS MEGAWAYS", "CUBE?", "CULT.", "CURSE OF THE PYRAMID", "CURSE OF THE WEREWOLF MEGAWAYS", "CYBER HEIST", "CYBER PUP MEGAWAYS", "CYBERHEIST CITY", "CYCLOPS SMASH", "DANCE PARTY", "DARK OVERLORD - FINAL DUEL", "DARUMA IMPACT", "DAS XBOOT", "DAS XBOOT 2WEI!", "DAY OF DEAD", "DEAD CANARY", "DEAD MAN'S RICHES", "DEAD MEN WALKING NLC", "DEADWOOD R.I.P", "DEADWOOD XNUDGE", "DEMON POTS", "DENG DENG", "DEUCES & JOKER GMW", "DEUCES WILD GMW", "DEVIL'S 13", "DEVIL'S CROSSROAD", "DEVILICIOUS", "DIA DE LOS MUERTOS GMW", "DIAMOND CASCADE", "DIAMOND STRIKE", "DIAMOND TOWER H5", "DIAMONDS OF EGYPT", "DIAO CHAN FA DA CAI", "DICK THE DETECTIVE", "DING DONG CHRISTMAS BELLS", "DISCO BEATS", "DISCO FUNK", "DISCO LADY", "DISORDER", "DISTURBED", "DJ PSYCHO", "DOLPHIN'S ADVENTURE", "DOMINO QQ", "DOUBLE BLACK CHERRY", "DOUBLE BONUS DEUCES WILD GMW", "DOUBLE BONUS POKER", "DOUBLE DOUBLE POKER BONUS GMW", "DOUBLE HAPPINESS", "DOUBLE JOKER'S MONEY", "DOUBLE O DOLLARS", "DOUBLE VAULT", "DOWN THE RAILS", "DOWN UNDER", "DR FEELGOOD", "DRAGO - JEWELS OF FORTUNE", "DRAGON BOAT FESTIVAL", "DRAGON BONUS BACCARAT", "DRAGON CASTLE", "DRAGON GATE", "DRAGON GOLD", "DRAGON GOLD 88", "DRAGON HERO", "DRAGON HOT HOLD AND SPIN", "DRAGON KING HOT POTS", "DRAGON KINGDOM", "DRAGON KINGDOM EYES OF FIRE", "DRAGON POTS MEGAWAYS", "DRAGON TIGER", "DRAGON TIGER FORTUNES", "DRAGON TIGER GATE", "DRAGON TRIBE", "DRAGON'S GATE - BONUS CHOICE", "DRAGON'S REALM", "DRAGON'S THRONE", "DRAGON'S TREASURE QUEST", "DRACULUV", "DRILL THAT GOLD", "DUCK HUNTERS", "DUCKY DUCK", "DUEL OF NIGHT & DAY", "DUNGEON QUEST", "DWARF & DRAGON", "DWARVEN GOLD DELUXE", "DYNASTY EMPIRE", "DYNAMITE DIGGIN DOUG", "EAST COAST VS WEST COAST", "EGYPTIAN DREAMS", "EGYPTIAN DREAMS DELUXE", "EGYPTIAN FORTUNES", "EL GALLO PANCHO", "EL PATRON", "ELEPHANT", "ELEMENTAL GEMS MEGAWAYS", "EMERALD KING", "EMERALD KING - WHEEL OF WEALTH", "EMERALD KING RAINBOW ROAD", "EMPEROR CAISHEN", "EMPTY THE BANK!", "ESCAPE THE PYRAMID - FIRE & ICE", "ETERNAL EMPRESS - FREEZE TIME", "ETERNAL WAR", "EVIL GOBLINS XBOMB", "EXCALIBUR UNLEASHED", "EXTRA JUICY", "EXTRA JUICY MEGAWAYS", "EYE OF CLEOPATRA", "EYE OF SPARTACUS", "EYE OF THE STORM", "FA FA MONKEY", "FACE OFF", "FANTASTIC SEVENS", "FANTASY GARDEN", "FANTASY LAND", "FEATURE BUY・CHRISTMAS EXPRESS", "FENG DU", "FENGHUANG", "FIESTA FORTUNE", "FIFI FRUITS", "FINGER LICK N FREE SPINS", "FIONA'S CHRISTMAS FORTUNE", "FIRE 88", "FIRE ARCHER", "FIRE GODDESS H5", "FIRE HOT 100", "FIRE HOT 20", "FIRE HOT 40", "FIRE HOT 5", "FIRE IN THE HOLE 2", "FIRE IN THE HOLE XBOMB", "FIRE PORTALS", "FIRE ROOSTER", "FIRE STAMPEDE", "FIRE STAMPEDE 2", "FIRE STAMPEDE ULTIMATE", "FIRE STRIKE", "FIRE STRIKE 2", "FIREBIRD SPIRIT", "FIREWORKS", "FISH EYE", "FISHIN REELS", "FIVE PRINCESSES", "FIZZY POP", "FLAMINGO", "FLIGHT MODE", "FLOATING DRAGON", "FLOATING DRAGON - DRAGON BOAT FESTIVAL", "FLOATING DRAGON - YEAR OF THE SNAKE", "FLOATING DRAGON MEGAWAYS", "FLOATING DRAGON NEW YEAR FESTIVAL MEGAWAYS", "FLOATING DRAGON WILD HORSES", "FLY X", "FLY!", "FLYING HIGH", "FOLSOM PRISON", "FONZO'S FELINE FORTUNES", "FORGE OF OLYMPUS", "FORGING WILDS", "FORTUNE ACE", "FORTUNE ACE SUPER SCATTER", "FORTUNE BULL", "FORTUNE DOGS", "FORTUNE DRAGON", "FORTUNE GOD", "FORTUNE HIT'N ROLL", "FORTUNE OF GIZA", "FORTUNE OF OLYMPUS", "FORTUNE PAYS H5", "FORTUNE POT", "FORTUNE TIGER", "FORTUNES OF AZTEC", "FORTUNES OF AZTEC PRAGMATIC", "FOXI", "FOXY FOX", "FREAK SHOW REVELATION", "FRIDAY KLIWON", "FRIGHTENING FRANKIE", "FROGS & BUGS", "FRONT RUNNER ODDS ON", "FRONTIER FORTUNES", "FROZEN TROPICS", "FRUIT BLAST", "FRUIT PARTY", "FRUIT PARTY 2", "FRUIT PARTY DICE", "FRUIT RAINBOW", "FRUITS", "FRUITS OF THE AMAZON", "FRICE", "FRUTTI XPLOSION", "FRUITY HALLOWEEN", "FRUITY MAYAN", "FRUITY TREATS", "FRUITY XPLOSION", "FU FU FU", "FU STAR", "FUN FRUITS", "FUN FOREVER", "FUNKY FORTUNEZ", "FURY OF ANUBIS", "FURY OF ODIN MEGAWAYS", "FURRY BONANZA MEGAWAYS", "GAELIC GOLD", "GALACTIC CASH", "GANESHA TREASURE", "GANGSTERS", "GATES OF AZTEC", "GATES OF GATOT KACA", "GATES OF GATOT KACA 1000", "GATES OF GATOT KACA SUPER SCATTER", "GATES OF HADES", "GATES OF OLYMPUS", "GATES OF OLYMPUS 1000", "GATES OF OLYMPUS 1000 DICE", "GATES OF OLYMPUS DICE", "GATES OF OLYMPUS SUPER SCATTER", "GATES OF OLYMPUS XMAS 1000", "GATES OF PYROTH", "GATES OF VALHALLA", "GATOT KACA'S FURY", "GATOR HUNTERS NLC", "GEARS OF HORUS", "GEM ELEVATOR", "GEM FIRE FORTUNE", "GEM TRIO", "GEMS BONANZA", "GEMS FORTUNE", "GEMS OF SERENGETI", "GENIE'S GEM BONANZA", "GENIE'S SHOWTIME", "GHOULISH GHOST", "GLADIATORS", "GLAM ROCK", "GLORIOUS KINGDOM", "GLORY OF KING ARTHUR", "GLORY OF ROME", "GLUTTONY", "GOBLIN HEIST POWERNUDGE", "GOD OF WEALTH", "GODS OF GIZA", "GOLD KOI FORTUNE", "GOLD OASIS", "GOLD PARTY", "GOLD PARTY 2 - AFTER HOURS", "GOLD RUSH", "GOLD TRAIN", "GOLDEN CHEST", "GOLDEN DRAGON", "GOLDEN EGG", "GOLDEN GENIE & THE WALKING WILDS", "GOLDEN JADE", "GOLDEN LAND", "GOLDEN PIG", "GOLDEN PIG GMW", "GOLDEN RABBIT THREGAWAYS", "GOLDEN ROOSTER GMW", "GOLDEN SHOWER NLC", "GOLDEN UNICORN", "GOLDEN WEEK", "GOLDEN VISHNU", "GOLDEN WILD", "GOLDEN ZONGZI", "GOOD LUCK & GOOD FORTUNE", "GOPNIK", "GORILLA MAYHEM", "GRACE OF EBISU", "GRAND CASINO HEIST", "GRAPE ESCAPE", "GRAVITY BONANZA", "GREAT APES", "GREAT GHOSTS!", "GREAT LAGOON", "GREAT RHINO", "GREAT RHINO DELUXE", "GREAT RHINO MEGAWAYS", "GREEDY FORTUNE PIG", "GREEDY WOLF", "GREEK GODS", "GRIMMS BOUNTY: HANSEL & GRETEL", "HABANERO GAMES", "HALLOWEEN", "HAMMERSTORM", "HAND OF GOD", "HAND OF MIDAS 2", "HAPPY APE", "HAPPY GO LUCKY", "HAPPY HOG", "HAPPY NEW YEAR", "HARLEQUIN CARNIVAL", "HAUNTED CRYPT", "HAUNTED HARBOR", "HAUNTED HOUSE", "HEART OF CLEOPATRA", "HEART OF RIO", "HEARTBREAKERS", "HEIST FOR THE GOLDEN NUGGETS", "HELL BUTCHER", "HELLVIS WILD", "HERCULES AND PEGASUS", "HERCULES SON OF ZEUS", "HEROIC SPINS", "HIGH CHIEF SPIRIT", "HIGHLANDS", "HIGHWAY TO HELL", "HIMALAYAN WILD", "HOCKEY ATTACK", "HOKKAIDO WOLF", "HOLIDAY RIDE", "HOME OF THE BRAVE", "HONEY HONEY HONEY", "HOT 4 CASH", "HOT ASIAN FRUITS", "HOT CHILLI", "HOT FIESTA", "HOT HOT FRUIT", "HOT HOT SUMMER", "HOT NUDGE", "HOT PEPPER", "HOT SAFARI", "HOT TO BURN", "HOT TO BURN - 7 DEADLY FREE SPINS", "HOT TO BURN EXTREME", "HOT TO BURN HOLD AND SPIN", "HOT TO BURN MULTIPLIER", "HOT TUNA", "HOT VOLCANO H5", "HUNDREDS AND THOUSANDS", "HYPER HUES", "ICE ICE YETI", "ICE LOBSTER", "ICE MINTS", "ICY VENTURES", "IDOL POP FEVER", "IGAMBLE247 DRAGONS", "IMMORTAL FRUITS", "INCA QUEEN", "INDIA TREASURE", "INDIAN CASH CATCHER", "INDIAN CHIEF", "INDIANA WOLF", "INFECTIOUS 5 XWAYS", "INFECTIVE WILD", "INFERNAL FURY", "INSTANT RICH", "IRISH CROWN", "ISIBAYA QUEENS", "JACK OR BETTER GMW", "JACK QUEST - TREASURE HUNT", "JACK'S OR BETTER MULTIHAND GMW", "JACKPOT BLAZE", "JACKPOT HUNTER", "JADE EMPEROR", "JANE HUNTER AND THE MASK OF MONTEZUMA", "JAPANESE MASK", "JASMINE DREAMS", "JELLY EXPRESS", "JELLYFISH FLOW", "JELLYFISH FLOW ULTRA", "JESTER", "JESTER'S FORTUNES", "JEWEL RUSH", "JINGLE BALLS", "JOHN HUNTER & THE BOOK OF TUT RESPIN", "JOHN HUNTER AND GALILEO'S SECRETS", "JOHN HUNTER AND THE AZTEC TREASURE", "JOHN HUNTER AND THE BOOK OF TUT", "JOHN HUNTER AND THE BOOK OF TUT MEGAWAYS", "JOHN HUNTER AND THE MAYAN GODS", "JOHN HUNTER AND THE QUEST FOR BERMUDA RICHES", "JOHN HUNTER AND THE TOMB OF THE SCARAB QUEEN", "JOKER KING", "JOKER POKER GMW", "JOKER RACE", "JOKER'S GO WILD", "JOKER'S JEWELS", "JOKER'S JEWELS CASH", "JOKER'S JEWELS DICE", "JOKER'S JEWELS HOLD & SPIN", "JOKER'S JEWELS HOT", "JOKER'S JEWELS WILD", "JOKER'S REVENGE", "JOKERS JEWELS", "JOLLY FROG", "JOURNEY TO THE WEST", "JUICY FRUITS", "JUICY FRUITS MULTIHOLD", "JUGGLENAUT", "JULIUS CESAR - THE GOLDEN SCARAB", "JUMBO SAFARI", "JUMP!", "JUMP! 2", "JUNGLE GORILLA", "JUNGLE RUMBLE", "KADITA OCEAN FURY", "KANE'S INFERNO", "KAREN MANEATER", "KASSANDRA", "KENNETH MUST DIE", "KILL EM ALL", "KING CRAB", "KING OF CAIRO DELUXE", "KING OF SPEAR", "KING TUT'S TOMB", "KINGDOM OF ASGARD", "KINGDOM OF THE DEAD", "KISS MY CHAINSAW", "KITCHEN DRAMA: SUSHI MANIA", "KNIGHT HOT SPOTZ", "KNIGHTS OF STEEL", "KNIGHTS VS BARBARIANS", "KNOCKOUT FOOTBALL", "KNOCKOUT FOOTBALL RUSH", "KOI POND", "KRAKEN GOLD RUSH", "KRAKEN'S SKY BOUNTY", "KUNG HEI", "KUNGFU", "LADY GODIVA", "LAMP OF INFINITY", "LAND OF THE FREE", "LANTERN LUCK", "LAUNCH TO RICHES", "LAVA BALLS", "LEGEND OF DRAGON", "LEGEND OF HEROES MEGAWAYS", "LEGEND OF NEZHA", "LEGION X", "LEPRECHAUN CAROL", "LEPRECHAUN SONG", "LIGHTS, CAMERA, ACTION!", "LIGHTNING FRUITS", "LIGHTNING FRUITS QUAD", "LIMBO+", "LION DANCE 888", "LITTLE BIGHORN", "LITTLE GREEN MONEY", "LITTLE GEM", "LIVING THE DREAM CLASSIC", "LOBSTER BOB'S CRAZY CRAB SHACK", "LOBSTER BOB'S SEA FOOD AND WIN IT", "LOBSTER HOUSE", "LOKI'S RICHES", "LONDON HUNTER", "LONER", "LOONY BLOX", "LOVE", "LOVE AND RICHES ELDORADO", "LUAU LUAU", "LUCKY ACE", "LUCKY CLOVER GMW", "LUCKY DRAGON BALL", "LUCKY DRAGONS", "LUCKY EAST", "LUCKY FISHING MEGAWAYS", "LUCKY GRACE AND CHARM", "LUCKY JESTERS", "LUCKY LANTERN", "LUCKY MOONCAKE FESTIVAL", "LUCKY NEKO", "LUCKY NEW YEAR", "LUCKY NEW YEAR - TIGER TREASURES", "LUCKY PANDA", "LUCKY TIMES", "LUCKY TWINS POWERCLUSTER", "LUCKY TWINS WILDS", "LUCKY TWINS WILDS LINK&MERGE", "LUCKY'S WILD PUB", "LUCKY'S WILD PUB 2", "MAHJONG MANIA BLACK", "MAHJONG PANDA", "MAHJONG WAYS 2", "MAHJONG WAYS IV", "MAHJONG WINS", "MAHJONG WINS - GONG XI FA CAI", "MAHJONG WINS 2", "MAHJONG WINS 3 - BLACK SCATTER", "MAHJONG WINS BONUS", "MAHJONG WINS SUPER SCATTER", "MAHJONG WINS TRIPLE POT", "MAHJONG: ORIGIN", "MAJESTIC EXPRESS - GOLD RUN", "MAKI", "MAMMOTH GOLD MEGAWAYS", "MANHATTAN GOES WILD", "MARDI GRAS BASH", "MARIE ANTOINETTE'S RICHES", "MARMIN", "MARVELOUS FURLONGS", "MASSIVE GOLD", "MASTER C HENS FORTUNE", "MASTER HAHA", "MASTER JOKER", "MAYAN DESTINY", "MAYAN DREAMS", "MAYAN KINGDOM", "MAYAN LOST TREASURE", "MAYAN MAGIC WILDFIRE", "MEDUSA", "MEDUSA'S STONE", "MEERKAT THE EXPLORER", "MEGA 7'S", "MENTAL", "MENTAL 2", "MEOW JANKEN", "MEOW MEGAWAYS", "MERMAID'S LUCKY CHEST", "MERMAID'S MELODIES", "MERMAID'S TREASURE TROVE", "MIGHT OF FREYA MEGAWAYS", "MIGHT OF RA", "MIGHTY KONG", "MIGHTY MEDUSA", "MIGHTY MUNCHING MELONS", "MILKY WAYS", "MINES+", "MINING RUSH", "MISTA MOOSE", "MOCHIMON", "MOLEIONAIRE", "MONEY MEOW", "MONEY MONEY MONEY", "MONEY MOUSE", "MONEY ON REELS SUPER ARROW", "MONEY STACKS", "MONEY STACKS DICE", "MONEY STACKS MEGAWAYS", "MONKEY BONANZA", "MONKEY MADNESS", "MONKEY WARRIOR", "MONKEY'S GOLD XPAYS", "MOON FESTIVAL", "MOONEY'S MONEY", "MOO MOO COW", "MOONSHOT", "MOUNT MAZUMA", "MR BLING", "MR NULL'S WICKED WARES", "MUERTOS MULTIPLIER MEGAWAYS", "MULTIHAND BLACKJACK", "MUMMY HUNTER", "MUMMY MONEY", "MUMMY'S JEWELS", "MUMMY'S JEWELS 100", "MUNCHIES", "MUSTANG GOLD", "MUSTANG GOLD MEGAWAYS", "MUSTANG TRAIL", "MX MANIA", "MY GEISHA SECRET", "MY SWEET KINGDOM", "MYSTERIES OF THE DEEP", "MYSTERIOUS", "MYSTERIOUS EGYPT", "MYSTERY MICE", "MYSTERY OF THE ORIENT", "MYSTIC CHIEF", "MYSTIC FORTUNE", "MYSTIC QUEEN", "MYSTIC SHAMAN", "MYSTICAL GUARDIANS", "NAPOLEON GMW", "NAUGHTY SANTA", "NEON LIGHTS QUAD", "NEON NIGHTS", "NEON NIGHTS CLASSIC", "NEW YEARS BASH", "NIGHT MARKET", "NILE FORTUNE", "NINE TAILS", "NINE TO FIVE", "NORTH GUARDIANS", "NORTHERN LIGHTS", "OCEAN LORD", "OCEAN'S CALL", "OCTOBEER FORTUNES", "OKTOBERFEST", "OKTOBERFEST 1000", "OLD GOLD MINER MEGAWAYS", "OLYMPUS", "OLYMPUS FORTUNE", "ON AIR RADIO", "OODLES OF NOODLES", "ORACLE OF GOLD", "ORBS OF ATLANTIS", "OUTSOURCED", "OUTSOURCED PAYDAY", "OUTSOURCED: SLASH GAME", "OWLS", "PAMPER ME", "PANACHE", "PANDA FORTUNE 2", "PANDA PANDA", "PANDA WARRIOR TTG", "PANDA'S FORTUNE", "PANDEMIC RISING", "PARROT FISH TREASURE", "PARTY BEADS", "PATH OF DRAGONS", "PEAK POWER", "PEKING LUCK", "PENGUINS CHRISTMAS PARTY TIME", "PEPPE'S PEPPERONI PIZZA PLAZA", "PERFECT STRIKE", "PHARAOH - THE GOLDEN SCARAB", "PHOENIX FORGE", "PHOENIX RISES", "PIGGY BANK BILLS", "PIGGY BANKERS", "PINUP GIRLS", "PIPO PIG", "PIRATE GOLD", "PIRATE GOLD DELUXE", "PIRATE GOLDEN AGE", "PIRATE TREASURE", "PIRATE'S PLUNDER", "PIRATES PUB", "PIXIE WINGS", "PIXIES VS PIRATES", "PIZZA! PIZZA? PIZZA!", "PLINKO+", "POISON EVE", "POMPEII MEGAREELS MEGAWAYS", "PONG PONG MAHJONG 2", "PONG PONG MAHJONG JACKPOTS", "POOL SHARK", "POSEIDON GMW", "POSSESSED", "POT OF FORTUNE", "POWER OF MERLIN MEGAWAYS", "POWER OF NINJA", "POWER OF ODIN 1000", "POWER OF THOR MEGAWAYS", "PRAGMATIC BACCARAT", "PRAGMATIC ROULETTE", "PRESTO!", "PRINCE OF THE JUNGLE - TREASURE HUNT", "PRINCESS OF THE JUNGLE - TREASURE HUNT", "PROST", "PS CLUB", "PUCKER UP PRINCE", "PUB KINGS", "PUFFIN KING", "PUMPKIN PATCH", "PUNK ROCKER", "PUNK ROCKER 2", "PUNK ROCKER 3", "PUNK TOILET", "PYRAMID BONANZA", "PYRAMID KING", "QUEEN OF GODS", "QUEEN OF QUEENS", "QUEEN OF QUEENS II", "QUEENIE", "QUICK CASH SOLITAIRE", "RABBIT GARDEN", "RABBIT RUNS", "RAGING BULL", "RAGING WATERFALL MEGAWAYS", "RAINBOW GOLD", "RAINBOW POP", "RAINBOW POP DELUXE", "RAINBOW REELS", "RAINBOW TRIPL3 POP", "RAPID REELS", "RAT OF WEALTH", "RED", "RED DIAMONDS", "RED PANDA", "RED RIDING X-MAS", "REEL BANKS", "REELS DELUXE", "RELEASE THE BISON", "RELEASE THE KRAKEN", "RELEASE THE KRAKEN 2", "RELEASE THE KRAKEN MEGAWAYS", "REMEMBER GULAG", "RENEGADE", "RESURRECTING RICHES", "RETURN OF THE DEAD", "REVENGE OF LOKI MEGAWAYS", "RHINO", "RICH & HAPPY", "RIDE 'EM COWBOY", "RIDE THE LIGHTNING", "ROAD KILL", "ROAD RAGE", "ROCK BOTTOM", "ROCKET BLAST MEGAWAYS", "RODEO DRIVE", "ROLLING IN TREASURES", "ROLLING ROGER", "ROMA 2 - DRAGON SLAYER", "ROMAN EMPIRE", "ROYAL 777", "ROYAL GOLDEN DRAGON", "ROYAL RUMBLE XTRAGACHA", "RUFFLED UP", "RUJAK BONANZA", "RUNNING SUSHI", "S.O.S!", "SACRED FLOWER", "SACRED OWL", "SAFARI KING", "SALSA CASH", "SAMURAI CODE", "SAN QUENTIN 2: DEATH ROW", "SANATORIUM SECRETS", "SANTA", "SANTA CLAUS", "SANTA'S GREAT GIFTS", "SANTA'S INN", "SANTA'S SLAY", "SANTA'S WONDERLAND", "SANTA'S XMAS RUSH", "SASQUATCH CASH", "SAVANNAH LEGEND", "SCRUFFY SCALLYWAGS", "SEA FANTASY", "SEA RAIDERS", "SECRET CITY GOLD", "SECRETS OF THE DESERT", "SERIAL", "SERENGETI", "SEVEN'S GO WILD GMW", "SEVENS & JOKER WILD GMW", "SHAMAN'S VISION", "SHAOLIN FORTUNES", "SHAOLIN FORTUNES 100", "SHAMROCK QUEST", "SHIELD OF SPARTA", "SHINING KNIGHT", "SHINING HOT 100", "SHINING HOT 20", "SHINING HOT 40", "SHINING HOT 5", "SHIVERING STRINGS", "SHOGUN'S LAND", "SILKEN SANDS", "SIR BLINGALOT", "SIREN'S SPELL", "SIZZLIN FRUITS", "SKY'S THE LIMIT", "SLEEPING DRAGON", "SLIME PARTY", "SLOT MANIA GATOT KACA'S FURY", "SMILEY VILLE", "SMUGGLERS COVE", "SNAKES & LADDERS 2 - SNAKE EYES", "SNAKES AND LADDERS MEGADICE", "SNOW", "SNOW PARTY", "SOAKED BY SEAMEN", "SODA POP", "SODA POP DELUXE", "SPACE DONKEY", "SPACE FORTUNE", "SPACE GOONZ", "SPACEMAN", "SPARTA", "SPARTAN KING", "SPARTANS THE FINAL STAND", "SPECTACULAR 7'S", "SPELLBINDING MYSTERY", "SPELLMASTER", "SPLENDIDA VENEZIA", "SPIN & SCORE MEGAWAYS", "SPIRIT GUARDIANS", "SPIRIT OF ADVENTURE", "SPIRE+", "SPOT", "STAR BOUNTY", "STAR PIRATES CODE", "STARLIGHT ARCHER 1000", "STARLIGHT CHRISTMAS", "STARLIGHT PRINCESS", "STARLIGHT PRINCESS 1000", "STARLIGHT PRINCESS PACH", "STARLIGHT PRINCESS PACHI", "STARLIGHT PRINCESS SUPER SCATTER", "STARSTRUCK", "STARZ MEGAWAYS", "STEAMIN' REELS", "STICKY BEES", "STOCKHOLM SYNDROME", "STRAWBERRY COCKTAIL", "STREET RACER", "STRIKING HOT 5", "SUGAR & POP DELUXE", "SUGAR BANG", "SUGAR JAR COMBO", "SUGAR POP GMW", "SUGAR RUSH", "SUGAR RUSH 1000", "SUGAR RUSH SUPER SCATTER", "SUGAR RUSH XMAS", "SUGAR SUPREME POWERNUDGE", "SUMO SUPREME MEGAWAYS", "SUN WUKONG", "SUNNYDAZE ASYLUM", "SUPER 8'S", "SUPER 9'S", "SUPER ACES", "SUPER ASIALIVE88", "SUPER FRUIT BLAST", "SUPER FRUITS", "SUPER FRUITS QUAD", "SUPER GUMMY STRIKE", "SUPER JOKER", "SUPER SEVENS", "SUPER STRIKE", "SUPER TIMES", "SUPER TIKI STRIKE", "SUPER TWISTER", "SUPER WIN", "SUPER X", "SUPERSIZED", "SWEET BONANZA", "SWEET BONANZA 1000", "SWEET BONANZA 1000 DICE", "SWEET BONANZA 2500", "SWEET BONANZA DICE", "SWEET BONANZA SUPER SCATTER", "SWEET BONANZA XMAS", "SWEET CRAZE", "SWEET KINGDOM", "SWEET POWERNUDGE", "SWEET RUSH BONANZA", "SWORD OF ARES", "TABERNA DE LOS MUERTOS", "TAIKO BEATS", "TAJ MAHAL", "TALES OF THE PIGGIES", "TASHI", "TECHNO TUMBLE", "TEMPLE GUARDIANS", "TEMUJIN TREASURES", "TEN CROWNS", "TEN TIGERS", "TENS OR BETTER GMW", "TESLA", "TESLA JOLT", "THAI SPICE - HOT WOK", "THAI SPICE - WOKS OF DELIGHT", "THE ALTER EGO", "THE AMAZING MONEY MACHINE", "THE BIG DAWGS", "THE BIG DEAL", "THE BIG DOG HOUSE", "THE BORDER", "THE CAGE", "THE CREEPY CARNIVAL", "THE CRYPT", "THE DA VINCI'S TREASURE", "THE DEAD ESCAPE", "THE DOG HOUSE", "THE DOG HOUSE - DOG OR ALIVE", "THE DOG HOUSE - MUTTLEY CREW", "THE DOG HOUSE - ROYAL HUNT", "THE DOG HOUSE DICE SHOW", "THE DOG HOUSE MEGAWAYS", "THE DOG HOUSE MULTIHOLD", "THE GREAT CHICKEN ESCAPE", "THE GREAT EMPIRE", "THE GREAT STICKUP", "THE HAND OF MIDAS", "THE KNIGHT KING", "THE LOST CITY OF ATLANTIS", "THE MAGIC CAULDRON - ENCHANTED BREW", "THE MONEY MEN MEGAWAYS", "THE RAVE", "THE RED QUEEN", "THE TIGER WARRIOR", "THE TWEETY HOUSE", "THE ULTIMATE 5", "THE WILD GANG", "THE WILD MACHINE", "THOR HAMMER TIME", "THUNDERING ZEUS H5", "THREE STAR FORTUNE", "TIC TAC TAKE", "TIMBER STACKS", "TINY TOADS", "TOMB OF AKHENATEN", "TOMB OF NEFERTITI", "TOMB OF THE SCARAB QUEEN", "TOMB TREASURE", "TOMBSTONE", "TOMBSTONE BEGINS", "TOMBSTONE RIP", "TOMBSTONE SLAUGHTER: EL GORDO'S REVENGE", "TOMBSTONE: NO MERCY", "TOOTY FRUITY FRUITS", "TOTEM TOWERS", "TOTEM WARRIOR", "TOWER OF PIZZA", "TOWERING FORTUNES", "TOYS", "TRACTOR BEAM", "TREASURE DIVER", "TREASURE HORSE", "TREASURE QUEST", "TREASURE TOMB", "TREASURE WILD", "TREASURES OF OSIRIS", "TREE OF RICHES", "TREES OF TREASURE", "TRIBAL SPIRIT", "TRIPLE BANANAS", "TRIPLE DRAGONS", "TRIPLE JEWELS", "TRIPLE JEWELS PLATINUM", "TRIPLE LUCK", "TRIPLE PINATA", "TRIPLE POT DIAMOND", "TRIPLE POT GOLD", "TRIPLE POT PLINKO - HERCULES", "TRIPLE TIGERS", "TROPICAL TIKI", "TRUE GRIT REDEMPTION 2", "TRUE KULT", "TSAR WARS", "TUNDRA'S FORTUNE", "TWILIGHT PRINCESS", "ULTRA BURN", "ULTRA BURN DICE", "ULTRA GATOT KACA", "ULTRA HOLD AND SPIN", "ULTIMATE GOAL BLITZ", "VALENTINE MONCHY", "VAMPIRE", "VAMPIRE'S FATE", "VAMPIRES VS WOLVES", "VAMPY PARTY", "VEGAS MAGIC", "VEGAS NIGHTS", "VEGAS SOLITAIRE GMW", "VIKING", "VIKING FORGE", "VIKING'S PLUNDER", "VOLCANO GODDESS", "VOODOO MAGIC", "WALK OF SHAME", "WALTZ BEAUTY", "WARRIOR GRAVEYARD XNUDGE", "WAVES OF POSEIDON", "WAYS OF FORTUNE", "WEALTH INN", "WEIRD SCIENCE", "WHACKED!", "WHEEL O'GOLD", "WHEEL OF HAPPINESS", "WHIRLWIND OF CASH", "WHO'S THE BOSS", "WICKED WITCH", "WIXX", "WILD BEACH PARTY", "WILD BISON CHARGE", "WILD BOOSTER", "WILD CELEBRITY BUS MEGAWAYS", "WILD CLEOPATRA DELUXE", "WILD DEPTHS", "WILD FLOW", "WILD GLADIATOR", "WILD HOP & DROP", "WILD PIXIES", "WILD RED", "WILD SAFARI", "WILD SKULLZ", "WILD SPELLS", "WILD WALKER", "WILD WEST DUELS", "WILD WEST GOLD", "WILD WEST GOLD BLAZING BOUNTY", "WILD WEST GOLD MEGAWAYS", "WILD WEST H5", "WILD WILDEBEEST WINS", "WILD WILD BANANAS", "WILD WILD JOKER", "WILD WILD PEARLS", "WILD WILD RICHES", "WILD WILD RICHES MEGAWAYS", "WILD WILD RICHES RETURNS", "WILD WILD TIGER", "WILDERNESS", "WILDIES", "WILDMAN SUPER BONANZA", "WINNER'S FRUITS", "WISDOM OF ATHENA", "WISDOM OF ATHENA 1000", "WISDOM OF ATHENA 1000 XMAS", "WITCH HEART MEGAWAYS", "WITCH'S TRIPLE BREW", "WITCHES TOME", "WITCHES TOME", "WOLF GOLD", "WOLF GOLD 4 PACK", "WOLF GOLD ULTIMATE", "WOLFPACK", "WONDERLAND", "WRATH OF NEZHA", "WRATH OF SETH SPLIT", "WU XIA", "WUKONG RUSH", "X-MAS MANIA PP", "XTRA DIAMONDS DELUXE", "XWAYS HOARDER 2", "XWAYS HOARDER XSPLIT", "YEAR OF THE DRAGON KING", "YETI QUEST", "YIN YANG", "YOU CAN PIGGY BANK ON IT", "YUM YUM POWERWAYS", "ZEUS", "ZEUS 2", "ZEUS VS HADES - GODS OF WAR", "ZEUS VS HADES - GODS OF WAR 250", "ZEUS VS TYPHON", "ZOMBIE CARNIVAL", "ZOMBIE SCHOOL MEGAWAYS", "ZOMBIE TRAIN", "ZUMA", "ZULU KING"];
 
     let polaCurrentFocus = -1;
@@ -1170,16 +1052,36 @@ function copyPanelAllData() {
     let time = 0; let particles = [];
     function resizeCanvas() { canvas.width = window.innerWidth; canvas.height = window.innerHeight; }
     window.addEventListener('resize', resizeCanvas); resizeCanvas();
-    function createParticle(x, y) { return { x: x, y: y, angle: Math.random() * Math.PI * 2, speed: 0.2 + Math.random() * 0.8, radius: 0.5 + Math.random() * 1.5, color: Math.random() > 0.5 ? '#00f0ff' : '#bd00ff', alpha: 1, decay: 0.003 + Math.random() * 0.005 }; }
+    function createParticle(x, y) { 
+        const isLight = document.body.classList.contains('light-theme');
+        const color1 = isLight ? '#d4af37' : '#00f0ff'; // Gold / Cyan
+        const color2 = isLight ? '#0f172a' : '#bd00ff'; // Midnight / Purple
+        return { 
+            x: x, y: y, angle: Math.random() * Math.PI * 2, 
+            speed: 0.2 + Math.random() * 0.8, radius: 0.5 + Math.random() * 1.5, 
+            color: Math.random() > 0.5 ? color1 : color2, 
+            alpha: 1, decay: 0.003 + Math.random() * 0.005 
+        }; 
+    }
+    
     function drawLotusBackground() {
-        ctx.fillStyle = document.body.classList.contains('light-theme') ? 'rgba(248, 250, 252, 0.15)' : 'rgba(2, 0, 6, 0.08)'; ctx.fillRect(0, 0, canvas.width, canvas.height);
-        const centerX = canvas.width / 2; const centerY = canvas.height / 2; const baseRadius = Math.min(canvas.width, canvas.height) * 0.28; const symmetry = 8; time += 0.004; 
-        if (particles.length < 60 && Math.random() < 0.3) { particles.push(createParticle(centerX + (Math.random() - 0.5) * 40, centerY + (Math.random() - 0.5) * 40)); }
+        const isLight = document.body.classList.contains('light-theme');
+        ctx.fillStyle = isLight ? 'rgba(248, 250, 252, 0.15)' : 'rgba(2, 0, 6, 0.08)'; 
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+        
+        const centerX = canvas.width / 2; const centerY = canvas.height / 2; 
+        const baseRadius = Math.min(canvas.width, canvas.height) * 0.28; 
+        const symmetry = 8; time += 0.004; 
+        
+        if (particles.length < 60 && Math.random() < 0.3) { 
+            particles.push(createParticle(centerX + (Math.random() - 0.5) * 40, centerY + (Math.random() - 0.5) * 40)); 
+        }
         for (let i = particles.length - 1; i >= 0; i--) {
             let p = particles[i]; p.x += Math.cos(p.angle) * p.speed; p.y += Math.sin(p.angle) * p.speed; p.alpha -= p.decay;
             if (p.alpha <= 0) { particles.splice(i, 1); continue; }
             ctx.save(); ctx.globalAlpha = p.alpha; ctx.shadowBlur = 8; ctx.shadowColor = p.color; ctx.fillStyle = p.color; ctx.beginPath(); ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2); ctx.fill(); ctx.restore();
         }
+        
         ctx.save(); ctx.translate(centerX, centerY); ctx.rotate(time * 0.08); 
         for (let layer = 3; layer >= 1; layer--) {
             const layerScale = layer * 0.35;
@@ -1187,23 +1089,30 @@ function copyPanelAllData() {
                 ctx.save(); ctx.rotate((i * Math.PI * 2) / symmetry);
                 const pulse = Math.sin(time * 2.5 + layer) * 15; const r = baseRadius * layerScale + pulse;
                 let grad = ctx.createRadialGradient(0, 0, 5, 0, -r, r);
-                if(document.body.classList.contains('light-theme')) {
-                    if (layer === 3) { grad.addColorStop(0, 'rgba(212, 175, 55, 0)'); grad.addColorStop(0.5, 'rgba(212, 175, 55, 0.15)'); grad.addColorStop(1, 'rgba(220, 38, 38, 0)'); }
-                    else if (layer === 2) { grad.addColorStop(0, 'rgba(220, 38, 38, 0.05)'); grad.addColorStop(0.6, 'rgba(15, 23, 42, 0.2)'); grad.addColorStop(1, 'rgba(212, 175, 55, 0)'); }
-                    else { grad.addColorStop(0, 'rgba(255, 255, 255, 0.95)'); grad.addColorStop(0.25, 'rgba(212, 175, 55, 0.6)'); grad.addColorStop(1, 'rgba(220, 38, 38, 0)'); }
+                
+                if(isLight) {
+                    if (layer === 3) { grad.addColorStop(0, 'rgba(212, 175, 55, 0)'); grad.addColorStop(0.5, 'rgba(212, 175, 55, 0.15)'); grad.addColorStop(1, 'rgba(15, 23, 42, 0)'); }
+                    else if (layer === 2) { grad.addColorStop(0, 'rgba(15, 23, 42, 0.05)'); grad.addColorStop(0.6, 'rgba(15, 23, 42, 0.15)'); grad.addColorStop(1, 'rgba(212, 175, 55, 0)'); }
+                    else { grad.addColorStop(0, 'rgba(255, 255, 255, 0.95)'); grad.addColorStop(0.25, 'rgba(212, 175, 55, 0.6)'); grad.addColorStop(1, 'rgba(15, 23, 42, 0)'); }
                     ctx.fillStyle = grad; ctx.shadowBlur = 0;
                 } else {
-                    if (layer === 3) { grad.addColorStop(0, 'rgba(189, 0, 255, 0)'); grad.addColorStop(0.5, 'rgba(189, 0, 255, 0.28)'); grad.addColorStop(1, 'rgba(0, 240, 255, 0)'); }
-                    else if (layer === 2) { grad.addColorStop(0, 'rgba(255, 0, 119, 0.05)'); grad.addColorStop(0.6, 'rgba(130, 0, 255, 0.45)'); grad.addColorStop(1, 'rgba(0, 240, 255, 0)'); }
-                    else { grad.addColorStop(0, 'rgba(255, 255, 255, 0.95)'); grad.addColorStop(0.25, 'rgba(0, 240, 255, 0.85)'); grad.addColorStop(1, 'rgba(189, 0, 255, 0)'); }
+                    /* CYBERPUNK COLORS */
+                    if (layer === 3) { grad.addColorStop(0, 'rgba(0, 240, 255, 0)'); grad.addColorStop(0.5, 'rgba(0, 240, 255, 0.28)'); grad.addColorStop(1, 'rgba(189, 0, 255, 0)'); }
+                    else if (layer === 2) { grad.addColorStop(0, 'rgba(255, 0, 119, 0.05)'); grad.addColorStop(0.6, 'rgba(189, 0, 255, 0.45)'); grad.addColorStop(1, 'rgba(0, 240, 255, 0)'); }
+                    else { grad.addColorStop(0, 'rgba(2, 0, 6, 0.95)'); grad.addColorStop(0.25, 'rgba(0, 240, 255, 0.85)'); grad.addColorStop(1, 'rgba(189, 0, 255, 0)'); }
                     ctx.fillStyle = grad; ctx.shadowBlur = layer * 15; ctx.shadowColor = layer % 2 === 0 ? '#bd00ff' : '#00f0ff';
                 }
+                
                 ctx.beginPath(); ctx.moveTo(0, 0); ctx.bezierCurveTo(-r * 0.48, -r * 0.38, -r * 0.28, -r * 0.92, 0, -r); ctx.bezierCurveTo(r * 0.28, -r * 0.92, r * 0.48, -r * 0.38, 0, 0); ctx.fill(); ctx.restore();
             }
         }
         ctx.restore();
-        if(!document.body.classList.contains('light-theme')) {
-            let rayGrad = ctx.createLinearGradient(0, centerY, canvas.width, centerY); rayGrad.addColorStop(0, 'rgba(0,240,255,0)'); rayGrad.addColorStop(0.5, 'rgba(0,240,255,0.45)'); rayGrad.addColorStop(1, 'rgba(0,240,255,0)');
+        
+        if(!isLight) {
+            let rayGrad = ctx.createLinearGradient(0, centerY, canvas.width, centerY); 
+            rayGrad.addColorStop(0, 'rgba(0,240,255,0)'); 
+            rayGrad.addColorStop(0.5, 'rgba(0,240,255,0.45)'); 
+            rayGrad.addColorStop(1, 'rgba(0,240,255,0)');
             ctx.fillStyle = rayGrad; ctx.fillRect(0, centerY - 1.5, canvas.width, 3);
         }
         requestAnimationFrame(drawLotusBackground);
