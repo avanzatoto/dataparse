@@ -276,6 +276,22 @@
         .filter-container { background: var(--input-bg); border: 1px dashed rgba(0, 240, 255, 0.3); padding: 15px; margin-bottom: 15px; border-radius: var(--global-radius); }
         body.light-theme .filter-container { border-color: #cbd5e1; }
         .filter-label { font-size: 10px; color: var(--gold); font-weight: bold; margin-bottom: 8px; display: block; letter-spacing: 0.5px; }
+
+        /* KODE PERBAIKAN: Border Hitam Tegas Khusus Light Mode */
+        body.light-theme .pola-input, body.light-theme .pola-textarea,
+        body.light-theme input, body.light-theme textarea, body.light-theme select,
+        body.light-theme table, body.light-theme th, body.light-theme td,
+        body.light-theme .sidebar, body.light-theme .tab-btn,
+        body.light-theme .filter-container, body.light-theme .pola-guide-box,
+        body.light-theme #polaResultsDropdown, body.light-theme .pola-result-item,
+        body.light-theme .upload-area, body.light-theme .settings-dropdown,
+        body.light-theme .guide-content, body.light-theme .btn,
+        body.light-theme .table-container, body.light-theme .file-status {
+            border-color: #000000 !important;
+        }
+        body.light-theme .setting-row, body.light-theme .pola-result-item {
+            border-bottom-color: #000000 !important;
+        }
     </style>
 </head>
 <body>
@@ -507,10 +523,10 @@
         <div class="pola-guide-box">
             <h4 id="uiGuidePolaTitle" style="color:var(--gold); margin:0 0 5px 0;">📖 Pattern Guide / Meaning:</h4>
             <div id="uiGuidePolaDesc">
-                <div><span>Auto On</span> = Automatic spin with turbo active (ON)</div>
-                <div><span>Auto Off</span> = Automatic spin with turbo inactive (OFF)</div>
-                <div><span>Manual On</span> = Manual spin with turbo active (ON)</div>
-                <div><span>Manual Off</span> = Manual spin with turbo inactive (OFF)</div>
+                <div><span>Auto On</span> = Putaran otomatis dengan turbo aktif (ON)</div>
+                <div><span>Auto Off</span> = Putaran otomatis dengan turbo tidak aktif (OFF)</div>
+                <div><span>Manual On</span> = Putaran manual dengan turbo aktif (ON)</div>
+                <div><span>Manual Off</span> = Putaran manual dengan turbo tidak aktif (OFF)</div>
             </div>
         </div>
     </div>
@@ -756,10 +772,14 @@
 
     const polaGameList = ["10000 Wishes", "101 Lions", "101 Wolfpack", "2026 GOLDEN GOAL RUSH", "3 Buzzing Wilds", "3 Dancing Monkeys", "3 Diamonds", "3 Genie Wishes", "3 Kingdoms - Battle Of Red Cliffs", "3 Magic Eggs", "3 Wishing Wells", "5 Frozen Charms Megaways", "5 Lions", "5 Lions Dance", "5 Lions Gold", "5 Lions Megaways", "5 Lions Megaways 2", "5 Lions Reborn", "5 Mariachis", "5 Rabbits Megaways", "6 Jokers", "7 Clovers Of Fortune", "7 Monkeys", "7 Monkeys Jackpot", "7 Piggies", "777", "8 Dragons", "8 Golden Dragon Challenge", "888 Bonanza", "888 Dragons", "888 Gold", "Aces & Eights 100 Hand", "Aces & Faces GMW", "African Elephant", "African Wild", "Afroditi", "Aladdin And The Sorcerer", "Aladdin Fortune", "ALCHEMY", "Alien Invaders", "All American", "All For One", "Alley The Cat", "Almighty Zeus Empire", "Almighty Zeus Wilds", "Almighty Zeus Wilds Link&Merge", "American Blackjack", "American Wild", "Amore", "Anaconda Gold", "Ancient Egypt", "Ancient Egypt Classic", "Ancient Fortunes : Poseidon Megaways", "Ancient Island Megaways", "Angel Vs Sinner", "Angkor", "Anime Cosplay VS", "Anime Mecha Megaways", "Anton's Family", "Apocalypse Super XNudge", "Arcane Elements", "Arctic Hunt", "Arctic Wolf", "Arctic Wonders", "Argonauts", "Asgard", "ATHENA", "Atomic Kittens", "AURORA WOLF", "Aztec Blaze", "Aztec Bonanza", "Aztec Gems", "Aztec Gems Deluxe", "Aztec Gems Megaways", "Aztec King", "Aztec King Megaways", "Aztec Lucky Gems", "Aztec Powernudge", "Aztec Smash", "Aztec Treasure Hunt", "Aztlan's Gold", "Baba Yaga", "Badge Blitz", "Bai Longma", "Bald Eagle", "Balloon Balloon", "Bamboo Tiger", "Bandit Megaways", "Banditres", "Barbarian Fury", "Barbarian Riches", "Barn Festival", "Barnstormer Bucks", "Barnyard Megahays Megaways", "Bass Catch SUPER LUCK", "Bear Crazy", "Bear Games", "Be My Valentine", "Bee Keeper", "Beer Fest", "Before Time Runs Out", "Beheaded", "Benji Killed In Vegas", "Berry Billions", "Better Barn House Bonanza", "Beware The Deep Megaways", "Big 5 Baby 5", "Big Bass Amazon Xtreme", "Big Bass Bonanza", "Big Bass Bonanza - Hold And Spinner", "Big Bass Bonanza - Keeping It Reel", "Big Bass Bonanza - Reel Action", "Big Bass Bonanza 1000", "Big Bass Bonanza 3 Reeler", "Big Bass Bonanza Megaways", "Big Bass Boxing Bonus Round", "Big Bass Christmas - Frozen Lake", "Big Bass Christmas Bash", "Big Bass Crash", "Big Bass Day At The Races", "Big Bass Floats My Boat", "Big Bass Football Bonanza", "Big Bass Halloween", "Big Bass Halloween 2", "Big Bass Halloween 3", "Big Bass Hold & Spinner Megaways", "Big Bass Mission Fishin'", "Big Bass Raceday Repeat", "Big Bass Reel Repeat", "Big Bass Return To The Races", "Big Bass Splash", "Big Bass Splash 1000", "Big Bass Trophy Catch", "Big Bass Vegas Double Down Deluxe", "Big Bass Xmas Xtreme", "Big Burger Load It Up With Xtra Cheese", "Big Cash Eruption", "Big Catch", "Big Juan", "Big Top", "Bigger Barn House Bonanza", "Bigger Bass Blizzard - Christmas Catch", "Bigger Bass Bonanza", "Bigger Bass Splash", "Bikini Island", "Bikini Island Deluxe", "Bingo Mania", "Bird of Thunder", "Black Bull", "Black Diamond", "Black Jack 5 Hand GMW", "Black Jack GMW", "Black Panther", "Black Pearl", "Blackbeard's Bounty", "Blade & Fangs", "Blazing Wilds Megaways", "Blitz Super Wheel", "Blood & Shadow", "Blood & Shadow 2", "Blood Diamond", "Bloody Dawn", "Bomb Bonanza", "Bombs Away", "Bonanza Gold", "Bonus Bunnies", "Bonus Poker GMW", "Bonzo The Clown", "Book Of Aztec King", "Book Of Easter", "Book Of Golden Sands", "Book Of Kingdoms", "Book Of Shadows", "Book Of The East", "Book Of The Fallen", "Bounty Gold", "Bounty Hunter", "Bounty Hunter NLC", "Bow Of Artemis", "Break The Bank", "Breakout", "Brick House Bonanza", "Brick Snake 2000", "Bronco", "Brute Force", "Brute Force: Alien Onslaught", "Bubble Pop", "Buffalo Hunter", "Buffalo King", "Buffalo King Megaways", "Buffalo King Untamed Megaways", "Buffalo Run", "Buffalo Run Quad", "Buggy Bonus", "Bula Mula", "Bull Fiesta", "BURLESQUE 2", "Bushido Ways xNudge", "Busy Bees", "Caishen Wins", "Caishen's Cash", "Caishen's Cash Pots", "Caishens Gold", "Cake Valley", "Calaveras Explosivas", "Candy Blitz", "Candy Blitz Bombs", "Candy Corner", "Candy Jar Clusters", "Candy Rush", "Candy Stars", "Candy Tower", "Candy Village", "Captain Kraken Megaways", "Carnival Cash", "Carnival Cove", "Casino Win Spin", "Cash Bonanza", "Cash Box", "Cash Chips", "Cash Elevator", "Cash Patrol", "Cash Reef", "Cash Spin", "Cash Surge", "Cashosaurus", "Castle Of Fire", "Catfish Hunters", "CHALLENGE・FU LU SHOU XI", "CHALLENGE・GOLDEN PIG", "CHALLENGE・MAYAN CALENDAR", "CHEF HUSKY", "CHESTS OF CAI SHEN", "CHESTS OF CAI SHEN 2", "CHICKEN CHASE", "CHICKEN DROP", "CHICKEN+", "CHILLI HEAT", "CHILLI HEAT MEGAWAYS", "CHILLI HEAT SPICY SPINS", "CHINA EMPRESS", "CHOCOLATE MOOSE", "CHRISTMAS BIG BASS BONANZA", "CHRISTMAS CAROL MEGAWAYS", "CHRISTMAS GIFT RUSH", "CHRONICLES OF OLYMPUS II", "CIRCUS CARNIVAL", "CLEO'S KENO GMW", "CLEOPATRA - THE GOLDEN SCARAB", "CLEOCATRA", "CLOWNFISH TREASURE", "CLUCKIN' SWEET FEAST", "CLUMSY COOKS", "CLOVER GOLD", "CLUB TROPICANA", "CLUB TROPICANA - HAPPY HOUR", "COFFEE WILD", "COINS OF FORTUNE", "COLOSSAL CASH ZONE", "CONGO CASH", "CONGO CASH XL", "COWBOY COINS", "COWBOYS GOLD", "COYOTE CRASH", "CRANK IT UP", "CRAZY CIRCUS", "CRAZY EX-GIRLFRIEND", "CROWN OF FIRE", "CRYPTO PROFITS", "CRYSTAL CAVERNS MEGAWAYS", "CUBE?", "CULT.", "CURSE OF THE PYRAMID", "CURSE OF THE WEREWOLF MEGAWAYS", "CYBER HEIST", "CYBER PUP MEGAWAYS", "CYBERHEIST CITY", "CYCLOPS SMASH", "DANCE PARTY", "DARK OVERLORD - FINAL DUEL", "DARUMA IMPACT", "DAS XBOOT", "DAS XBOOT 2WEI!", "DAY OF DEAD", "DEAD CANARY", "DEAD MAN'S RICHES", "DEAD MEN WALKING NLC", "DEADWOOD R.I.P", "DEADWOOD XNUDGE", "DEMON POTS", "DENG DENG", "DEUCES & JOKER GMW", "DEUCES WILD GMW", "DEVIL'S 13", "DEVIL'S CROSSROAD", "DEVILICIOUS", "DIA DE LOS MUERTOS GMW", "DIAMOND CASCADE", "DIAMOND STRIKE", "DIAMOND TOWER H5", "DIAMONDS OF EGYPT", "DIAO CHAN FA DA CAI", "DICK THE DETECTIVE", "DING DONG CHRISTMAS BELLS", "DISCO BEATS", "DISCO FUNK", "DISCO LADY", "DISORDER", "DISTURBED", "DJ PSYCHO", "DOLPHIN'S ADVENTURE", "DOMINO QQ", "DOUBLE BLACK CHERRY", "DOUBLE BONUS DEUCES WILD GMW", "DOUBLE BONUS POKER", "DOUBLE DOUBLE POKER BONUS GMW", "DOUBLE HAPPINESS", "DOUBLE JOKER'S MONEY", "DOUBLE O DOLLARS", "DOUBLE VAULT", "DOWN THE RAILS", "DOWN UNDER", "DR FEELGOOD", "DRAGO - JEWELS OF FORTUNE", "DRAGON BOAT FESTIVAL", "DRAGON BONUS BACCARAT", "DRAGON CASTLE", "DRAGON GATE", "DRAGON GOLD", "DRAGON GOLD 88", "DRAGON HERO", "DRAGON HOT HOLD AND SPIN", "DRAGON KING HOT POTS", "DRAGON KINGDOM", "DRAGON KINGDOM EYES OF FIRE", "DRAGON POTS MEGAWAYS", "DRAGON TIGER", "DRAGON TIGER FORTUNES", "DRAGON TIGER GATE", "DRAGON TRIBE", "DRAGON'S GATE - BONUS CHOICE", "DRAGON'S REALM", "DRAGON'S THRONE", "DRAGON'S TREASURE QUEST", "DRACULUV", "DRILL THAT GOLD", "DUCK HUNTERS", "DUCKY DUCK", "DUEL OF NIGHT & DAY", "DUNGEON QUEST", "DWARF & DRAGON", "DWARVEN GOLD DELUXE", "DYNASTY EMPIRE", "DYNAMITE DIGGIN DOUG", "EAST COAST VS WEST COAST", "EGYPTIAN DREAMS", "EGYPTIAN DREAMS DELUXE", "EGYPTIAN FORTUNES", "EL GALLO PANCHO", "EL PATRON", "ELEPHANT", "ELEMENTAL GEMS MEGAWAYS", "EMERALD KING", "EMERALD KING - WHEEL OF WEALTH", "EMERALD KING RAINBOW ROAD", "EMPEROR CAISHEN", "EMPTY THE BANK!", "ESCAPE THE PYRAMID - FIRE & ICE", "ETERNAL EMPRESS - FREEZE TIME", "ETERNAL WAR", "EVIL GOBLINS XBOMB", "EXCALIBUR UNLEASHED", "EXTRA JUICY", "EXTRA JUICY MEGAWAYS", "EYE OF CLEOPATRA", "EYE OF SPARTACUS", "EYE OF THE STORM", "FA FA MONKEY", "FACE OFF", "FANTASTIC SEVENS", "FANTASY GARDEN", "FANTASY LAND", "FEATURE BUY・CHRISTMAS EXPRESS", "FENG DU", "FENGHUANG", "FIESTA FORTUNE", "FIFI FRUITS", "FINGER LICK N FREE SPINS", "FIONA'S CHRISTMAS FORTUNE", "FIRE 88", "FIRE ARCHER", "FIRE GODDESS H5", "FIRE HOT 100", "FIRE HOT 20", "FIRE HOT 40", "FIRE HOT 5", "FIRE IN THE HOLE 2", "FIRE IN THE HOLE XBOMB", "FIRE PORTALS", "FIRE ROOSTER", "FIRE STAMPEDE", "FIRE STAMPEDE 2", "FIRE STAMPEDE ULTIMATE", "FIRE STRIKE", "FIRE STRIKE 2", "FIREBIRD SPIRIT", "FIREWORKS", "FISH EYE", "FISHIN REELS", "FIVE PRINCESSES", "FIZZY POP", "FLAMINGO", "FLIGHT MODE", "FLOATING DRAGON", "FLOATING DRAGON - DRAGON BOAT FESTIVAL", "FLOATING DRAGON - YEAR OF THE SNAKE", "FLOATING DRAGON MEGAWAYS", "FLOATING DRAGON NEW YEAR FESTIVAL MEGAWAYS", "FLOATING DRAGON WILD HORSES", "FLY X", "FLY!", "FLYING HIGH", "FOLSOM PRISON", "FONZO'S FELINE FORTUNES", "FORGE OF OLYMPUS", "FORGING WILDS", "FORTUNE ACE", "FORTUNE ACE SUPER SCATTER", "FORTUNE BULL", "FORTUNE DOGS", "FORTUNE DRAGON", "FORTUNE GOD", "FORTUNE HIT'N ROLL", "FORTUNE OF GIZA", "FORTUNE OF OLYMPUS", "FORTUNE PAYS H5", "FORTUNE POT", "FORTUNE TIGER", "FORTUNES OF AZTEC", "FORTUNES OF AZTEC PRAGMATIC", "FOXI", "FOXY FOX", "FREAK SHOW REVELATION", "FRIDAY KLIWON", "FRIGHTENING FRANKIE", "FROGS & BUGS", "FRONT RUNNER ODDS ON", "FRONTIER FORTUNES", "FROZEN TROPICS", "FRUIT BLAST", "FRUIT PARTY", "FRUIT PARTY 2", "FRUIT PARTY DICE", "FRUIT RAINBOW", "FRUITS", "FRUITS OF THE AMAZON", "FRICE", "FRUTTI XPLOSION", "FRUITY HALLOWEEN", "FRUITY MAYAN", "FRUITY TREATS", "FRUITY XPLOSION", "FU FU FU", "FU STAR", "FUN FRUITS", "FUN FOREVER", "FUNKY FORTUNEZ", "FURY OF ANUBIS", "FURY OF ODIN MEGAWAYS", "FURRY BONANZA MEGAWAYS", "GAELIC GOLD", "GALACTIC CASH", "GANESHA TREASURE", "GANGSTERS", "GATES OF AZTEC", "GATES OF GATOT KACA", "GATES OF GATOT KACA 1000", "GATES OF GATOT KACA SUPER SCATTER", "GATES OF HADES", "GATES OF OLYMPUS", "GATES OF OLYMPUS 1000", "GATES OF OLYMPUS 1000 DICE", "GATES OF OLYMPUS DICE", "GATES OF OLYMPUS SUPER SCATTER", "GATES OF OLYMPUS XMAS 1000", "GATES OF PYROTH", "GATES OF VALHALLA", "GATOT KACA'S FURY", "GATOR HUNTERS NLC", "GEARS OF HORUS", "GEM ELEVATOR", "GEM FIRE FORTUNE", "GEM TRIO", "GEMS BONANZA", "GEMS FORTUNE", "GEMS OF SERENGETI", "GENIE'S GEM BONANZA", "GENIE'S SHOWTIME", "GHOULISH GHOST", "GLADIATORS", "GLAM ROCK", "GLORIOUS KINGDOM", "GLORY OF KING ARTHUR", "GLORY OF ROME", "GLUTTONY", "GOBLIN HEIST POWERNUDGE", "GOD OF WEALTH", "GODS OF GIZA", "GOLD KOI FORTUNE", "GOLD OASIS", "GOLD PARTY", "GOLD PARTY 2 - AFTER HOURS", "GOLD RUSH", "GOLD TRAIN", "GOLDEN CHEST", "GOLDEN DRAGON", "GOLDEN EGG", "GOLDEN GENIE & THE WALKING WILDS", "GOLDEN JADE", "GOLDEN LAND", "GOLDEN PIG", "GOLDEN PIG GMW", "GOLDEN RABBIT THREGAWAYS", "GOLDEN ROOSTER GMW", "GOLDEN SHOWER NLC", "GOLDEN UNICORN", "GOLDEN WEEK", "GOLDEN VISHNU", "GOLDEN WILD", "GOLDEN ZONGZI", "GOOD LUCK & GOOD FORTUNE", "GOPNIK", "GORILLA MAYHEM", "GRACE OF EBISU", "GRAND CASINO HEIST", "GRAPE ESCAPE", "GRAVITY BONANZA", "GREAT APES", "GREAT GHOSTS!", "GREAT LAGOON", "GREAT RHINO", "GREAT RHINO DELUXE", "GREAT RHINO MEGAWAYS", "GREEDY FORTUNE PIG", "GREEDY WOLF", "GREEK GODS", "GRIMMS BOUNTY: HANSEL & GRETEL", "HABANERO GAMES", "HALLOWEEN", "HAMMERSTORM", "HAND OF GOD", "HAND OF MIDAS 2", "HAPPY APE", "HAPPY GO LUCKY", "HAPPY HOG", "HAPPY NEW YEAR", "HARLEQUIN CARNIVAL", "HAUNTED CRYPT", "HAUNTED HARBOR", "HAUNTED HOUSE", "HEART OF CLEOPATRA", "HEART OF RIO", "HEARTBREAKERS", "HEIST FOR THE GOLDEN NUGGETS", "HELL BUTCHER", "HELLVIS WILD", "HERCULES AND PEGASUS", "HERCULES SON OF ZEUS", "HEROIC SPINS", "HIGH CHIEF SPIRIT", "HIGHLANDS", "HIGHWAY TO HELL", "HIMALAYAN WILD", "HOCKEY ATTACK", "HOKKAIDO WOLF", "HOLIDAY RIDE", "HOME OF THE BRAVE", "HONEY HONEY HONEY", "HOT 4 CASH", "HOT ASIAN FRUITS", "HOT CHILLI", "HOT FIESTA", "HOT HOT FRUIT", "HOT HOT SUMMER", "HOT NUDGE", "HOT PEPPER", "HOT SAFARI", "HOT TO BURN", "HOT TO BURN - 7 DEADLY FREE SPINS", "HOT TO BURN EXTREME", "HOT TO BURN HOLD AND SPIN", "HOT TO BURN MULTIPLIER", "HOT TUNA", "HOT VOLCANO H5", "HUNDREDS AND THOUSANDS", "HYPER HUES", "ICE ICE YETI", "ICE LOBSTER", "ICE MINTS", "ICY VENTURES", "IDOL POP FEVER", "IGAMBLE247 DRAGONS", "IMMORTAL FRUITS", "INCA QUEEN", "INDIA TREASURE", "INDIAN CASH CATCHER", "INDIAN CHIEF", "INDIANA WOLF", "INFECTIOUS 5 XWAYS", "INFECTIVE WILD", "INFERNAL FURY", "INSTANT RICH", "IRISH CROWN", "ISIBAYA QUEENS", "JACK OR BETTER GMW", "JACK QUEST - TREASURE HUNT", "JACK'S OR BETTER MULTIHAND GMW", "JACKPOT BLAZE", "JACKPOT HUNTER", "JADE EMPEROR", "JANE HUNTER AND THE MASK OF MONTEZUMA", "JAPANESE MASK", "JASMINE DREAMS", "JELLY EXPRESS", "JELLYFISH FLOW", "JELLYFISH FLOW ULTRA", "JESTER", "JESTER'S FORTUNES", "JEWEL RUSH", "JINGLE BALLS", "JOHN HUNTER & THE BOOK OF TUT RESPIN", "JOHN HUNTER AND GALILEO'S SECRETS", "JOHN HUNTER AND THE AZTEC TREASURE", "JOHN HUNTER AND THE BOOK OF TUT", "JOHN HUNTER AND THE BOOK OF TUT MEGAWAYS", "JOHN HUNTER AND THE MAYAN GODS", "JOHN HUNTER AND THE QUEST FOR BERMUDA RICHES", "JOHN HUNTER AND THE TOMB OF THE SCARAB QUEEN", "JOKER KING", "JOKER POKER GMW", "JOKER RACE", "JOKER'S GO WILD", "JOKER'S JEWELS", "JOKER'S JEWELS CASH", "JOKER'S JEWELS DICE", "JOKER'S JEWELS HOLD & SPIN", "JOKER'S JEWELS HOT", "JOKER'S JEWELS WILD", "JOKER'S REVENGE", "JOKERS JEWELS", "JOLLY FROG", "JOURNEY TO THE WEST", "JUICY FRUITS", "JUICY FRUITS MULTIHOLD", "JUGGLENAUT", "JULIUS CESAR - THE GOLDEN SCARAB", "JUMBO SAFARI", "JUMP!", "JUMP! 2", "JUNGLE GORILLA", "JUNGLE RUMBLE", "KADITA OCEAN FURY", "KANE'S INFERNO", "KAREN MANEATER", "KASSANDRA", "KENNETH MUST DIE", "KILL EM ALL", "KING CRAB", "KING OF CAIRO DELUXE", "KING OF SPEAR", "KING TUT'S TOMB", "KINGDOM OF ASGARD", "KINGDOM OF THE DEAD", "KISS MY CHAINSAW", "KITCHEN DRAMA: SUSHI MANIA", "KNIGHT HOT SPOTZ", "KNIGHTS OF STEEL", "KNIGHTS VS BARBARIANS", "KNOCKOUT FOOTBALL", "KNOCKOUT FOOTBALL RUSH", "KOI POND", "KRAKEN GOLD RUSH", "KRAKEN'S SKY BOUNTY", "KUNG HEI", "KUNGFU", "LADY GODIVA", "LAMP OF INFINITY", "LAND OF THE FREE", "LANTERN LUCK", "LAUNCH TO RICHES", "LAVA BALLS", "LEGEND OF DRAGON", "LEGEND OF HEROES MEGAWAYS", "LEGEND OF NEZHA", "LEGION X", "LEPRECHAUN CAROL", "LEPRECHAUN SONG", "LIGHTS, CAMERA, ACTION!", "LIGHTNING FRUITS", "LIGHTNING FRUITS QUAD", "LIMBO+", "LION DANCE 888", "LITTLE BIGHORN", "LITTLE GREEN MONEY", "LITTLE GEM", "LIVING THE DREAM CLASSIC", "LOBSTER BOB'S CRAZY CRAB SHACK", "LOBSTER BOB'S SEA FOOD AND WIN IT", "LOBSTER HOUSE", "LOKI'S RICHES", "LONDON HUNTER", "LONER", "LOONY BLOX", "LOVE", "LOVE AND RICHES ELDORADO", "LUAU LUAU", "LUCKY ACE", "LUCKY CLOVER GMW", "LUCKY DRAGON BALL", "LUCKY DRAGONS", "LUCKY EAST", "LUCKY FISHING MEGAWAYS", "LUCKY GRACE AND CHARM", "LUCKY JESTERS", "LUCKY LANTERN", "LUCKY MOONCAKE FESTIVAL", "LUCKY NEKO", "LUCKY NEW YEAR", "LUCKY NEW YEAR - TIGER TREASURES", "LUCKY PANDA", "LUCKY TIMES", "LUCKY TWINS POWERCLUSTER", "LUCKY TWINS WILDS", "LUCKY TWINS WILDS LINK&MERGE", "LUCKY'S WILD PUB", "LUCKY'S WILD PUB 2", "MAHJONG MANIA BLACK", "MAHJONG PANDA", "MAHJONG WAYS 2", "MAHJONG WAYS IV", "MAHJONG WINS", "MAHJONG WINS - GONG XI FA CAI", "MAHJONG WINS 2", "MAHJONG WINS 3 - BLACK SCATTER", "MAHJONG WINS BONUS", "MAHJONG WINS SUPER SCATTER", "MAHJONG WINS TRIPLE POT", "MAHJONG: ORIGIN", "MAJESTIC EXPRESS - GOLD RUN", "MAKI", "MAMMOTH GOLD MEGAWAYS", "MANHATTAN GOES WILD", "MARDI GRAS BASH", "MARIE ANTOINETTE'S RICHES", "MARMIN", "MARVELOUS FURLONGS", "MASSIVE GOLD", "MASTER C HENS FORTUNE", "MASTER HAHA", "MASTER JOKER", "MAYAN DESTINY", "MAYAN DREAMS", "MAYAN KINGDOM", "MAYAN LOST TREASURE", "MAYAN MAGIC WILDFIRE", "MEDUSA", "MEDUSA'S STONE", "MEERKAT THE EXPLORER", "MEGA 7'S", "MENTAL", "MENTAL 2", "MEOW JANKEN", "MEOW MEGAWAYS", "MERMAID'S LUCKY CHEST", "MERMAID'S MELODIES", "MERMAID'S TREASURE TROVE", "MIGHT OF FREYA MEGAWAYS", "MIGHT OF RA", "MIGHTY KONG", "MIGHTY MEDUSA", "MIGHTY MUNCHING MELONS", "MILKY WAYS", "MINES+", "MINING RUSH", "MISTA MOOSE", "MOCHIMON", "MOLEIONAIRE", "MONEY MEOW", "MONEY MONEY MONEY", "MONEY MOUSE", "MONEY ON REELS SUPER ARROW", "MONEY STACKS", "MONEY STACKS DICE", "MONEY STACKS MEGAWAYS", "MONKEY BONANZA", "MONKEY MADNESS", "MONKEY WARRIOR", "MONKEY'S GOLD XPAYS", "MOON FESTIVAL", "MOONEY'S MONEY", "MOO MOO COW", "MOONSHOT", "MOUNT MAZUMA", "MR BLING", "MR NULL'S WICKED WARES", "MUERTOS MULTIPLIER MEGAWAYS", "MULTIHAND BLACKJACK", "MUMMY HUNTER", "MUMMY MONEY", "MUMMY'S JEWELS", "MUMMY'S JEWELS 100", "MUNCHIES", "MUSTANG GOLD", "MUSTANG GOLD MEGAWAYS", "MUSTANG TRAIL", "MX MANIA", "MY GEISHA SECRET", "MY SWEET KINGDOM", "MYSTERIES OF THE DEEP", "MYSTERIOUS", "MYSTERIOUS EGYPT", "MYSTERY MICE", "MYSTERY OF THE ORIENT", "MYSTIC CHIEF", "MYSTIC FORTUNE", "MYSTIC QUEEN", "MYSTIC SHAMAN", "MYSTICAL GUARDIANS", "NAPOLEON GMW", "NAUGHTY SANTA", "NEON LIGHTS QUAD", "NEON NIGHTS", "NEON NIGHTS CLASSIC", "NEW YEARS BASH", "NIGHT MARKET", "NILE FORTUNE", "NINE TAILS", "NINE TO FIVE", "NORTH GUARDIANS", "NORTHERN LIGHTS", "OCEAN LORD", "OCEAN'S CALL", "OCTOBEER FORTUNES", "OKTOBERFEST", "OKTOBERFEST 1000", "OLD GOLD MINER MEGAWAYS", "OLYMPUS", "OLYMPUS FORTUNE", "ON AIR RADIO", "OODLES OF NOODLES", "ORACLE OF GOLD", "ORBS OF ATLANTIS", "OUTSOURCED", "OUTSOURCED PAYDAY", "OUTSOURCED: SLASH GAME", "OWLS", "PAMPER ME", "PANACHE", "PANDA FORTUNE 2", "PANDA PANDA", "PANDA WARRIOR TTG", "PANDA'S FORTUNE", "PANDEMIC RISING", "PARROT FISH TREASURE", "PARTY BEADS", "PATH OF DRAGONS", "PEAK POWER", "PEKING LUCK", "PENGUINS CHRISTMAS PARTY TIME", "PEPPE'S PEPPERONI PIZZA PLAZA", "PERFECT STRIKE", "PHARAOH - THE GOLDEN SCARAB", "PHOENIX FORGE", "PHOENIX RISES", "PIGGY BANK BILLS", "PIGGY BANKERS", "PINUP GIRLS", "PIPO PIG", "PIRATE GOLD", "PIRATE GOLD DELUXE", "PIRATE GOLDEN AGE", "PIRATE TREASURE", "PIRATE'S PLUNDER", "PIRATES PUB", "PIXIE WINGS", "PIXIES VS PIRATES", "PIZZA! PIZZA? PIZZA!", "PLINKO+", "POISON EVE", "POMPEII MEGAREELS MEGAWAYS", "PONG PONG MAHJONG 2", "PONG PONG MAHJONG JACKPOTS", "POOL SHARK", "POSEIDON GMW", "POSSESSED", "POT OF FORTUNE", "POWER OF MERLIN MEGAWAYS", "POWER OF NINJA", "POWER OF ODIN 1000", "POWER OF THOR MEGAWAYS", "PRAGMATIC BACCARAT", "PRAGMATIC ROULETTE", "PRESTO!", "PRINCE OF THE JUNGLE - TREASURE HUNT", "PRINCESS OF THE JUNGLE - TREASURE HUNT", "PROST", "PS CLUB", "PUCKER UP PRINCE", "PUB KINGS", "PUFFIN KING", "PUMPKIN PATCH", "PUNK ROCKER", "PUNK ROCKER 2", "PUNK ROCKER 3", "PUNK TOILET", "PYRAMID BONANZA", "PYRAMID KING", "QUEEN OF GODS", "QUEEN OF QUEENS", "QUEEN OF QUEENS II", "QUEENIE", "QUICK CASH SOLITAIRE", "RABBIT GARDEN", "RABBIT RUNS", "RAGING BULL", "RAGING WATERFALL MEGAWAYS", "RAINBOW GOLD", "RAINBOW POP", "RAINBOW POP DELUXE", "RAINBOW REELS", "RAINBOW TRIPL3 POP", "RAPID REELS", "RAT OF WEALTH", "RED", "RED DIAMONDS", "RED PANDA", "RED RIDING X-MAS", "REEL BANKS", "REELS DELUXE", "RELEASE THE BISON", "RELEASE THE KRAKEN", "RELEASE THE KRAKEN 2", "RELEASE THE KRAKEN MEGAWAYS", "REMEMBER GULAG", "RENEGADE", "RESURRECTING RICHES", "RETURN OF THE DEAD", "REVENGE OF LOKI MEGAWAYS", "RHINO", "RICH & HAPPY", "RIDE 'EM COWBOY", "RIDE THE LIGHTNING", "ROAD KILL", "ROAD RAGE", "ROCK BOTTOM", "ROCKET BLAST MEGAWAYS", "RODEO DRIVE", "ROLLING IN TREASURES", "ROLLING ROGER", "ROMA 2 - DRAGON SLAYER", "ROMAN EMPIRE", "ROYAL 777", "ROYAL GOLDEN DRAGON", "ROYAL RUMBLE XTRAGACHA", "RUFFLED UP", "RUJAK BONANZA", "RUNNING SUSHI", "S.O.S!", "SACRED FLOWER", "SACRED OWL", "SAFARI KING", "SALSA CASH", "SAMURAI CODE", "SAN QUENTIN 2: DEATH ROW", "SANATORIUM SECRETS", "SANTA", "SANTA CLAUS", "SANTA'S GREAT GIFTS", "SANTA'S INN", "SANTA'S SLAY", "SANTA'S WONDERLAND", "SANTA'S XMAS RUSH", "SASQUATCH CASH", "SAVANNAH LEGEND", "SCRUFFY SCALLYWAGS", "SEA FANTASY", "SEA RAIDERS", "SECRET CITY GOLD", "SECRETS OF THE DESERT", "SERIAL", "SERENGETI", "SEVEN'S GO WILD GMW", "SEVENS & JOKER WILD GMW", "SHAMAN'S VISION", "SHAOLIN FORTUNES", "SHAOLIN FORTUNES 100", "SHAMROCK QUEST", "SHIELD OF SPARTA", "SHINING KNIGHT", "SHINING HOT 100", "SHINING HOT 20", "SHINING HOT 40", "SHINING HOT 5", "SHIVERING STRINGS", "SHOGUN'S LAND", "SILKEN SANDS", "SIR BLINGALOT", "SIREN'S SPELL", "SIZZLIN"];
 
+    let polaCurrentFocus = -1;
+
     function polaCariGame() {
         const query = document.getElementById('polaUniversalSearch').value.toLowerCase();
         const dropdown = document.getElementById('polaResultsDropdown');
         dropdown.innerHTML = '';
+        polaCurrentFocus = -1; // Reset fokus keyboard ketika user mengetik
+        
         if (query.trim() === '') {
             dropdown.style.display = 'none';
             return;
@@ -783,34 +803,82 @@
         }
     }
 
-    function polaAcakPola() {
-        const game = document.getElementById('polaSelectedGameDisplay').value;
-        if (!game) {
-            showToast('PLEASE SELECT A GAME FIRST');
-            return;
+    // KODE PERBAIKAN: Fungsi Navigasi Keyboard (Panah Atas, Bawah, Enter)
+    document.getElementById('polaUniversalSearch').addEventListener('keydown', function(e) {
+        const dropdown = document.getElementById('polaResultsDropdown');
+        if (!dropdown || dropdown.style.display === 'none') return;
+        
+        const items = dropdown.getElementsByClassName('pola-result-item');
+        if (items.length === 0) return;
+        
+        if (e.key === 'ArrowDown') {
+            e.preventDefault();
+            polaCurrentFocus++;
+            polaAturFokusKeyboard(items);
+        } else if (e.key === 'ArrowUp') {
+            e.preventDefault();
+            polaCurrentFocus--;
+            polaAturFokusKeyboard(items);
+        } else if (e.key === 'Enter') {
+            e.preventDefault();
+            if (polaCurrentFocus > -1 && items[polaCurrentFocus]) {
+                items[polaCurrentFocus].click(); 
+            }
+        }
+    });
+
+    function polaAturFokusKeyboard(items) {
+        if (!items) return false;
+        
+        // Hapus penanda aktif (highlight) dari semua list terlebih dahulu
+        for (let i = 0; i < items.length; i++) {
+            items[i].classList.remove('active');
         }
         
-        const r1 = Math.floor(Math.random() * 50) + 10;
-        const r2 = Math.floor(Math.random() * 50) + 10;
-        const r3 = Math.floor(Math.random() * 50) + 10;
+        // Memutar fokus jika mentok di atas/bawah
+        if (polaCurrentFocus >= items.length) polaCurrentFocus = 0;
+        if (polaCurrentFocus < 0) polaCurrentFocus = items.length - 1;
         
-        const type1 = Math.random() > 0.5 ? 'Auto On' : 'Auto Off';
-        const type2 = Math.random() > 0.5 ? 'Manual On' : 'Manual Off';
-        const type3 = Math.random() > 0.5 ? 'Auto On' : 'Auto Off';
+        // Beri class penanda aktif
+        items[polaCurrentFocus].classList.add('active');
         
-        const result = `==================\nGAME: ${game}\n==================\nPattern 1: ${r1} Spin (${type1})\nPattern 2: ${r2} Spin (${type2})\nPattern 3: ${r3} Spin (${type3})\n==================`;
-        
-        document.getElementById('polaHasilPola').value = result;
-        showToast('PATTERN GENERATED');
+        // Otomatis men-scroll list mengikuti arah pergerakan
+        items[polaCurrentFocus].scrollIntoView({ block: 'nearest' });
     }
 
-    function polaSalinHasil() {
-        const text = document.getElementById('polaHasilPola').value;
-        if (!text) return;
-        navigator.clipboard.writeText(text).then(() => {
-            showToast('PATTERN COPIED');
-        });
+    function polaAcakPola() {
+        const game = document.getElementById("polaSelectedGameDisplay").value;
+        if (!game) { alert("Pilih game dari daftar terlebih dahulu!"); return; }
+        const pola = [
+            "✅❎❎ 10x Auto Off", "❎✅❎ 20x Manual On", "✅❎✅ 30x Auto On", "❎✅✅ 40x Manual Off", 
+            "✅✅❎ 50x Auto Off", "❎❎✅ 60x Manual On", "❎✅❎ 80x Auto On", "❎✅✅ 70x Manual Off", 
+            "✅❎❎ 20x Manual Off", "❎✅❎ 10x Auto On", "✅✅✅ 40x Manual On", "❎✅✅ 30x Auto Off", 
+            "✅✅❎ 60x Manual Off", "✅❎✅ 50x Auto On", "❎✅✅ 70x Manual On", "✅✅❎ 80x Auto Off"
+        ];
+        const res = pola.sort(() => Math.random() - 0.5).slice(0, 4).join("\n");
+        document.getElementById("polaHasilPola").value = `GAME: ${game}\n\n${res}`;
+        showToast('toastPolaGen');
     }
+
+function polaSalinHasil() {
+    const copyText = document.getElementById("polaHasilPola");
+    
+    // 1. Cek apakah kotak teks kosong
+    if (!copyText.value) { 
+        alert("Belum ada pola yang di-generate!"); 
+        return; 
+    }
+    
+    // 2. Salin teks langsung di balik layar (tanpa efek blok/highlight)
+    navigator.clipboard.writeText(copyText.value).then(() => {
+        // 3. Munculkan notifikasi jika berhasil
+        showToast('toastPolaCopy');
+    }).catch(err => {
+        // Opsional: Jika gagal karena izin browser
+        alert("Gagal menyalin teks!");
+        console.error(err);
+    });
+}
 </script>
 </body>
 </html>
