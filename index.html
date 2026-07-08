@@ -11,7 +11,7 @@
             /* TEMA DARK MODE (DEFAULT) */
             --bg-color: rgba(2, 0, 6, 0.85); 
             --container-bg: rgba(2, 0, 6, 0.82); 
-            --bg-sidebar: #0a0514;
+            --bg-sidebar: rgba(10, 5, 20, 0.45); /* <-- DIUBAH MENJADI TRANSPARAN */
             --gold: #00f0ff; 
             --gold-glow: rgba(0, 240, 255, 0.2);
             --text-color: #f1f5f9;
@@ -99,9 +99,10 @@
         .sidebar {
             width: 250px; min-width: 250px; background-color: var(--bg-sidebar);
             border-right: 1px solid rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); /* <-- DITAMBAHKAN EFEK BLUR AGAR KACA */
             display: flex; flex-direction: column; padding: 25px 0; z-index: 10;
         }
-        body.light-theme .sidebar { border-right: 1px solid rgba(226, 232, 240, 0.5); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); }
+        body.light-theme .sidebar { border-right: 1px solid rgba(226, 232, 240, 0.5); }
 
         .profile-section {
             display: flex; align-items: center; gap: 15px; padding: 0 25px 25px 25px;
