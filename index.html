@@ -148,13 +148,12 @@
         }
         
         /* FIX UNTUK LIGHT MODE DI BAGIAN TOMBOL TAB AGAR TEKS SOLID & JELAS */
-        body.light-theme .tab-btn { color: #0f172a; font-weight: 700; text-shadow: none; }
+        body.light-theme .tab-btn { color: #0f172a; text-shadow: none; }
         body.light-theme .tab-btn:hover { background: rgba(255, 255, 255, 0.6); color: #000000; }
         body.light-theme .tab-btn.active { 
             background: rgba(212, 175, 55, 0.25); 
             border-color: #b4860b; 
             color: #000000; /* Warna hitam pekat untuk tab aktif */
-            font-weight: 800; /* Lebih tebal */
         }
 
         .main-content {
@@ -252,18 +251,16 @@
         .btn-copy { background: var(--btn-copy-bg); color: var(--btn-copy-text); border-color: var(--btn-copy-border); }
         .btn-copy:hover { background: var(--btn-copy-border); color: #020006; box-shadow: 0 0 12px var(--btn-copy-border); transform: translateY(-2px); }
         .btn-copy:active { transform: scale(0.92) translateY(0); box-shadow: 0 2px 5px var(--btn-copy-border); }
-        body.light-theme .btn-copy { font-weight: 800; }
         body.light-theme .btn-copy:hover { color: #ffffff; }
 
         .btn-copy-alt { background: var(--btn-alt-bg); color: var(--btn-alt-text); border-color: var(--btn-alt-border); }
         .btn-copy-alt:hover { background: var(--btn-alt-border); color: #ffffff; box-shadow: 0 0 12px var(--btn-alt-border); transform: translateY(-2px); }
         .btn-copy-alt:active { transform: scale(0.92) translateY(0); box-shadow: 0 2px 5px var(--btn-alt-border); }
-        body.light-theme .btn-copy-alt { font-weight: 800; color: #b4860b; }
+        body.light-theme .btn-copy-alt { color: #b4860b; }
 
         .btn-delete { background: var(--btn-delete-bg); color: var(--btn-delete-text); border-color: var(--btn-delete-border); }
         .btn-delete:hover { background: var(--btn-delete-border); color: #ffffff; box-shadow: 0 0 12px var(--btn-delete-border); transform: translateY(-2px); }
         .btn-delete:active { transform: scale(0.92) translateY(0); box-shadow: 0 2px 5px var(--btn-delete-border); }
-        body.light-theme .btn-delete { font-weight: 800; }
         
         body.light-theme .btn-copy:hover, body.light-theme .btn-copy-alt:hover, body.light-theme .btn-delete:hover {
             box-shadow: 0 4px 10px rgba(0,0,0,0.2);
